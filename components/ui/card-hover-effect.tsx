@@ -3,9 +3,9 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
 import { Yusei_Magic } from 'next/font/google';
 
+// border
 import { ReactNode } from "react";
 
-// border
 const Rak = Yusei_Magic({
     subsets: ['latin'],
     weight: ['400'],
@@ -86,7 +86,7 @@ export const Card = ({
     return (
         <div
             className={cn(
-                "rounded-2xl h-full w-full p-4 overflow-hidden bg-[#FFFFFF]  border-2 border-[#33A1E0]  dark:border-[#33A1E0] group-hover:border-[#33A1E0] relative z-20",
+                "rounded-2xl h-full w-full p-4 overflow-hidden bg-[#FFFFFF]    dark:border-[#33A1E0] group-hover:border-[#33A1E0] relative z-20",
                 className
             )}
         >
