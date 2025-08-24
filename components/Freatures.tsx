@@ -107,6 +107,126 @@ import { TableOfContents } from "lucide-react";
 
 
 
+// import React from 'react';
+// import { BiSolidZap } from "react-icons/bi";
+// import { Yusei_Magic } from 'next/font/google';
+// import CardFlip from "./ui/Card_flip";
+// import { SiEasyeda } from "react-icons/si";
+// import { RiSecurePaymentLine } from "react-icons/ri";
+// import { GiChoice } from "react-icons/gi";
+// import { GridPattern } from "./ui/background-ripple-effect";
+// import { cn } from "@/lib/utils";
+
+// const Rak = Yusei_Magic({
+//     subsets: ["latin"],
+//     weight: ["400"],
+//     variable: "--font-rak"
+// })
+
+// const Features = () => {
+//     return (
+//         <section className="dark:bg-gray-900 pt-[100px] relative overflow-hidden">
+//             {/* Grid Background */}
+//             <div className="absolute inset-0 -z-10 overflow-hidden">
+//                 <GridPattern
+//                     width={30}
+//                     height={30}
+//                     x={-1}
+//                     y={-1}
+//                     strokeDasharray={"4 2"}
+//                     className={cn(
+//                         "h-full w-full [mask-image:radial-gradient(1000px_circle_at_center,white,transparent)]",
+//                     )}
+//                 />
+//             </div>
+
+//             <div className="container px-6 py-10 mx-auto relative z-10">
+//                 <h1 className={`text-3xl font-semibold text-gray-800 capitalize lg:text-6xl dark:text-white ${Rak.className}`}>
+//                     Build your resume in seconds with <br/> <span className="text-blue-500 lg:text-5xl mt-0.5">Resumpier</span>
+//                 </h1>
+
+
+
+//                 <div className="mt-2 lg:pr-[400px]">
+//                     <span className="inline-block w-40 h-1 bg-blue-500 rounded-full"></span>
+//                     <span className="inline-block w-3 h-1 ml-1 bg-blue-500 rounded-full"></span>
+//                     <span className="inline-block w-1 h-1 ml-1 bg-blue-500 rounded-full"></span>
+//                 </div>
+
+//                 <div className="mt-8 xl:mt-12 lg:flex lg:items-center">
+//                     <div className="grid w-full grid-cols-1 gap-8 lg:w-1/2 xl:gap-16 md:grid-cols-2">
+
+//                         {/* Feature 1 */}
+//                         <div className="space-y-3">
+//                             <span className="inline-block p-3 text-white text-3xl bg-[#33a1e0] rounded-xl dark:text-white dark:bg-blue-500">
+//                                 <BiSolidZap />
+//                             </span>
+//                             <h1 className="text-xl font-semibold text-gray-700 capitalize dark:text-white">
+//                                 Resume in Seconds
+//                             </h1>
+//                             <p className="text-gray-500 dark:text-gray-300">
+//                                 Skip the manual input — simply use your LinkedIn profile, and Resumpier instantly generates a professional resume.
+//                             </p>
+//                         </div>
+
+//                         {/* Feature 2 */}
+//                         <div className="space-y-3">
+//                             <span className="inline-block p-3 text-white text-3xl bg-[#33a1e0] rounded-xl dark:text-white dark:bg-blue-500">
+//                                 <GiChoice />
+//                             </span>
+//                             <h1 className="text-xl font-semibold text-gray-700 capitalize dark:text-white">
+//                                 Elegant Templates
+//                             </h1>
+//                             <p className="text-gray-500 dark:text-gray-300">
+//                                 Choose from ATS-friendly, modern templates designed to make your resume stand out to recruiters.
+//                             </p>
+//                         </div>
+
+//                         {/* Feature 3 */}
+//                         <div className="space-y-3">
+//                             <span className="inline-block p-3 text-white text-3xl bg-[#33a1e0] rounded-xl dark:text-white dark:bg-blue-500">
+//                                 <SiEasyeda />
+//                             </span>
+//                             <h1 className="text-xl font-semibold text-gray-700 capitalize dark:text-white">
+//                                 Easy Customization
+//                             </h1>
+//                             <p className="text-gray-500 dark:text-gray-300">
+//                                 Personalize layouts, fonts, and sections to match your career goals — all with just a few clicks.
+//                             </p>
+//                         </div>
+
+//                         {/* Feature 4 */}
+//                         <div className="space-y-3">
+//                             <span className="inline-block p-3 text-white text-3xl bg-[#33a1e0] rounded-xl dark:text-white dark:bg-blue-500">
+//                                 <RiSecurePaymentLine />
+//                             </span>
+//                             <h1 className="text-xl font-semibold text-gray-700 capitalize dark:text-white">
+//                                 Secure & Private
+//                             </h1>
+//                             <p className="text-gray-500 dark:text-gray-300">
+//                                 Your LinkedIn data stays safe — we never share it. All resumes are generated securely, just for you.
+//                             </p>
+//                         </div>
+//                     </div>
+
+//                     <div className="hidden lg:flex lg:w-1/2 lg:justify-center">
+//                         <CardFlip />
+//                     </div>
+//                 </div>
+//             </div>
+//         </section>
+//     );
+// };
+
+// export default Features;
+
+
+
+
+
+
+
+
 import React from 'react';
 import { BiSolidZap } from "react-icons/bi";
 import { Yusei_Magic } from 'next/font/google';
@@ -118,104 +238,98 @@ import { GridPattern } from "./ui/background-ripple-effect";
 import { cn } from "@/lib/utils";
 
 const Rak = Yusei_Magic({
-    subsets: ["latin"],
-    weight: ["400"],
-    variable: "--font-rak"
-})
+  subsets: ["latin"],
+  weight: ["400"],
+  variable: "--font-rak"
+});
+
+// ✅ Dynamic feature data
+const features = [
+  {
+    icon: <BiSolidZap />,
+    title: "Resume in Seconds",
+    description:
+      "Skip the manual input — simply use your LinkedIn profile, and Resumpier instantly generates a professional resume.",
+  },
+  {
+    icon: <GiChoice />,
+    title: "Elegant Templates",
+    description:
+      "Choose from ATS-friendly, modern templates designed to make your resume stand out to recruiters.",
+  },
+  {
+    icon: <SiEasyeda />,
+    title: "Easy Customization",
+    description:
+      "Personalize layouts, fonts, and sections to match your career goals — all with just a few clicks.",
+  },
+  {
+    icon: <RiSecurePaymentLine />,
+    title: "Secure & Private",
+    description:
+      "Your LinkedIn data stays safe — we never share it. All resumes are generated securely, just for you.",
+  },
+];
 
 const Features = () => {
-    return (
-        <section className="dark:bg-gray-900 pt-[100px] relative overflow-hidden">
-            {/* Grid Background */}
-            <div className="absolute inset-0 -z-10 overflow-hidden">
-                <GridPattern
-                    width={30}
-                    height={30}
-                    x={-1}
-                    y={-1}
-                    strokeDasharray={"4 2"}
-                    className={cn(
-                        "h-full w-full [mask-image:radial-gradient(1000px_circle_at_center,white,transparent)]",
-                    )}
-                />
-            </div>
+  return (
+    <section className="dark:bg-gray-900 pt-[100px] relative  min-h-screen overflow-hidden">
+      {/* Grid Background */}
+      <div className="absolute inset-0 -z-10 overflow-hidden">
+        <GridPattern
+          width={30}
+          height={30}
+          x={-1}
+          y={-1}
+          strokeDasharray={"4 2"}
+          className={cn(
+            "h-full w-full [mask-image:radial-gradient(1000px_circle_at_center,white,transparent)]",
+          )}
+        />
+      </div>
 
-            <div className="container px-6 py-10 mx-auto relative z-10">
-                <h1 className={`text-3xl font-semibold text-gray-800 capitalize lg:text-6xl dark:text-white ${Rak.className}`}>
-                    Build your resume in seconds with <br/> <span className="text-blue-500 lg:text-5xl mt-0.5">Resumpier</span>
+      <div className="container px-6 py-10 mx-auto relative z-10">
+        <h1
+          className={`text-4xl font-semibold text-gray-800 capitalize lg:text-6xl dark:text-white ${Rak.className}`}
+        >
+          Build your resume in seconds with <br />
+          <span className="text-blue-500 lg:text-5xl mt-0.5">Resumpier</span>
+        </h1>
+
+        <div className="mt-2 lg:pr-[400px]">
+          <span className="inline-block w-40 h-1 bg-blue-500 rounded-full"></span>
+          <span className="inline-block w-3 h-1 ml-1 bg-blue-500 rounded-full"></span>
+          <span className="inline-block w-1 h-1 ml-1 bg-blue-500 rounded-full"></span>
+        </div>
+
+        <div className="mt-8 xl:mt-12 lg:flex lg:items-center">
+          <div className="grid w-full grid-cols-1 gap-8 lg:w-1/2 xl:gap-16 md:grid-cols-2">
+            
+            {/* ✅ Dynamic Mapping */}
+            {features.map((feature, index) => (
+              <div key={index} className="space-y-2 border-5 px-5 py-5 bg-[#33A1E0] border-[#BBDCE5] rounded-3xl">
+                <span className="inline-block p-3 border-2 border-[#BBDCE5] text-white text-3xl bg-[#33A1E0] rounded-xl dark:text-white dark:bg-blue-500">
+                  {feature.icon}
+                </span>
+                <h1 className="text-xl font-semibold text-black capitalize dark:text-white">
+                  {feature.title}
                 </h1>
+                <p className="text-white dark:text-gray-300">
+                  {feature.description}
+                </p>
+              </div>
+            ))}
 
+          </div>
 
-
-                <div className="mt-2 lg:pr-[400px]">
-                    <span className="inline-block w-40 h-1 bg-blue-500 rounded-full"></span>
-                    <span className="inline-block w-3 h-1 ml-1 bg-blue-500 rounded-full"></span>
-                    <span className="inline-block w-1 h-1 ml-1 bg-blue-500 rounded-full"></span>
-                </div>
-
-                <div className="mt-8 xl:mt-12 lg:flex lg:items-center">
-                    <div className="grid w-full grid-cols-1 gap-8 lg:w-1/2 xl:gap-16 md:grid-cols-2">
-
-                        {/* Feature 1 */}
-                        <div className="space-y-3">
-                            <span className="inline-block p-3 text-white text-3xl bg-[#33a1e0] rounded-xl dark:text-white dark:bg-blue-500">
-                                <BiSolidZap />
-                            </span>
-                            <h1 className="text-xl font-semibold text-gray-700 capitalize dark:text-white">
-                                Resume in Seconds
-                            </h1>
-                            <p className="text-gray-500 dark:text-gray-300">
-                                Skip the manual input — simply use your LinkedIn profile, and Resumpier instantly generates a professional resume.
-                            </p>
-                        </div>
-
-                        {/* Feature 2 */}
-                        <div className="space-y-3">
-                            <span className="inline-block p-3 text-white text-3xl bg-[#33a1e0] rounded-xl dark:text-white dark:bg-blue-500">
-                                <GiChoice />
-                            </span>
-                            <h1 className="text-xl font-semibold text-gray-700 capitalize dark:text-white">
-                                Elegant Templates
-                            </h1>
-                            <p className="text-gray-500 dark:text-gray-300">
-                                Choose from ATS-friendly, modern templates designed to make your resume stand out to recruiters.
-                            </p>
-                        </div>
-
-                        {/* Feature 3 */}
-                        <div className="space-y-3">
-                            <span className="inline-block p-3 text-white text-3xl bg-[#33a1e0] rounded-xl dark:text-white dark:bg-blue-500">
-                                <SiEasyeda />
-                            </span>
-                            <h1 className="text-xl font-semibold text-gray-700 capitalize dark:text-white">
-                                Easy Customization
-                            </h1>
-                            <p className="text-gray-500 dark:text-gray-300">
-                                Personalize layouts, fonts, and sections to match your career goals — all with just a few clicks.
-                            </p>
-                        </div>
-
-                        {/* Feature 4 */}
-                        <div className="space-y-3">
-                            <span className="inline-block p-3 text-white text-3xl bg-[#33a1e0] rounded-xl dark:text-white dark:bg-blue-500">
-                                <RiSecurePaymentLine />
-                            </span>
-                            <h1 className="text-xl font-semibold text-gray-700 capitalize dark:text-white">
-                                Secure & Private
-                            </h1>
-                            <p className="text-gray-500 dark:text-gray-300">
-                                Your LinkedIn data stays safe — we never share it. All resumes are generated securely, just for you.
-                            </p>
-                        </div>
-                    </div>
-
-                    <div className="hidden lg:flex lg:w-1/2 lg:justify-center">
-                        <CardFlip />
-                    </div>
-                </div>
-            </div>
-        </section>
-    );
+          <div className=" mt-9 lg:flex lg:w-1/2 lg:justify-center">
+            <CardFlip />
+          </div>
+        </div>
+      </div>
+    </section>
+  );
 };
 
 export default Features;
+

@@ -9,11 +9,10 @@ const CardFlip = () => {
 
     // Sample images - replace with your actual image paths
     const images = [
-        "/img1.avif",
-        "/img2.png",
-        "/img3.avif",
-        "/Link1.png",
-        "/main01.png"
+    "/step1.png",
+    "/step2.png",
+    "/step3.png"
+       
     ];
 
     useEffect(() => {
@@ -48,7 +47,7 @@ const CardFlip = () => {
                         <img
                             src={images[currentIndex]}
                             alt={`Image ${currentIndex + 1}`}
-                            className=" object-cover w-full h-full"
+                            className=" lg:h-[900px] lg:w-[900px]"
                         />
                        
                     </div>

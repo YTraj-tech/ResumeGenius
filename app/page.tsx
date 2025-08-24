@@ -5,10 +5,11 @@ import { useEffect,useState } from "react";
 import { UserButton  } from "@clerk/nextjs";
 import Nav from "@/components/Nav";
 import Loading from "./loading";
-import Freatures from "@/components/Freatures";
-import Product from "@/components/Product_show";
 import HeroSection from "@/components/Herosection";
-import CustomSignOutDropdown from "@/components/CustomSignOutDropdown";
+import BasicFretures from "@/components/Basic_fretures";
+import MegaShow from "@/components/Mega_show";
+import UrlUpload from "@/components/Urlupload";
+import ProductShow from "@/components/Product_show";
 
 
 
@@ -35,11 +36,14 @@ export default function Home() {
 
   return (
     <div>
-      <Nav/>
+      
       <HeroSection/>
-      <Freatures/>
-      <Product/>
-       
+      <BasicFretures/>
+      <MegaShow/>
+      <ProductShow/>
+
+     
+    
     </div>
   );
 }
