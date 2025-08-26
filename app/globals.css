@@ -121,8 +121,6 @@
   }
 }
 
-
-
 .unstructured-bg {
   position: relative;
   display: inline-block;
@@ -139,8 +137,6 @@
   transform: rotate(-2deg);
   z-index: -1;
 }
-
-
 
 @theme inline {
   --animate-shimmer-slide: shimmer-slide var(--speed) ease-in-out infinite
@@ -170,7 +166,6 @@
   }
 }
 
-
 @theme inline {
   --animate-pulse: pulse var(--duration) ease-out infinite;
  
@@ -181,6 +176,23 @@
     }
     50% {
       box-shadow: 0 0 0 8px var(--pulse-color);
+    }
+  }
+}
+
+
+@theme inline {
+  --animate-shiny-text: shiny-text 8s infinite;
+ 
+  @keyframes shiny-text {
+    0%,
+    90%,
+    100% {
+      background-position: calc(-100% - var(--shiny-width)) 0;
+    }
+    30%,
+    60% {
+      background-position: calc(100% + var(--shiny-width)) 0;
     }
   }
 }

@@ -19,7 +19,7 @@
 //           eiusmod tempor incididunt ut labore et dolore magna aliqua 
 //           minim veniam, quis nostrud exercitation.
 //         </p>
-        
+
 //         <button className="bg-blue-500 hover:bg-blue-600 text-white px-6 py-3 rounded-lg font-medium transition-colors duration-200 flex items-center gap-2">
 //           Get your card 
 //           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -96,14 +96,14 @@
 
 // const MegaShowWithTabs = () => {
 //   const [activeImage, setActiveImage] = useState("/main3.png");
-  
+
 //   // Define DummyContent component with proper typing
 //   const DummyContent = ({ image, onImageChange }: DummyContentProps) => {
 //     // Update the active image when this tab content is rendered
 //     useEffect(() => {
 //       onImageChange(image);
 //     }, [image, onImageChange]);
-    
+
 //     return (
 //       <img
 //         src="/main02.png"
@@ -184,7 +184,7 @@
 //           eiusmod tempor incididunt ut labore et dolore magna aliqua 
 //           minim veniam, quis nostrud exercitation.
 //         </p>
-        
+
 //         <button className="bg-blue-500 hover:bg-blue-600 text-white px-6 py-3 rounded-lg font-medium transition-colors duration-200 flex items-center gap-2">
 //           Get your card 
 //           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -288,7 +288,7 @@
 //       ),
 //     },
 //   ];
-  
+
 //   return (
 //     <div className="flex flex-col md:flex-row items-start gap-10 p-8 max-w-6xl mx-auto"
 //       style={{    background: "linear-gradient(to top, #1e293b, #1e293b, #1e293b);"}}
@@ -303,7 +303,7 @@
 //           Explore the tabs to learn more...
 //         </p>
 //       </div>
-      
+
 //       {/* Right side tabs */}
 //       <div className="flex-1 w-full">
 //         <Tabs tabs={tabs} />
@@ -342,7 +342,7 @@
 //           <img
 //             src="/step2.png"
 //             alt="Architecture"
-            
+
 //           />
 //         </div>
 //       ),
@@ -375,7 +375,7 @@
 //             Our collection showcases the best of what our world has to offer across these three fascinating categories.
 //           </p>
 //         </div>
-        
+
 //         {/* Right side with tabs component */}
 //         <div className="w-1/3 lg:mx-[50px]">
 //           <Tabs tabs={tabs} />
@@ -451,7 +451,7 @@
 //                   Into a Professional Resume
 //                 </h1>
 //               </div>
-              
+
 //               <div className="space-y-4 mb-6 sm:mb-8">
 //                 <p className="text-gray-300 text-sm sm:text-base lg:text-lg xl:text-xl leading-relaxed">
 //                   Convert your LinkedIn profile into a stunning, professionally formatted resume in just a few clicks. 
@@ -461,9 +461,9 @@
 //                 </p>
 //               </div>
 
-             
+
 //             </div>
-        
+
 //         {/* Right side with tabs component */}
 //         <div className="w-1/2 lg:px-[30px]  ">
 //           <Tabs tabs={tabs} />
@@ -476,13 +476,193 @@
 // export default MeghaShow;
 
 
+// import React from 'react'
+// import { Tabs } from './ui/tabs'
+// import { AnimatedShinyText } from './ui/ArrowRightIcon';
+// import { ArrowRightIcon } from "@radix-ui/react-icons";
+// import { cn } from '@/lib/utils';
+// import { Cabin } from "next/font/google"
+// import { Merriweather } from "next/font/google"
+// import { PixelImage } from './ui/pixel-image';
+
+// const Rak = Merriweather({
+//   subsets: ["latin"],
+//   weight: ["400"]
+
+// })
+
+// const ca = Cabin({
+//   subsets: ["latin"],
+//   weight: ["400"]
+// })
+
+
+// const MeghaShow = () => {
+//   const tabs = [
+//     {
+//       title: " Linkdin url ",
+//       value: "nature",
+//       content: (
+//         <div className="w-full overflow-hidden relative h-64 sm:h-80 lg:h-96 rounded-2xl">
+//           <PixelImage
+//             src="/step1.png"
+//             grid="6x4"
+//             grayscaleAnimation={true}
+
+//           />
+//         </div>
+//       ),
+//     },
+//     {
+//       title: "Enter the url",
+//       value: "architecture",
+//       content: (
+//         <div className="w-full overflow-hidden relative h-64 sm:h-80 lg:h-96 rounded-2xl">
+//           <PixelImage
+//             src="/step2.png"
+//             grid="6x4"
+//             grayscaleAnimation={true}
+
+//           />
+//         </div>
+//       ),
+//     },
+//     {
+//       title: "Select the temp",
+//       value: "technology",
+//       content: (
+//         <div className="w-full overflow-hidden relative h-64 sm:h-80 lg:h-96 rounded-2xl">
+//           <PixelImage
+//             src="/step3.png"
+//             grid="6x4"
+//             grayscaleAnimation={true}
+
+//           />
+//         </div>
+//       ),
+//     },
+//   ];
+
+//   return (
+//     <div className="h-[670px] mt-[95px] rounded-tr-[130px]  sm:mx-8 md:mx-16 lg:mx-[270px]  "
+//       style={{ background: "linear-gradient(to right, #1e293b, #1e293b, #374151)" }}
+//     >
+//       {/* Desktop Layout - Side by side */}
+//       <div className="hidden lg:flex h-full">
+
+//         {/* Left side with text content - Desktop */}
+//         <div className="w-1/2 p-6 sm:p-8 lg:p-12 flex flex-col justify-center lg:px-[30px] lg:py-[30px]">
+//           <div className={`mb-6 ${Rak.className} `}>
+//             <div
+//               className={cn(
+//                 "group rounded-full border border-black/5 bg-neutral-100 text-base text-white transition-all ease-in hover:cursor-pointer hover:bg-neutral-200 dark:border-white/5 dark:bg-neutral-900 dark:hover:bg-neutral-800 mb-5 w-fit",
+//               )}
+//             >
+
+//               <AnimatedShinyText className="inline-flex items-center justify-center px-4 py-1 transition ease-out hover:text-neutral-600 hover:duration-300 hover:dark:text-neutral-400">
+//                 <span>✨ Linkdin to Resume</span>
+//                 <ArrowRightIcon className="ml-1 size-3 transition-transform duration-300 ease-in-out group-hover:translate-x-0.5" />
+//               </AnimatedShinyText>
+//             </div>
+
+//             <h1 className="text-5xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-white mb-4 sm:mb-6 leading-tight">
+//               Transform Your
+//               <span className="bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent"> LinkedIn </span>
+//               Into a Professional Resume
+//             </h1>
+//           </div>
+
+//           <div className="space-y-4 mb-6 sm:mb-8">
+//             <p className="text-gray-300 text-sm sm:text-base lg:text-lg xl:text-xl leading-relaxed">
+//               Convert your LinkedIn profile into a stunning, professionally formatted resume in just a few clicks.
+//             </p>
+//             <p className="text-gray-300 text-sm sm:text-base lg:text-lg xl:text-xl leading-relaxed">
+//               Choose from multiple templates, let our AI extract your information, and download your resume instantly.
+//             </p>
+//           </div>
+//         </div>
+
+//         {/* Right side with tabs component - Desktop */}
+//         <div className="w-1/2 lg:mt-[30px]   lg:px-[30px] ">
+//           <Tabs tabs={tabs} />
+//         </div>
+//       </div>
+
+//       {/* Mobile/Tablet Layout - Stacked */}
+//       <div className="lg:hidden mt-9 flex flex-col h-full">
+//         {/* Text content - Mobile/Tablet */}
+//         <div className="w-full p-4 sm:p-6 flex flex-col justify-center">
+//           <div
+//             className={cn(
+//               "group rounded-full border border-black/5 bg-neutral-100 text-base text-white transition-all ease-in hover:cursor-pointer hover:bg-neutral-200 dark:border-white/5 dark:bg-neutral-900 dark:hover:bg-neutral-800 mb-5 w-fit",
+//             )}
+//           >
+
+//             <AnimatedShinyText className="inline-flex items-center justify-center px-4 py-1 transition ease-out hover:text-neutral-600 hover:duration-300 hover:dark:text-neutral-400">
+//               <span>✨ Linkdin to Resume</span>
+//               <ArrowRightIcon className="ml-1 size-3 transition-transform duration-300 ease-in-out group-hover:translate-x-0.5" />
+//             </AnimatedShinyText>
+//           </div>
+//           <div className={`mb-4 sm:mb-6 ${Rak.className} `}>
+
+//             <h1 className="text-3xl sm:text-2xl md:text-3xl font-bold text-white mb-3 sm:mb-4 leading-tight">
+//               Transform Your
+//               <span className="bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent"> LinkedIn </span>
+//               Into a Professional Resume
+//             </h1>
+//           </div>
+
+//           <div className="space-y-3 sm:space-y-4 mb-4 sm:mb-6">
+//             <p className="text-gray-300 text-sm sm:text-base leading-relaxed">
+//               Convert your LinkedIn profile into a stunning, professionally formatted resume in just a few clicks.
+//             </p>
+//             <p className="text-gray-300 text-sm sm:text-base leading-relaxed">
+//               Choose from multiple templates, let our AI extract your information, and download your resume instantly.
+//             </p>
+//           </div>
+//         </div>
+
+//         {/* Tabs component - Mobile/Tablet (Below text) */}
+//         <div className="w-full p-4 sm:p-6 flex-1">
+//           <Tabs tabs={tabs} />
+//         </div>
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default MeghaShow;
+
+
+
+
+
+
+
+
+
 import React from 'react'
 import { Tabs } from './ui/tabs'
+import { AnimatedShinyText } from './ui/ArrowRightIcon';
+import { ArrowRightIcon } from "@radix-ui/react-icons";
+import { cn } from '@/lib/utils';
+import { Cabin } from "next/font/google"
+import { Merriweather } from "next/font/google"
+
+const Rak = Merriweather({
+  subsets: ["latin"],
+  weight: ["400"]
+})
+
+const ca = Cabin({
+  subsets: ["latin"],
+  weight: ["400"]
+})
 
 const MeghaShow = () => {
   const tabs = [
     {
-      title: "Nature",
+      title: "Copy url",
       value: "nature",
       content: (
         <div className="w-full overflow-hidden relative h-64 sm:h-80 lg:h-96 rounded-2xl">
@@ -495,7 +675,7 @@ const MeghaShow = () => {
       ),
     },
     {
-      title: "Architecture",
+      title: "Paste url",
       value: "architecture",
       content: (
         <div className="w-full overflow-hidden relative h-64 sm:h-80 lg:h-96 rounded-2xl">
@@ -508,7 +688,7 @@ const MeghaShow = () => {
       ),
     },
     {
-      title: "Technology",
+      title: "Select temp",
       value: "technology",
       content: (
         <div className="w-full overflow-hidden relative h-64 sm:h-80 lg:h-96 rounded-2xl">
@@ -523,22 +703,32 @@ const MeghaShow = () => {
   ];
 
   return (
-    <div className="min-h-[600px] mt-[95px] rounded-tr-[150px] mx-4 sm:mx-8 md:mx-16 lg:mx-[270px] p-4 bg-gradient-to-r from-gray-800 via-slate-800 to-slate-800">
+    <div className="min-h-[670px] lg:h-[670px] mt-[95px] rounded-tr-[130px] sm:mx-8 md:mx-16 lg:mx-[270px]"
+      style={{ background: "linear-gradient(to right, #1f2937, #334155, #4b5563)"}}
+    >
       {/* Desktop Layout - Side by side */}
       <div className="hidden lg:flex h-full">
         {/* Left side with text content - Desktop */}
         <div className="w-1/2 p-6 sm:p-8 lg:p-12 flex flex-col justify-center lg:px-[30px] lg:py-[30px]">
-          <div className="mb-6">
-            <div className="flex items-center space-x-2 mb-4">
-              <span className="text-blue-400 font-semibold text-sm sm:text-base">LinkedIn to Resume</span>
+          <div className={`mb-6 ${Rak.className}`}>
+            <div
+              className={cn(
+                "group rounded-full border border-black/5 bg-neutral-100 text-base text-white transition-all ease-in hover:cursor-pointer hover:bg-neutral-200 dark:border-white/5 dark:bg-neutral-900 dark:hover:bg-neutral-800 mb-5 w-fit",
+              )}
+            >
+              <AnimatedShinyText className="inline-flex items-center justify-center px-4 py-1 transition ease-out hover:text-neutral-600 hover:duration-300 hover:dark:text-neutral-400">
+                <span>✨ Linkdin to Resume</span>
+                <ArrowRightIcon className="ml-1 size-3 transition-transform duration-300 ease-in-out group-hover:translate-x-0.5" />
+              </AnimatedShinyText>
             </div>
+
             <h1 className="text-5xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-white mb-4 sm:mb-6 leading-tight">
               Transform Your
               <span className="bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent"> LinkedIn </span>
               Into a Professional Resume
             </h1>
           </div>
-          
+
           <div className="space-y-4 mb-6 sm:mb-8">
             <p className="text-gray-300 text-sm sm:text-base lg:text-lg xl:text-xl leading-relaxed">
               Convert your LinkedIn profile into a stunning, professionally formatted resume in just a few clicks.
@@ -548,28 +738,37 @@ const MeghaShow = () => {
             </p>
           </div>
         </div>
-        
+
         {/* Right side with tabs component - Desktop */}
-        <div className="w-1/2 lg:mt-[30px]   lg:px-[30px] ">
-          <Tabs tabs={tabs} />
+        <div className="w-1/2 flex flex-col justify-center lg:px-[30px] lg:py-[30px]">
+          <div className="h-[500px] relative">
+            <Tabs tabs={tabs} />
+          </div>
         </div>
       </div>
 
       {/* Mobile/Tablet Layout - Stacked */}
-      <div className="lg:hidden flex flex-col h-full">
+      <div className="lg:hidden mt-[30px] flex flex-col min-h-full">
         {/* Text content - Mobile/Tablet */}
         <div className="w-full p-4 sm:p-6 flex flex-col justify-center">
-          <div className="mb-4 sm:mb-6">
-            <div className="flex items-center space-x-2 mb-3 sm:mb-4">
-              <span className="text-blue-400 font-semibold text-sm sm:text-base">LinkedIn to Resume</span>
-            </div>
+          <div
+            className={cn(
+              "group rounded-full border border-black/5 bg-neutral-100 text-base text-white transition-all ease-in hover:cursor-pointer hover:bg-neutral-200 dark:border-white/5 dark:bg-neutral-900 dark:hover:bg-neutral-800 mb-5 w-fit",
+            )}
+          >
+            <AnimatedShinyText className="inline-flex items-center justify-center px-4 py-1 transition ease-out hover:text-neutral-600 hover:duration-300 hover:dark:text-neutral-400">
+              <span>✨ Linkdin to Resume</span>
+              <ArrowRightIcon className="ml-1 size-3 transition-transform duration-300 ease-in-out group-hover:translate-x-0.5" />
+            </AnimatedShinyText>
+          </div>
+          <div className={`mb-4 sm:mb-6 ${Rak.className}`}>
             <h1 className="text-3xl sm:text-2xl md:text-3xl font-bold text-white mb-3 sm:mb-4 leading-tight">
               Transform Your
               <span className="bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent"> LinkedIn </span>
               Into a Professional Resume
             </h1>
           </div>
-          
+
           <div className="space-y-3 sm:space-y-4 mb-4 sm:mb-6">
             <p className="text-gray-300 text-sm sm:text-base leading-relaxed">
               Convert your LinkedIn profile into a stunning, professionally formatted resume in just a few clicks.
@@ -579,9 +778,9 @@ const MeghaShow = () => {
             </p>
           </div>
         </div>
-        
+
         {/* Tabs component - Mobile/Tablet (Below text) */}
-        <div className="w-full p-4 sm:p-6 flex-1">
+        <div className="w-full p-4 sm:p-6 flex-1 min-h-[300px]">
           <Tabs tabs={tabs} />
         </div>
       </div>

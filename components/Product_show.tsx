@@ -1,160 +1,432 @@
+// "use client";
+// import React from "react";
+// import { motion } from "motion/react";
+// import dynamic from "next/dynamic";
 
-
-
-// "use client"
-
-// import React from 'react'
-// import { cn } from '@/lib/utils';
-// import { Timeline } from "@/components/ui/timeline";
-// import { Noto_Sans } from 'next/font/google'
-// import { Yusei_Magic } from 'next/font/google';
-
-// import { BsMagic } from "react-icons/bs";
-// import { GiOfficeChair } from "react-icons/gi";
-// import { SiCssdesignawards } from "react-icons/si";
-// import { GoRocket } from "react-icons/go";
-// import { SiEasyeda } from "react-icons/si";
-// const Rak = Yusei_Magic({
-//     subsets: ['latin'],
-//     weight: ['400'],
-//     variable: '--font-rak',
+// const World = dynamic(() => import("./ui/Glob").then((m) => m.World), {
+//   ssr: false,
 // });
 
-// const Noto = Noto_Sans({
-//     subsets: ["latin"],
-//     weight: ["400"],
-//     variable: "--font-rak",
-// });
-
-// const data = [
+// export function GlobeDemo() {
+//   const globeConfig = {
+//     pointSize: 4,
+//     globeColor: "#062056",
+//     showAtmosphere: true,
+//     atmosphereColor: "#FFFFFF",
+//     atmosphereAltitude: 0.1,
+//     emissive: "#062056",
+//     emissiveIntensity: 0.1,
+//     shininess: 0.9,
+//     polygonColor: "rgba(255,255,255,0.7)",
+//     ambientLight: "#38bdf8",
+//     directionalLeftLight: "#ffffff",
+//     directionalTopLight: "#ffffff",
+//     pointLight: "#ffffff",
+//     arcTime: 1000,
+//     arcLength: 0.9,
+//     rings: 1,
+//     maxRings: 3,
+//     initialPosition: { lat: 22.3193, lng: 114.1694 },
+//     autoRotate: true,
+//     autoRotateSpeed: 0.5,
+//   };
+//   const colors = ["#06b6d4", "#3b82f6", "#6366f1"];
+//   const sampleArcs = [
 //     {
-//         title: "Connect & Extract",
-//         content: (
-//             <div>
-//                 <p
-//                     className={`mb-6 ${Noto.className} text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl opacity-80 text-neutral-800 dark:text-neutral-200 leading-relaxed`}
-//                 >
-//                     Paste your LinkedIn URL — our system instantly pulls your skills, work
-//                     history, education, and certifications. Ready-made for your resume.
-//                 </p>
-//                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6">
-//                     <img
-//                         src="https://assets.aceternity.com/templates/startup-1.webp"
-//                         alt="LinkedIn profile extraction example"
-//                         width={600}
-//                         height={400}
-//                         className="h-32 sm:h-40 md:h-48 lg:h-56 w-full rounded-xl object-cover shadow-lg transition-transform duration-300 hover:scale-105"
-//                     />
-                   
-//                 </div>
-//             </div>
-//         ),
+//       order: 1,
+//       startLat: -19.885592,
+//       startLng: -43.951191,
+//       endLat: -22.9068,
+//       endLng: -43.1729,
+//       arcAlt: 0.1,
+//       color: colors[Math.floor(Math.random() * (colors.length - 1))],
 //     },
 //     {
-//         title: "Choose & Customize",
-//         content: (
-//             <div>
-//                 <p
-//                     className={`mb-6 ${Noto.className} text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl opacity-80 text-neutral-800 dark:text-neutral-200 leading-relaxed`}
-//                 >
-//                     Pick from sleek, ATS-friendly templates tailored for tech, creative, or
-//                     corporate careers.
-//                 </p>
-//                 <p
-//                     className={`mb-6 ${Noto.className} text-base sm:text-lg md:text-xl lg:text-lg xl:text-xl opacity-80 text-neutral-800 dark:text-neutral-200 leading-relaxed`}
-//                 >
-//                     Customize colors, fonts, and sections — no design skills needed.
-//                 </p>
-//                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
-//                     <img
-//                         src="https://assets.aceternity.com/pro/hero-sections.png"
-//                         alt="Resume template selection"
-//                         width={600}
-//                         height={400}
-//                         className="h-32 sm:h-40 md:h-48 lg:h-56 w-full rounded-xl object-cover shadow-lg transition-transform duration-300 hover:scale-105"
-//                     />
-//                     <img
-//                         src="https://assets.aceternity.com/templates/startup-2.webp"
-//                         alt="Template customization options"
-//                         width={600}
-//                         height={400}
-//                         className="h-32 sm:h-40 md:h-48 lg:h-56 w-full rounded-xl object-cover shadow-lg transition-transform duration-300 hover:scale-105"
-//                     />
-//                 </div>
-//             </div>
-//         ),
+//       order: 1,
+//       startLat: 28.6139,
+//       startLng: 77.209,
+//       endLat: 3.139,
+//       endLng: 101.6869,
+//       arcAlt: 0.2,
+//       color: colors[Math.floor(Math.random() * (colors.length - 1))],
 //     },
 //     {
-//         title: "Download & Impress",
-//         content: (
-//             <div>
-//                <p
-//                     className={`mb-6 ${Noto.className} text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl opacity-80 text-neutral-800 dark:text-neutral-200 leading-relaxed`}
-//                 >
-//                     One click, and your polished resume is ready — PDF or Word, built to
-//                     impress recruiters.
-//                 </p>
-
-//                 <div className="mb-8 opacity-90 space-y-3">
-//                     <div className="flex items-center gap-3 text-sm sm:text-base md:text-lg text-neutral-700 dark:text-neutral-300 p-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
-//                         <span className="text-blue-500 text-2xl"><BsMagic/></span>
-//                         <span>Auto-filled with LinkedIn data</span>
-//                     </div>
-//                     <div className="flex items-center gap-3 text-sm sm:text-base md:text-lg text-neutral-700 dark:text-neutral-300 p-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
-//                         <span className="text-blue-500 text-2xl"><SiCssdesignawards/></span>
-//                         <span>Multiple ATS-friendly designs</span>
-//                     </div>
-//                     <div className="flex items-center gap-3 text-sm sm:text-base md:text-lg text-neutral-700 dark:text-neutral-300 p-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
-//                         <span className="text-blue-500 text-2xl"><GoRocket/></span>
-//                         <span>Instant PDF & Word download</span>
-//                     </div>
-//                     <div className="flex items-center gap-3 text-sm sm:text-base md:text-lg text-neutral-700 dark:text-neutral-300 p-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
-//                         <span className="text-blue-500 text-2xl"><SiEasyeda/></span>
-//                         <span>Easy sharing with employers</span>
-//                     </div>
-//                     <div className="flex items-center gap-3 text-sm sm:text-base md:text-lg text-neutral-700 dark:text-neutral-300 p-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
-//                         <span className="text-blue-500 text-2xl"><GiOfficeChair/></span>
-//                         <span>Boost your job hunt instantly</span>
-//                     </div>
-//                 </div>
-
-//                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6">
-//                     <img
-//                         src="https://assets.aceternity.com/pro/hero-sections.png"
-//                         alt="Final resume example"
-//                         width={600}
-//                         height={400}
-//                         className="h-32 sm:h-40 md:h-48 lg:h-56 w-full rounded-xl object-cover shadow-lg transition-transform duration-300 hover:scale-105"
-//                     />
-//                     <div className="bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl p-6 flex flex-col justify-center items-center text-white">
-//                         <div className="text-4xl mb-3">🎯</div>
-//                         <p
-//                             className={`${Noto.className} text-center text-sm sm:text-base md:text-lg font-medium`}
-//                         >
-//                             Start your career journey today
-//                         </p>
-//                     </div>
-//                 </div>
-//             </div>
-//         ),
+//       order: 1,
+//       startLat: -19.885592,
+//       startLng: -43.951191,
+//       endLat: -1.303396,
+//       endLng: 36.852443,
+//       arcAlt: 0.5,
+//       color: colors[Math.floor(Math.random() * (colors.length - 1))],
 //     },
-// ];
+//     {
+//       order: 2,
+//       startLat: 1.3521,
+//       startLng: 103.8198,
+//       endLat: 35.6762,
+//       endLng: 139.6503,
+//       arcAlt: 0.2,
+//       color: colors[Math.floor(Math.random() * (colors.length - 1))],
+//     },
+//     {
+//       order: 2,
+//       startLat: 51.5072,
+//       startLng: -0.1276,
+//       endLat: 3.139,
+//       endLng: 101.6869,
+//       arcAlt: 0.3,
+//       color: colors[Math.floor(Math.random() * (colors.length - 1))],
+//     },
+//     {
+//       order: 2,
+//       startLat: -15.785493,
+//       startLng: -47.909029,
+//       endLat: 36.162809,
+//       endLng: -115.119411,
+//       arcAlt: 0.3,
+//       color: colors[Math.floor(Math.random() * (colors.length - 1))],
+//     },
+//     {
+//       order: 3,
+//       startLat: -33.8688,
+//       startLng: 151.2093,
+//       endLat: 22.3193,
+//       endLng: 114.1694,
+//       arcAlt: 0.3,
+//       color: colors[Math.floor(Math.random() * (colors.length - 1))],
+//     },
+//     {
+//       order: 3,
+//       startLat: 21.3099,
+//       startLng: -157.8581,
+//       endLat: 40.7128,
+//       endLng: -74.006,
+//       arcAlt: 0.3,
+//       color: colors[Math.floor(Math.random() * (colors.length - 1))],
+//     },
+//     {
+//       order: 3,
+//       startLat: -6.2088,
+//       startLng: 106.8456,
+//       endLat: 51.5072,
+//       endLng: -0.1276,
+//       arcAlt: 0.3,
+//       color: colors[Math.floor(Math.random() * (colors.length - 1))],
+//     },
+//     {
+//       order: 4,
+//       startLat: 11.986597,
+//       startLng: 8.571831,
+//       endLat: -15.595412,
+//       endLng: -56.05918,
+//       arcAlt: 0.5,
+//       color: colors[Math.floor(Math.random() * (colors.length - 1))],
+//     },
+//     {
+//       order: 4,
+//       startLat: -34.6037,
+//       startLng: -58.3816,
+//       endLat: 22.3193,
+//       endLng: 114.1694,
+//       arcAlt: 0.7,
+//       color: colors[Math.floor(Math.random() * (colors.length - 1))],
+//     },
+//     {
+//       order: 4,
+//       startLat: 51.5072,
+//       startLng: -0.1276,
+//       endLat: 48.8566,
+//       endLng: -2.3522,
+//       arcAlt: 0.1,
+//       color: colors[Math.floor(Math.random() * (colors.length - 1))],
+//     },
+//     {
+//       order: 5,
+//       startLat: 14.5995,
+//       startLng: 120.9842,
+//       endLat: 51.5072,
+//       endLng: -0.1276,
+//       arcAlt: 0.3,
+//       color: colors[Math.floor(Math.random() * (colors.length - 1))],
+//     },
+//     {
+//       order: 5,
+//       startLat: 1.3521,
+//       startLng: 103.8198,
+//       endLat: -33.8688,
+//       endLng: 151.2093,
+//       arcAlt: 0.2,
+//       color: colors[Math.floor(Math.random() * (colors.length - 1))],
+//     },
+//     {
+//       order: 5,
+//       startLat: 34.0522,
+//       startLng: -118.2437,
+//       endLat: 48.8566,
+//       endLng: -2.3522,
+//       arcAlt: 0.2,
+//       color: colors[Math.floor(Math.random() * (colors.length - 1))],
+//     },
+//     {
+//       order: 6,
+//       startLat: -15.432563,
+//       startLng: 28.315853,
+//       endLat: 1.094136,
+//       endLng: -63.34546,
+//       arcAlt: 0.7,
+//       color: colors[Math.floor(Math.random() * (colors.length - 1))],
+//     },
+//     {
+//       order: 6,
+//       startLat: 37.5665,
+//       startLng: 126.978,
+//       endLat: 35.6762,
+//       endLng: 139.6503,
+//       arcAlt: 0.1,
+//       color: colors[Math.floor(Math.random() * (colors.length - 1))],
+//     },
+//     {
+//       order: 6,
+//       startLat: 22.3193,
+//       startLng: 114.1694,
+//       endLat: 51.5072,
+//       endLng: -0.1276,
+//       arcAlt: 0.3,
+//       color: colors[Math.floor(Math.random() * (colors.length - 1))],
+//     },
+//     {
+//       order: 7,
+//       startLat: -19.885592,
+//       startLng: -43.951191,
+//       endLat: -15.595412,
+//       endLng: -56.05918,
+//       arcAlt: 0.1,
+//       color: colors[Math.floor(Math.random() * (colors.length - 1))],
+//     },
+//     {
+//       order: 7,
+//       startLat: 48.8566,
+//       startLng: -2.3522,
+//       endLat: 52.52,
+//       endLng: 13.405,
+//       arcAlt: 0.1,
+//       color: colors[Math.floor(Math.random() * (colors.length - 1))],
+//     },
+//     {
+//       order: 7,
+//       startLat: 52.52,
+//       startLng: 13.405,
+//       endLat: 34.0522,
+//       endLng: -118.2437,
+//       arcAlt: 0.2,
+//       color: colors[Math.floor(Math.random() * (colors.length - 1))],
+//     },
+//     {
+//       order: 8,
+//       startLat: -8.833221,
+//       startLng: 13.264837,
+//       endLat: -33.936138,
+//       endLng: 18.436529,
+//       arcAlt: 0.2,
+//       color: colors[Math.floor(Math.random() * (colors.length - 1))],
+//     },
+//     {
+//       order: 8,
+//       startLat: 49.2827,
+//       startLng: -123.1207,
+//       endLat: 52.3676,
+//       endLng: 4.9041,
+//       arcAlt: 0.2,
+//       color: colors[Math.floor(Math.random() * (colors.length - 1))],
+//     },
+//     {
+//       order: 8,
+//       startLat: 1.3521,
+//       startLng: 103.8198,
+//       endLat: 40.7128,
+//       endLng: -74.006,
+//       arcAlt: 0.5,
+//       color: colors[Math.floor(Math.random() * (colors.length - 1))],
+//     },
+//     {
+//       order: 9,
+//       startLat: 51.5072,
+//       startLng: -0.1276,
+//       endLat: 34.0522,
+//       endLng: -118.2437,
+//       arcAlt: 0.2,
+//       color: colors[Math.floor(Math.random() * (colors.length - 1))],
+//     },
+//     {
+//       order: 9,
+//       startLat: 22.3193,
+//       startLng: 114.1694,
+//       endLat: -22.9068,
+//       endLng: -43.1729,
+//       arcAlt: 0.7,
+//       color: colors[Math.floor(Math.random() * (colors.length - 1))],
+//     },
+//     {
+//       order: 9,
+//       startLat: 1.3521,
+//       startLng: 103.8198,
+//       endLat: -34.6037,
+//       endLng: -58.3816,
+//       arcAlt: 0.5,
+//       color: colors[Math.floor(Math.random() * (colors.length - 1))],
+//     },
+//     {
+//       order: 10,
+//       startLat: -22.9068,
+//       startLng: -43.1729,
+//       endLat: 28.6139,
+//       endLng: 77.209,
+//       arcAlt: 0.7,
+//       color: colors[Math.floor(Math.random() * (colors.length - 1))],
+//     },
+//     {
+//       order: 10,
+//       startLat: 34.0522,
+//       startLng: -118.2437,
+//       endLat: 31.2304,
+//       endLng: 121.4737,
+//       arcAlt: 0.3,
+//       color: colors[Math.floor(Math.random() * (colors.length - 1))],
+//     },
+//     {
+//       order: 10,
+//       startLat: -6.2088,
+//       startLng: 106.8456,
+//       endLat: 52.3676,
+//       endLng: 4.9041,
+//       arcAlt: 0.3,
+//       color: colors[Math.floor(Math.random() * (colors.length - 1))],
+//     },
+//     {
+//       order: 11,
+//       startLat: 41.9028,
+//       startLng: 12.4964,
+//       endLat: 34.0522,
+//       endLng: -118.2437,
+//       arcAlt: 0.2,
+//       color: colors[Math.floor(Math.random() * (colors.length - 1))],
+//     },
+//     {
+//       order: 11,
+//       startLat: -6.2088,
+//       startLng: 106.8456,
+//       endLat: 31.2304,
+//       endLng: 121.4737,
+//       arcAlt: 0.2,
+//       color: colors[Math.floor(Math.random() * (colors.length - 1))],
+//     },
+//     {
+//       order: 11,
+//       startLat: 22.3193,
+//       startLng: 114.1694,
+//       endLat: 1.3521,
+//       endLng: 103.8198,
+//       arcAlt: 0.2,
+//       color: colors[Math.floor(Math.random() * (colors.length - 1))],
+//     },
+//     {
+//       order: 12,
+//       startLat: 34.0522,
+//       startLng: -118.2437,
+//       endLat: 37.7749,
+//       endLng: -122.4194,
+//       arcAlt: 0.1,
+//       color: colors[Math.floor(Math.random() * (colors.length - 1))],
+//     },
+//     {
+//       order: 12,
+//       startLat: 35.6762,
+//       startLng: 139.6503,
+//       endLat: 22.3193,
+//       endLng: 114.1694,
+//       arcAlt: 0.2,
+//       color: colors[Math.floor(Math.random() * (colors.length - 1))],
+//     },
+//     {
+//       order: 12,
+//       startLat: 22.3193,
+//       startLng: 114.1694,
+//       endLat: 34.0522,
+//       endLng: -118.2437,
+//       arcAlt: 0.3,
+//       color: colors[Math.floor(Math.random() * (colors.length - 1))],
+//     },
+//     {
+//       order: 13,
+//       startLat: 52.52,
+//       startLng: 13.405,
+//       endLat: 22.3193,
+//       endLng: 114.1694,
+//       arcAlt: 0.3,
+//       color: colors[Math.floor(Math.random() * (colors.length - 1))],
+//     },
+//     {
+//       order: 13,
+//       startLat: 11.986597,
+//       startLng: 8.571831,
+//       endLat: 35.6762,
+//       endLng: 139.6503,
+//       arcAlt: 0.3,
+//       color: colors[Math.floor(Math.random() * (colors.length - 1))],
+//     },
+//     {
+//       order: 13,
+//       startLat: -22.9068,
+//       startLng: -43.1729,
+//       endLat: -34.6037,
+//       endLng: -58.3816,
+//       arcAlt: 0.1,
+//       color: colors[Math.floor(Math.random() * (colors.length - 1))],
+//     },
+//     {
+//       order: 14,
+//       startLat: -33.936138,
+//       startLng: 18.436529,
+//       endLat: 21.395643,
+//       endLng: 39.883798,
+//       arcAlt: 0.3,
+//       color: colors[Math.floor(Math.random() * (colors.length - 1))],
+//     },
+//   ];
+
+//   return (
+//     <div className="flex  rounded-tl-[100px] flex-row items-center justify-center py-12 h-screen md:h-auto dark:bg-black  relative w-full"
+//       style={{
+//         background: "linear-gradient(to bottom, #dbeafe, #eff6ff, #ffffff)"
+//       }}
+//     >
+//       <div className="max-w-7xl mx-auto w-full relative overflow-hidden h-full md:h-[40rem] px-4">
+//         <motion.div
+//           initial={{
+//             opacity: 0,
+//             y: 20,
+//           }}
+//           animate={{
+//             opacity: 1,
+//             y: 0,
+//           }}
+//           transition={{
+//             duration: 1,
+//           }}
+//           className="div"
+//         >
 
 
-// const Product = () => {
-//     return (
-//         <div className="relative w-full min-h-screen">
-
-
-//             {/* Content */}
-//             <div className="relative flex w-full flex-col items-start justify-start overflow-hidden pt-20">
-//                 <Timeline data={data} />
-//             </div>
+//         </motion.div>
+//         <div className="absolute w-full bottom-0 inset-x-0 h-40 bg-gradient-to-b pointer-events-none select-none from-transparent dark:to-black to-white z-40" />
+//         <div className="absolute w-full -bottom-20 h-72 md:h-full z-10">
+//           <World data={sampleArcs} globeConfig={globeConfig} />
 //         </div>
-//     )
+//       </div>
+//     </div>
+//   );
 // }
 
-// export default Product
 
 
 
@@ -162,19 +434,1287 @@
 
 
 
-import React from 'react'
 
-const ProductShow = () => {
+// GlobeDemo.jsx
+// "use client";
+// import React from "react";
+// import { motion } from "motion/react";
+// import dynamic from "next/dynamic";
+
+// const World = dynamic(() => import("./ui/Glob").then((m) => m.World), {
+//   ssr: false,
+// });
+
+// export function GlobeDemo() {
+//   const globeConfig = {
+//     pointSize: 4,
+//     globeColor: "#062056",
+//     showAtmosphere: true,
+//     atmosphereColor: "#FFFFFF",
+//     atmosphereAltitude: 0.1,
+//     emissive: "#062056",
+//     emissiveIntensity: 0.1,
+//     shininess: 0.9,
+//     polygonColor: "rgba(255,255,255,0.7)",
+//     ambientLight: "#38bdf8",
+//     directionalLeftLight: "#ffffff",
+//     directionalTopLight: "#ffffff",
+//     pointLight: "#ffffff",
+//     arcTime: 1000,
+//     arcLength: 0.9,
+//     rings: 1,
+//     maxRings: 3,
+//     initialPosition: { lat: 22.3193, lng: 114.1694 },
+//     autoRotate: true,
+//     autoRotateSpeed: 0.5,
+//   };
+//   const colors = ["#06b6d4", "#3b82f6", "#6366f1"];
+//   const sampleArcs = [
+//     {
+//       order: 1,
+//       startLat: -19.885592,
+//       startLng: -43.951191,
+//       endLat: -22.9068,
+//       endLng: -43.1729,
+//       arcAlt: 0.1,
+//       color: colors[Math.floor(Math.random() * (colors.length - 1))],
+//     },
+//     {
+//       order: 1,
+//       startLat: 28.6139,
+//       startLng: 77.209,
+//       endLat: 3.139,
+//       endLng: 101.6869,
+//       arcAlt: 0.2,
+//       color: colors[Math.floor(Math.random() * (colors.length - 1))],
+//     },
+//     {
+//       order: 1,
+//       startLat: -19.885592,
+//       startLng: -43.951191,
+//       endLat: -1.303396,
+//       endLng: 36.852443,
+//       arcAlt: 0.5,
+//       color: colors[Math.floor(Math.random() * (colors.length - 1))],
+//     },
+//     {
+//       order: 2,
+//       startLat: 1.3521,
+//       startLng: 103.8198,
+//       endLat: 35.6762,
+//       endLng: 139.6503,
+//       arcAlt: 0.2,
+//       color: colors[Math.floor(Math.random() * (colors.length - 1))],
+//     },
+//     {
+//       order: 2,
+//       startLat: 51.5072,
+//       startLng: -0.1276,
+//       endLat: 3.139,
+//       endLng: 101.6869,
+//       arcAlt: 0.3,
+//       color: colors[Math.floor(Math.random() * (colors.length - 1))],
+//     },
+//     {
+//       order: 2,
+//       startLat: -15.785493,
+//       startLng: -47.909029,
+//       endLat: 36.162809,
+//       endLng: -115.119411,
+//       arcAlt: 0.3,
+//       color: colors[Math.floor(Math.random() * (colors.length - 1))],
+//     },
+//     {
+//       order: 3,
+//       startLat: -33.8688,
+//       startLng: 151.2093,
+//       endLat: 22.3193,
+//       endLng: 114.1694,
+//       arcAlt: 0.3,
+//       color: colors[Math.floor(Math.random() * (colors.length - 1))],
+//     },
+//     {
+//       order: 3,
+//       startLat: 21.3099,
+//       startLng: -157.8581,
+//       endLat: 40.7128,
+//       endLng: -74.006,
+//       arcAlt: 0.3,
+//       color: colors[Math.floor(Math.random() * (colors.length - 1))],
+//     },
+//     {
+//       order: 3,
+//       startLat: -6.2088,
+//       startLng: 106.8456,
+//       endLat: 51.5072,
+//       endLng: -0.1276,
+//       arcAlt: 0.3,
+//       color: colors[Math.floor(Math.random() * (colors.length - 1))],
+//     },
+//     {
+//       order: 4,
+//       startLat: 11.986597,
+//       startLng: 8.571831,
+//       endLat: -15.595412,
+//       endLng: -56.05918,
+//       arcAlt: 0.5,
+//       color: colors[Math.floor(Math.random() * (colors.length - 1))],
+//     },
+//     {
+//       order: 4,
+//       startLat: -34.6037,
+//       startLng: -58.3816,
+//       endLat: 22.3193,
+//       endLng: 114.1694,
+//       arcAlt: 0.7,
+//       color: colors[Math.floor(Math.random() * (colors.length - 1))],
+//     },
+//     {
+//       order: 4,
+//       startLat: 51.5072,
+//       startLng: -0.1276,
+//       endLat: 48.8566,
+//       endLng: -2.3522,
+//       arcAlt: 0.1,
+//       color: colors[Math.floor(Math.random() * (colors.length - 1))],
+//     },
+//     {
+//       order: 5,
+//       startLat: 14.5995,
+//       startLng: 120.9842,
+//       endLat: 51.5072,
+//       endLng: -0.1276,
+//       arcAlt: 0.3,
+//       color: colors[Math.floor(Math.random() * (colors.length - 1))],
+//     },
+//     {
+//       order: 5,
+//       startLat: 1.3521,
+//       startLng: 103.8198,
+//       endLat: -33.8688,
+//       endLng: 151.2093,
+//       arcAlt: 0.2,
+//       color: colors[Math.floor(Math.random() * (colors.length - 1))],
+//     },
+//     {
+//       order: 5,
+//       startLat: 34.0522,
+//       startLng: -118.2437,
+//       endLat: 48.8566,
+//       endLng: -2.3522,
+//       arcAlt: 0.2,
+//       color: colors[Math.floor(Math.random() * (colors.length - 1))],
+//     },
+//     {
+//       order: 6,
+//       startLat: -15.432563,
+//       startLng: 28.315853,
+//       endLat: 1.094136,
+//       endLng: -63.34546,
+//       arcAlt: 0.7,
+//       color: colors[Math.floor(Math.random() * (colors.length - 1))],
+//     },
+//     {
+//       order: 6,
+//       startLat: 37.5665,
+//       startLng: 126.978,
+//       endLat: 35.6762,
+//       endLng: 139.6503,
+//       arcAlt: 0.1,
+//       color: colors[Math.floor(Math.random() * (colors.length - 1))],
+//     },
+//     {
+//       order: 6,
+//       startLat: 22.3193,
+//       startLng: 114.1694,
+//       endLat: 51.5072,
+//       endLng: -0.1276,
+//       arcAlt: 0.3,
+//       color: colors[Math.floor(Math.random() * (colors.length - 1))],
+//     },
+//     {
+//       order: 7,
+//       startLat: -19.885592,
+//       startLng: -43.951191,
+//       endLat: -15.595412,
+//       endLng: -56.05918,
+//       arcAlt: 0.1,
+//       color: colors[Math.floor(Math.random() * (colors.length - 1))],
+//     },
+//     {
+//       order: 7,
+//       startLat: 48.8566,
+//       startLng: -2.3522,
+//       endLat: 52.52,
+//       endLng: 13.405,
+//       arcAlt: 0.1,
+//       color: colors[Math.floor(Math.random() * (colors.length - 1))],
+//     },
+//     {
+//       order: 7,
+//       startLat: 52.52,
+//       startLng: 13.405,
+//       endLat: 34.0522,
+//       endLng: -118.2437,
+//       arcAlt: 0.2,
+//       color: colors[Math.floor(Math.random() * (colors.length - 1))],
+//     },
+//     {
+//       order: 8,
+//       startLat: -8.833221,
+//       startLng: 13.264837,
+//       endLat: -33.936138,
+//       endLng: 18.436529,
+//       arcAlt: 0.2,
+//       color: colors[Math.floor(Math.random() * (colors.length - 1))],
+//     },
+//     {
+//       order: 8,
+//       startLat: 49.2827,
+//       startLng: -123.1207,
+//       endLat: 52.3676,
+//       endLng: 4.9041,
+//       arcAlt: 0.2,
+//       color: colors[Math.floor(Math.random() * (colors.length - 1))],
+//     },
+//     {
+//       order: 8,
+//       startLat: 1.3521,
+//       startLng: 103.8198,
+//       endLat: 40.7128,
+//       endLng: -74.006,
+//       arcAlt: 0.5,
+//       color: colors[Math.floor(Math.random() * (colors.length - 1))],
+//     },
+//     {
+//       order: 9,
+//       startLat: 51.5072,
+//       startLng: -0.1276,
+//       endLat: 34.0522,
+//       endLng: -118.2437,
+//       arcAlt: 0.2,
+//       color: colors[Math.floor(Math.random() * (colors.length - 1))],
+//     },
+//     {
+//       order: 9,
+//       startLat: 22.3193,
+//       startLng: 114.1694,
+//       endLat: -22.9068,
+//       endLng: -43.1729,
+//       arcAlt: 0.7,
+//       color: colors[Math.floor(Math.random() * (colors.length - 1))],
+//     },
+//     {
+//       order: 9,
+//       startLat: 1.3521,
+//       startLng: 103.8198,
+//       endLat: -34.6037,
+//       endLng: -58.3816,
+//       arcAlt: 0.5,
+//       color: colors[Math.floor(Math.random() * (colors.length - 1))],
+//     },
+//     {
+//       order: 10,
+//       startLat: -22.9068,
+//       startLng: -43.1729,
+//       endLat: 28.6139,
+//       endLng: 77.209,
+//       arcAlt: 0.7,
+//       color: colors[Math.floor(Math.random() * (colors.length - 1))],
+//     },
+//     {
+//       order: 10,
+//       startLat: 34.0522,
+//       startLng: -118.2437,
+//       endLat: 31.2304,
+//       endLng: 121.4737,
+//       arcAlt: 0.3,
+//       color: colors[Math.floor(Math.random() * (colors.length - 1))],
+//     },
+//     {
+//       order: 10,
+//       startLat: -6.2088,
+//       startLng: 106.8456,
+//       endLat: 52.3676,
+//       endLng: 4.9041,
+//       arcAlt: 0.3,
+//       color: colors[Math.floor(Math.random() * (colors.length - 1))],
+//     },
+//     {
+//       order: 11,
+//       startLat: 41.9028,
+//       startLng: 12.4964,
+//       endLat: 34.0522,
+//       endLng: -118.2437,
+//       arcAlt: 0.2,
+//       color: colors[Math.floor(Math.random() * (colors.length - 1))],
+//     },
+//     {
+//       order: 11,
+//       startLat: -6.2088,
+//       startLng: 106.8456,
+//       endLat: 31.2304,
+//       endLng: 121.4737,
+//       arcAlt: 0.2,
+//       color: colors[Math.floor(Math.random() * (colors.length - 1))],
+//     },
+//     {
+//       order: 11,
+//       startLat: 22.3193,
+//       startLng: 114.1694,
+//       endLat: 1.3521,
+//       endLng: 103.8198,
+//       arcAlt: 0.2,
+//       color: colors[Math.floor(Math.random() * (colors.length - 1))],
+//     },
+//     {
+//       order: 12,
+//       startLat: 34.0522,
+//       startLng: -118.2437,
+//       endLat: 37.7749,
+//       endLng: -122.4194,
+//       arcAlt: 0.1,
+//       color: colors[Math.floor(Math.random() * (colors.length - 1))],
+//     },
+//     {
+//       order: 12,
+//       startLat: 35.6762,
+//       startLng: 139.6503,
+//       endLat: 22.3193,
+//       endLng: 114.1694,
+//       arcAlt: 0.2,
+//       color: colors[Math.floor(Math.random() * (colors.length - 1))],
+//     },
+//     {
+//       order: 12,
+//       startLat: 22.3193,
+//       startLng: 114.1694,
+//       endLat: 34.0522,
+//       endLng: -118.2437,
+//       arcAlt: 0.3,
+//       color: colors[Math.floor(Math.random() * (colors.length - 1))],
+//     },
+//     {
+//       order: 13,
+//       startLat: 52.52,
+//       startLng: 13.405,
+//       endLat: 22.3193,
+//       endLng: 114.1694,
+//       arcAlt: 0.3,
+//       color: colors[Math.floor(Math.random() * (colors.length - 1))],
+//     },
+//     {
+//       order: 13,
+//       startLat: 11.986597,
+//       startLng: 8.571831,
+//       endLat: 35.6762,
+//       endLng: 139.6503,
+//       arcAlt: 0.3,
+//       color: colors[Math.floor(Math.random() * (colors.length - 1))],
+//     },
+//     {
+//       order: 13,
+//       startLat: -22.9068,
+//       startLng: -43.1729,
+//       endLat: -34.6037,
+//       endLng: -58.3816,
+//       arcAlt: 0.1,
+//       color: colors[Math.floor(Math.random() * (colors.length - 1))],
+//     },
+//     {
+//       order: 14,
+//       startLat: -33.936138,
+//       startLng: 18.436529,
+//       endLat: 21.395643,
+//       endLng: 39.883798,
+//       arcAlt: 0.3,
+//       color: colors[Math.floor(Math.random() * (colors.length - 1))],
+//     },
+//   ];
+
+//   return (
+//     <div 
+//       className="flex rounded-tl-[100px] max-sm:rounded-tl-[50px] flex-row items-center justify-center  lg:h-screen max-sm:h-[300px] md:h-auto  relative w-full"
+    
+//     >
+//       <div className="max-w-7xl mx-auto w-full relative overflow-hidden h-full md:h-[40rem] max-sm:h-[250px] px-4 max-sm:px-2">
+//         <motion.div
+//           initial={{
+//             opacity: 0,
+//             y: 20,
+//           }}
+//           animate={{
+//             opacity: 1,
+//             y: 0,
+//           }}
+//           transition={{
+//             duration: 1,
+//           }}
+//           className="div"
+//         >
+//         </motion.div>
+//         <div className="absolute w-full bottom-0 inset-x-0 h-40 max-sm:h-20 bg-gradient-to-b pointer-events-none select-none from-transparent dark:to-black to-white z-40" />
+//         <div className="absolute w-full -bottom-20 max-sm:-bottom-10 h-72 max-sm:h-48 md:h-full z-10">
+//           <World data={sampleArcs} globeConfig={globeConfig} />
+//         </div>
+//       </div>
+//     </div>
+//   );
+// }
+
+
+
+
+
+
+// "use client";
+// import React from "react";
+// import { motion } from "motion/react";
+// import dynamic from "next/dynamic";
+
+// const World = dynamic(() => import("./ui/Glob").then((m) => m.World), {
+//   ssr: false,
+// });
+
+// export function GlobeDemo() {
+//   const globeConfig = {
+//     pointSize: 4,
+//     globeColor: "#062056",
+//     showAtmosphere: true,
+//     atmosphereColor: "#FFFFFF",
+//     atmosphereAltitude: 0.1,
+//     emissive: "#062056",
+//     emissiveIntensity: 0.1,
+//     shininess: 0.9,
+//     polygonColor: "rgba(255,255,255,0.7)",
+//     ambientLight: "#38bdf8",
+//     directionalLeftLight: "#ffffff",
+//     directionalTopLight: "#ffffff",
+//     pointLight: "#ffffff",
+//     arcTime: 1000,
+//     arcLength: 0.9,
+//     rings: 1,
+//     maxRings: 3,
+//     initialPosition: { lat: 22.3193, lng: 114.1694 },
+//     autoRotate: true,
+//     autoRotateSpeed: 0.5,
+//   };
+//   const colors = ["#06b6d4", "#3b82f6", "#6366f1"];
+//   const sampleArcs = [
+//     {
+//       order: 1,
+//       startLat: -19.885592,
+//       startLng: -43.951191,
+//       endLat: -22.9068,
+//       endLng: -43.1729,
+//       arcAlt: 0.1,
+//       color: colors[Math.floor(Math.random() * (colors.length - 1))],
+//     },
+//     {
+//       order: 1,
+//       startLat: 28.6139,
+//       startLng: 77.209,
+//       endLat: 3.139,
+//       endLng: 101.6869,
+//       arcAlt: 0.2,
+//       color: colors[Math.floor(Math.random() * (colors.length - 1))],
+//     },
+//     {
+//       order: 1,
+//       startLat: -19.885592,
+//       startLng: -43.951191,
+//       endLat: -1.303396,
+//       endLng: 36.852443,
+//       arcAlt: 0.5,
+//       color: colors[Math.floor(Math.random() * (colors.length - 1))],
+//     },
+//     {
+//       order: 2,
+//       startLat: 1.3521,
+//       startLng: 103.8198,
+//       endLat: 35.6762,
+//       endLng: 139.6503,
+//       arcAlt: 0.2,
+//       color: colors[Math.floor(Math.random() * (colors.length - 1))],
+//     },
+//     {
+//       order: 2,
+//       startLat: 51.5072,
+//       startLng: -0.1276,
+//       endLat: 3.139,
+//       endLng: 101.6869,
+//       arcAlt: 0.3,
+//       color: colors[Math.floor(Math.random() * (colors.length - 1))],
+//     },
+//     {
+//       order: 2,
+//       startLat: -15.785493,
+//       startLng: -47.909029,
+//       endLat: 36.162809,
+//       endLng: -115.119411,
+//       arcAlt: 0.3,
+//       color: colors[Math.floor(Math.random() * (colors.length - 1))],
+//     },
+//     {
+//       order: 3,
+//       startLat: -33.8688,
+//       startLng: 151.2093,
+//       endLat: 22.3193,
+//       endLng: 114.1694,
+//       arcAlt: 0.3,
+//       color: colors[Math.floor(Math.random() * (colors.length - 1))],
+//     },
+//     {
+//       order: 3,
+//       startLat: 21.3099,
+//       startLng: -157.8581,
+//       endLat: 40.7128,
+//       endLng: -74.006,
+//       arcAlt: 0.3,
+//       color: colors[Math.floor(Math.random() * (colors.length - 1))],
+//     },
+//     {
+//       order: 3,
+//       startLat: -6.2088,
+//       startLng: 106.8456,
+//       endLat: 51.5072,
+//       endLng: -0.1276,
+//       arcAlt: 0.3,
+//       color: colors[Math.floor(Math.random() * (colors.length - 1))],
+//     },
+//     {
+//       order: 4,
+//       startLat: 11.986597,
+//       startLng: 8.571831,
+//       endLat: -15.595412,
+//       endLng: -56.05918,
+//       arcAlt: 0.5,
+//       color: colors[Math.floor(Math.random() * (colors.length - 1))],
+//     },
+//     {
+//       order: 4,
+//       startLat: -34.6037,
+//       startLng: -58.3816,
+//       endLat: 22.3193,
+//       endLng: 114.1694,
+//       arcAlt: 0.7,
+//       color: colors[Math.floor(Math.random() * (colors.length - 1))],
+//     },
+//     {
+//       order: 4,
+//       startLat: 51.5072,
+//       startLng: -0.1276,
+//       endLat: 48.8566,
+//       endLng: -2.3522,
+//       arcAlt: 0.1,
+//       color: colors[Math.floor(Math.random() * (colors.length - 1))],
+//     },
+//     {
+//       order: 5,
+//       startLat: 14.5995,
+//       startLng: 120.9842,
+//       endLat: 51.5072,
+//       endLng: -0.1276,
+//       arcAlt: 0.3,
+//       color: colors[Math.floor(Math.random() * (colors.length - 1))],
+//     },
+//     {
+//       order: 5,
+//       startLat: 1.3521,
+//       startLng: 103.8198,
+//       endLat: -33.8688,
+//       endLng: 151.2093,
+//       arcAlt: 0.2,
+//       color: colors[Math.floor(Math.random() * (colors.length - 1))],
+//     },
+//     {
+//       order: 5,
+//       startLat: 34.0522,
+//       startLng: -118.2437,
+//       endLat: 48.8566,
+//       endLng: -2.3522,
+//       arcAlt: 0.2,
+//       color: colors[Math.floor(Math.random() * (colors.length - 1))],
+//     },
+//     {
+//       order: 6,
+//       startLat: -15.432563,
+//       startLng: 28.315853,
+//       endLat: 1.094136,
+//       endLng: -63.34546,
+//       arcAlt: 0.7,
+//       color: colors[Math.floor(Math.random() * (colors.length - 1))],
+//     },
+//     {
+//       order: 6,
+//       startLat: 37.5665,
+//       startLng: 126.978,
+//       endLat: 35.6762,
+//       endLng: 139.6503,
+//       arcAlt: 0.1,
+//       color: colors[Math.floor(Math.random() * (colors.length - 1))],
+//     },
+//     {
+//       order: 6,
+//       startLat: 22.3193,
+//       startLng: 114.1694,
+//       endLat: 51.5072,
+//       endLng: -0.1276,
+//       arcAlt: 0.3,
+//       color: colors[Math.floor(Math.random() * (colors.length - 1))],
+//     },
+//     {
+//       order: 7,
+//       startLat: -19.885592,
+//       startLng: -43.951191,
+//       endLat: -15.595412,
+//       endLng: -56.05918,
+//       arcAlt: 0.1,
+//       color: colors[Math.floor(Math.random() * (colors.length - 1))],
+//     },
+//     {
+//       order: 7,
+//       startLat: 48.8566,
+//       startLng: -2.3522,
+//       endLat: 52.52,
+//       endLng: 13.405,
+//       arcAlt: 0.1,
+//       color: colors[Math.floor(Math.random() * (colors.length - 1))],
+//     },
+//     {
+//       order: 7,
+//       startLat: 52.52,
+//       startLng: 13.405,
+//       endLat: 34.0522,
+//       endLng: -118.2437,
+//       arcAlt: 0.2,
+//       color: colors[Math.floor(Math.random() * (colors.length - 1))],
+//     },
+//     {
+//       order: 8,
+//       startLat: -8.833221,
+//       startLng: 13.264837,
+//       endLat: -33.936138,
+//       endLng: 18.436529,
+//       arcAlt: 0.2,
+//       color: colors[Math.floor(Math.random() * (colors.length - 1))],
+//     },
+//     {
+//       order: 8,
+//       startLat: 49.2827,
+//       startLng: -123.1207,
+//       endLat: 52.3676,
+//       endLng: 4.9041,
+//       arcAlt: 0.2,
+//       color: colors[Math.floor(Math.random() * (colors.length - 1))],
+//     },
+//     {
+//       order: 8,
+//       startLat: 1.3521,
+//       startLng: 103.8198,
+//       endLat: 40.7128,
+//       endLng: -74.006,
+//       arcAlt: 0.5,
+//       color: colors[Math.floor(Math.random() * (colors.length - 1))],
+//     },
+//     {
+//       order: 9,
+//       startLat: 51.5072,
+//       startLng: -0.1276,
+//       endLat: 34.0522,
+//       endLng: -118.2437,
+//       arcAlt: 0.2,
+//       color: colors[Math.floor(Math.random() * (colors.length - 1))],
+//     },
+//     {
+//       order: 9,
+//       startLat: 22.3193,
+//       startLng: 114.1694,
+//       endLat: -22.9068,
+//       endLng: -43.1729,
+//       arcAlt: 0.7,
+//       color: colors[Math.floor(Math.random() * (colors.length - 1))],
+//     },
+//     {
+//       order: 9,
+//       startLat: 1.3521,
+//       startLng: 103.8198,
+//       endLat: -34.6037,
+//       endLng: -58.3816,
+//       arcAlt: 0.5,
+//       color: colors[Math.floor(Math.random() * (colors.length - 1))],
+//     },
+//     {
+//       order: 10,
+//       startLat: -22.9068,
+//       startLng: -43.1729,
+//       endLat: 28.6139,
+//       endLng: 77.209,
+//       arcAlt: 0.7,
+//       color: colors[Math.floor(Math.random() * (colors.length - 1))],
+//     },
+//     {
+//       order: 10,
+//       startLat: 34.0522,
+//       startLng: -118.2437,
+//       endLat: 31.2304,
+//       endLng: 121.4737,
+//       arcAlt: 0.3,
+//       color: colors[Math.floor(Math.random() * (colors.length - 1))],
+//     },
+//     {
+//       order: 10,
+//       startLat: -6.2088,
+//       startLng: 106.8456,
+//       endLat: 52.3676,
+//       endLng: 4.9041,
+//       arcAlt: 0.3,
+//       color: colors[Math.floor(Math.random() * (colors.length - 1))],
+//     },
+//     {
+//       order: 11,
+//       startLat: 41.9028,
+//       startLng: 12.4964,
+//       endLat: 34.0522,
+//       endLng: -118.2437,
+//       arcAlt: 0.2,
+//       color: colors[Math.floor(Math.random() * (colors.length - 1))],
+//     },
+//     {
+//       order: 11,
+//       startLat: -6.2088,
+//       startLng: 106.8456,
+//       endLat: 31.2304,
+//       endLng: 121.4737,
+//       arcAlt: 0.2,
+//       color: colors[Math.floor(Math.random() * (colors.length - 1))],
+//     },
+//     {
+//       order: 11,
+//       startLat: 22.3193,
+//       startLng: 114.1694,
+//       endLat: 1.3521,
+//       endLng: 103.8198,
+//       arcAlt: 0.2,
+//       color: colors[Math.floor(Math.random() * (colors.length - 1))],
+//     },
+//     {
+//       order: 12,
+//       startLat: 34.0522,
+//       startLng: -118.2437,
+//       endLat: 37.7749,
+//       endLng: -122.4194,
+//       arcAlt: 0.1,
+//       color: colors[Math.floor(Math.random() * (colors.length - 1))],
+//     },
+//     {
+//       order: 12,
+//       startLat: 35.6762,
+//       startLng: 139.6503,
+//       endLat: 22.3193,
+//       endLng: 114.1694,
+//       arcAlt: 0.2,
+//       color: colors[Math.floor(Math.random() * (colors.length - 1))],
+//     },
+//     {
+//       order: 12,
+//       startLat: 22.3193,
+//       startLng: 114.1694,
+//       endLat: 34.0522,
+//       endLng: -118.2437,
+//       arcAlt: 0.3,
+//       color: colors[Math.floor(Math.random() * (colors.length - 1))],
+//     },
+//     {
+//       order: 13,
+//       startLat: 52.52,
+//       startLng: 13.405,
+//       endLat: 22.3193,
+//       endLng: 114.1694,
+//       arcAlt: 0.3,
+//       color: colors[Math.floor(Math.random() * (colors.length - 1))],
+//     },
+//     {
+//       order: 13,
+//       startLat: 11.986597,
+//       startLng: 8.571831,
+//       endLat: 35.6762,
+//       endLng: 139.6503,
+//       arcAlt: 0.3,
+//       color: colors[Math.floor(Math.random() * (colors.length - 1))],
+//     },
+//     {
+//       order: 13,
+//       startLat: -22.9068,
+//       startLng: -43.1729,
+//       endLat: -34.6037,
+//       endLng: -58.3816,
+//       arcAlt: 0.1,
+//       color: colors[Math.floor(Math.random() * (colors.length - 1))],
+//     },
+//     {
+//       order: 14,
+//       startLat: -33.936138,
+//       startLng: 18.436529,
+//       endLat: 21.395643,
+//       endLng: 39.883798,
+//       arcAlt: 0.3,
+//       color: colors[Math.floor(Math.random() * (colors.length - 1))],
+//     },
+//   ];
+
+//   return (
+//     <div 
+//       className="flex rounded-tl-[100px] max-sm:rounded-tl-[50px] flex-row items-center justify-center max-sm:h-[150px] max-sm:w-[150px] md:h-auto relative w-full"
+//     >
+//       <div className="max-w-7xl mx-auto w-full relative overflow-hidden h-full md:h-[40rem] max-sm:h-[150px] max-sm:w-[150px] px-4 max-sm:px-2">
+//         <motion.div
+//           initial={{
+//             opacity: 0,
+//             y: 20,
+//           }}
+//           animate={{
+//             opacity: 1,
+//             y: 0,
+//           }}
+//           transition={{
+//             duration: 1,
+//           }}
+//           className="div"
+//         >
+//         </motion.div>
+//         <div className="absolute w-full bottom-0 inset-x-0 h-40 max-sm:hidden bg-gradient-to-b pointer-events-none select-none from-transparent dark:to-black to-white z-40" />
+//         <div className="absolute w-full -bottom-20 max-sm:-bottom-0 h-72 max-sm:h-[150px] md:h-full  z-10">
+//           <World data={sampleArcs} globeConfig={globeConfig} />
+//         </div>
+//       </div>
+//     </div>
+//   );
+// }
+
+
+
+
+
+"use client";
+import React from "react";
+import { motion } from "motion/react";
+import dynamic from "next/dynamic";
+
+const World = dynamic(() => import("./ui/Glob").then((m) => m.World), {
+  ssr: false,
+});
+
+export function GlobeDemo() {
+  const globeConfig = {
+    pointSize: 4,
+    globeColor: "#062056",
+    showAtmosphere: true,
+    atmosphereColor: "#FFFFFF",
+    atmosphereAltitude: 0.1,
+    emissive: "#062056",
+    emissiveIntensity: 0.1,
+    shininess: 0.9,
+    polygonColor: "rgba(255,255,255,0.7)",
+    ambientLight: "#38bdf8",
+    directionalLeftLight: "#ffffff",
+    directionalTopLight: "#ffffff",
+    pointLight: "#ffffff",
+    arcTime: 1000,
+    arcLength: 0.9,
+    rings: 1,
+    maxRings: 3,
+    initialPosition: { lat: 22.3193, lng: 114.1694 },
+    autoRotate: true,
+    autoRotateSpeed: 0.5,
+  };
+  const colors = ["#06b6d4", "#3b82f6", "#6366f1"];
+  const sampleArcs = [
+    {
+      order: 1,
+      startLat: -19.885592,
+      startLng: -43.951191,
+      endLat: -22.9068,
+      endLng: -43.1729,
+      arcAlt: 0.1,
+      color: colors[Math.floor(Math.random() * (colors.length - 1))],
+    },
+    {
+      order: 1,
+      startLat: 28.6139,
+      startLng: 77.209,
+      endLat: 3.139,
+      endLng: 101.6869,
+      arcAlt: 0.2,
+      color: colors[Math.floor(Math.random() * (colors.length - 1))],
+    },
+    {
+      order: 1,
+      startLat: -19.885592,
+      startLng: -43.951191,
+      endLat: -1.303396,
+      endLng: 36.852443,
+      arcAlt: 0.5,
+      color: colors[Math.floor(Math.random() * (colors.length - 1))],
+    },
+    {
+      order: 2,
+      startLat: 1.3521,
+      startLng: 103.8198,
+      endLat: 35.6762,
+      endLng: 139.6503,
+      arcAlt: 0.2,
+      color: colors[Math.floor(Math.random() * (colors.length - 1))],
+    },
+    {
+      order: 2,
+      startLat: 51.5072,
+      startLng: -0.1276,
+      endLat: 3.139,
+      endLng: 101.6869,
+      arcAlt: 0.3,
+      color: colors[Math.floor(Math.random() * (colors.length - 1))],
+    },
+    {
+      order: 2,
+      startLat: -15.785493,
+      startLng: -47.909029,
+      endLat: 36.162809,
+      endLng: -115.119411,
+      arcAlt: 0.3,
+      color: colors[Math.floor(Math.random() * (colors.length - 1))],
+    },
+    {
+      order: 3,
+      startLat: -33.8688,
+      startLng: 151.2093,
+      endLat: 22.3193,
+      endLng: 114.1694,
+      arcAlt: 0.3,
+      color: colors[Math.floor(Math.random() * (colors.length - 1))],
+    },
+    {
+      order: 3,
+      startLat: 21.3099,
+      startLng: -157.8581,
+      endLat: 40.7128,
+      endLng: -74.006,
+      arcAlt: 0.3,
+      color: colors[Math.floor(Math.random() * (colors.length - 1))],
+    },
+    {
+      order: 3,
+      startLat: -6.2088,
+      startLng: 106.8456,
+      endLat: 51.5072,
+      endLng: -0.1276,
+      arcAlt: 0.3,
+      color: colors[Math.floor(Math.random() * (colors.length - 1))],
+    },
+    {
+      order: 4,
+      startLat: 11.986597,
+      startLng: 8.571831,
+      endLat: -15.595412,
+      endLng: -56.05918,
+      arcAlt: 0.5,
+      color: colors[Math.floor(Math.random() * (colors.length - 1))],
+    },
+    {
+      order: 4,
+      startLat: -34.6037,
+      startLng: -58.3816,
+      endLat: 22.3193,
+      endLng: 114.1694,
+      arcAlt: 0.7,
+      color: colors[Math.floor(Math.random() * (colors.length - 1))],
+    },
+    {
+      order: 4,
+      startLat: 51.5072,
+      startLng: -0.1276,
+      endLat: 48.8566,
+      endLng: -2.3522,
+      arcAlt: 0.1,
+      color: colors[Math.floor(Math.random() * (colors.length - 1))],
+    },
+    {
+      order: 5,
+      startLat: 14.5995,
+      startLng: 120.9842,
+      endLat: 51.5072,
+      endLng: -0.1276,
+      arcAlt: 0.3,
+      color: colors[Math.floor(Math.random() * (colors.length - 1))],
+    },
+    {
+      order: 5,
+      startLat: 1.3521,
+      startLng: 103.8198,
+      endLat: -33.8688,
+      endLng: 151.2093,
+      arcAlt: 0.2,
+      color: colors[Math.floor(Math.random() * (colors.length - 1))],
+    },
+    {
+      order: 5,
+      startLat: 34.0522,
+      startLng: -118.2437,
+      endLat: 48.8566,
+      endLng: -2.3522,
+      arcAlt: 0.2,
+      color: colors[Math.floor(Math.random() * (colors.length - 1))],
+    },
+    {
+      order: 6,
+      startLat: -15.432563,
+      startLng: 28.315853,
+      endLat: 1.094136,
+      endLng: -63.34546,
+      arcAlt: 0.7,
+      color: colors[Math.floor(Math.random() * (colors.length - 1))],
+    },
+    {
+      order: 6,
+      startLat: 37.5665,
+      startLng: 126.978,
+      endLat: 35.6762,
+      endLng: 139.6503,
+      arcAlt: 0.1,
+      color: colors[Math.floor(Math.random() * (colors.length - 1))],
+    },
+    {
+      order: 6,
+      startLat: 22.3193,
+      startLng: 114.1694,
+      endLat: 51.5072,
+      endLng: -0.1276,
+      arcAlt: 0.3,
+      color: colors[Math.floor(Math.random() * (colors.length - 1))],
+    },
+    {
+      order: 7,
+      startLat: -19.885592,
+      startLng: -43.951191,
+      endLat: -15.595412,
+      endLng: -56.05918,
+      arcAlt: 0.1,
+      color: colors[Math.floor(Math.random() * (colors.length - 1))],
+    },
+    {
+      order: 7,
+      startLat: 48.8566,
+      startLng: -2.3522,
+      endLat: 52.52,
+      endLng: 13.405,
+      arcAlt: 0.1,
+      color: colors[Math.floor(Math.random() * (colors.length - 1))],
+    },
+    {
+      order: 7,
+      startLat: 52.52,
+      startLng: 13.405,
+      endLat: 34.0522,
+      endLng: -118.2437,
+      arcAlt: 0.2,
+      color: colors[Math.floor(Math.random() * (colors.length - 1))],
+    },
+    {
+      order: 8,
+      startLat: -8.833221,
+      startLng: 13.264837,
+      endLat: -33.936138,
+      endLng: 18.436529,
+      arcAlt: 0.2,
+      color: colors[Math.floor(Math.random() * (colors.length - 1))],
+    },
+    {
+      order: 8,
+      startLat: 49.2827,
+      startLng: -123.1207,
+      endLat: 52.3676,
+      endLng: 4.9041,
+      arcAlt: 0.2,
+      color: colors[Math.floor(Math.random() * (colors.length - 1))],
+    },
+    {
+      order: 8,
+      startLat: 1.3521,
+      startLng: 103.8198,
+      endLat: 40.7128,
+      endLng: -74.006,
+      arcAlt: 0.5,
+      color: colors[Math.floor(Math.random() * (colors.length - 1))],
+    },
+    {
+      order: 9,
+      startLat: 51.5072,
+      startLng: -0.1276,
+      endLat: 34.0522,
+      endLng: -118.2437,
+      arcAlt: 0.2,
+      color: colors[Math.floor(Math.random() * (colors.length - 1))],
+    },
+    {
+      order: 9,
+      startLat: 22.3193,
+      startLng: 114.1694,
+      endLat: -22.9068,
+      endLng: -43.1729,
+      arcAlt: 0.7,
+      color: colors[Math.floor(Math.random() * (colors.length - 1))],
+    },
+    {
+      order: 9,
+      startLat: 1.3521,
+      startLng: 103.8198,
+      endLat: -34.6037,
+      endLng: -58.3816,
+      arcAlt: 0.5,
+      color: colors[Math.floor(Math.random() * (colors.length - 1))],
+    },
+    {
+      order: 10,
+      startLat: -22.9068,
+      startLng: -43.1729,
+      endLat: 28.6139,
+      endLng: 77.209,
+      arcAlt: 0.7,
+      color: colors[Math.floor(Math.random() * (colors.length - 1))],
+    },
+    {
+      order: 10,
+      startLat: 34.0522,
+      startLng: -118.2437,
+      endLat: 31.2304,
+      endLng: 121.4737,
+      arcAlt: 0.3,
+      color: colors[Math.floor(Math.random() * (colors.length - 1))],
+    },
+    {
+      order: 10,
+      startLat: -6.2088,
+      startLng: 106.8456,
+      endLat: 52.3676,
+      endLng: 4.9041,
+      arcAlt: 0.3,
+      color: colors[Math.floor(Math.random() * (colors.length - 1))],
+    },
+    {
+      order: 11,
+      startLat: 41.9028,
+      startLng: 12.4964,
+      endLat: 34.0522,
+      endLng: -118.2437,
+      arcAlt: 0.2,
+      color: colors[Math.floor(Math.random() * (colors.length - 1))],
+    },
+    {
+      order: 11,
+      startLat: -6.2088,
+      startLng: 106.8456,
+      endLat: 31.2304,
+      endLng: 121.4737,
+      arcAlt: 0.2,
+      color: colors[Math.floor(Math.random() * (colors.length - 1))],
+    },
+    {
+      order: 11,
+      startLat: 22.3193,
+      startLng: 114.1694,
+      endLat: 1.3521,
+      endLng: 103.8198,
+      arcAlt: 0.2,
+      color: colors[Math.floor(Math.random() * (colors.length - 1))],
+    },
+    {
+      order: 12,
+      startLat: 34.0522,
+      startLng: -118.2437,
+      endLat: 37.7749,
+      endLng: -122.4194,
+      arcAlt: 0.1,
+      color: colors[Math.floor(Math.random() * (colors.length - 1))],
+    },
+    {
+      order: 12,
+      startLat: 35.6762,
+      startLng: 139.6503,
+      endLat: 22.3193,
+      endLng: 114.1694,
+      arcAlt: 0.2,
+      color: colors[Math.floor(Math.random() * (colors.length - 1))],
+    },
+    {
+      order: 12,
+      startLat: 22.3193,
+      startLng: 114.1694,
+      endLat: 34.0522,
+      endLng: -118.2437,
+      arcAlt: 0.3,
+      color: colors[Math.floor(Math.random() * (colors.length - 1))],
+    },
+    {
+      order: 13,
+      startLat: 52.52,
+      startLng: 13.405,
+      endLat: 22.3193,
+      endLng: 114.1694,
+      arcAlt: 0.3,
+      color: colors[Math.floor(Math.random() * (colors.length - 1))],
+    },
+    {
+      order: 13,
+      startLat: 11.986597,
+      startLng: 8.571831,
+      endLat: 35.6762,
+      endLng: 139.6503,
+      arcAlt: 0.3,
+      color: colors[Math.floor(Math.random() * (colors.length - 1))],
+    },
+    {
+      order: 13,
+      startLat: -22.9068,
+      startLng: -43.1729,
+      endLat: -34.6037,
+      endLng: -58.3816,
+      arcAlt: 0.1,
+      color: colors[Math.floor(Math.random() * (colors.length - 1))],
+    },
+    {
+      order: 14,
+      startLat: -33.936138,
+      startLng: 18.436529,
+      endLat: 21.395643,
+      endLng: 39.883798,
+      arcAlt: 0.3,
+      color: colors[Math.floor(Math.random() * (colors.length - 1))],
+    },
+  ];
+
   return (
-    <div className='h-[300px]'>
-      <h1>Hello</h1>
+    <div className="flex rounded-tl-[100px] max-sm:rounded-tl-[50px] flex-row items-center justify-center w-full h-full relative overflow-hidden">
+      <div className="max-w-7xl mx-auto w-full relative overflow-hidden h-full md:h-[40rem] px-4 max-sm:px-0">
+        <motion.div
+          initial={{
+            opacity: 0,
+            y: 20,
+          }}
+          animate={{
+            opacity: 1,
+            y: 0,
+          }}
+          transition={{
+            duration: 1,
+          }}
+          className="div"
+        >
+        </motion.div>
+        <div className="absolute w-full bottom-0 inset-x-0 h-40 max-sm:hidden bg-gradient-to-b pointer-events-none select-none from-transparent dark:to-black to-white z-40" />
+        <div className="absolute w-full h-full z-10 max-sm:scale-110">
+          <World data={sampleArcs} globeConfig={globeConfig} />
+        </div>
+      </div>
     </div>
-  )
+  );
 }
-
-export default ProductShow
-
-
-
-
-

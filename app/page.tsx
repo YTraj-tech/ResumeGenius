@@ -9,10 +9,8 @@ import HeroSection from "@/components/Herosection";
 import BasicFretures from "@/components/Basic_fretures";
 import MegaShow from "@/components/Mega_show";
 import UrlUpload from "@/components/Urlupload";
-import ProductShow from "@/components/Product_show";
-
-
-
+import ResumeShow from "@/components/ui/Resume_show";
+import WorldAcces from "@/components/World_acces";
 export default function Home() {
   const router = useRouter();
     const [showContent, setShowContent] = useState(false);
@@ -40,7 +38,10 @@ export default function Home() {
       <HeroSection/>
       <BasicFretures/>
       <MegaShow/>
-      <ProductShow/>
+      <WorldAcces/>
+      <ResumeShow/>
+   
+    
 
      
     

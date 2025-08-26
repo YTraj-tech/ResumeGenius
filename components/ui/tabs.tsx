@@ -1,8 +1,13 @@
 "use client";
-
 import { useState } from "react";
 import { motion } from "motion/react";
+import { Cabin } from "next/font/google";
 import { cn } from "@/lib/utils";
+
+const ca = Cabin({
+  subsets: ["latin"],
+  weight: ["400"]
+});
 
 type Tab = {
   title: string;
@@ -62,13 +67,20 @@ export const Tabs = ({
                 layoutId="clickedbutton"
                 transition={{ type: "spring", bounce: 0.3, duration: 0.6 }}
                 className={cn(
-                  "absolute inset-0 bg-gray-200 dark:bg-zinc-800 rounded-full ",
+                  "absolute inset-0 underline-offset-2 dark:bg-zinc-800 rounded-full ",
                   activeTabClassName
                 )}
               />
             )}
 
-            <span className="relative block  lg:text-3xl  text-white dark:text-white">
+            <span
+              className={cn(
+                `relative block text-lg ${ca.className} lg:text-3xl  transition-opacity duration-300`,
+                active.value === tab.value
+                  ? "text-white opacity-100 font-semibold"
+                  : "text-gray-400 opacity-60 hover:opacity-80"
+              )}
+            >
               {tab.title}
             </span>
           </button>
@@ -79,7 +91,7 @@ export const Tabs = ({
         active={active}
         key={active.value}
         hovering={hovering}
-        className={cn("mt-[25px] lg:mt-32", contentClassName)}
+        className={cn("mt-[25px] lg:mt-[50px]", contentClassName)}
       />
     </>
   );
@@ -99,6 +111,7 @@ export const FadeInDiv = ({
   const isActive = (tab: Tab) => {
     return tab.value === tabs[0].value;
   };
+
   return (
     <div className="relative w-full h-full">
       {tabs.map((tab, idx) => (
