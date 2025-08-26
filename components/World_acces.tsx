@@ -527,7 +527,7 @@ const WorldAcces = () => {
                 }}
             >
                 <div className="flex flex-col lg:flex-row h-full">
-                    <div className="w-full lg:w-1/2 lg:mt-[-30px] p-8">
+                    <div className="w-full lg:w-1/2  p-8">
                         <GlobeDemo />
                     </div>
                     {/* Text content occupying remaining space */}
