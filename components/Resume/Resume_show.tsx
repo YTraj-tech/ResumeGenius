@@ -24,7 +24,7 @@ const ResumeShow = () => {
 
     return (
         <div
-            className='h-[650px] mb-[200px] pt-[120px] mt-[150px] sm:mt-[100px] md:mt-[120px] lg:mt-[100px]  lg:mx-[100px] xl:mx-[200px] 2xl:mx-[250px] border-2 border-gray-300 rounded-tr-[150px] flex flex-col md:flex-row items-center justify-center px-9 sm:px-6 md:px-8 lg:px-12 py-8 sm:py-12 md:py-16'
+            className='h-[700px] mb-[200px] pt-[120px] mt-[150px] sm:mt-[100px] md:mt-[120px] lg:mt-[100px]  lg:mx-[100px] xl:mx-[200px] 2xl:mx-[250px] border-2 border-gray-300 rounded-tr-[150px] flex flex-col md:flex-row items-center justify-center px-9 sm:px-6 md:px-8 lg:px-12 py-8 sm:py-12 md:py-16'
             style={{ background: "linear-gradient(to bottom left, #ffffff, #ffffff, #ffffff)" }}
         >
             <div className="w-full lg:mt-[-20px]  md:w-1/2 mb-8 md:mb-0 md:pr-8 lg:pr-12">
