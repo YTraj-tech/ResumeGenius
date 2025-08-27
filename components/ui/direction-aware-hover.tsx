@@ -76,7 +76,7 @@ export const DirectionAwareHover = ({
                     whileHover={direction}
                     exit="exit"
                 >
-                    <motion.div className="group-hover/card:block   border-2 border-gray-300 hidden absolute inset-0 w-full h-full bg-black/40 z-10 transition duration-500" />
+                    <motion.div className="group-hover/card:block   border-0 border-gray-200 hidden absolute inset-0 w-full h-full bg-black/40 z-10 transition duration-500" />
                     <motion.div
                         variants={variants}
                         className="h-full w-full   relative bg-gray-50 dark:bg-black overflow-hidden"
@@ -88,10 +88,10 @@ export const DirectionAwareHover = ({
                         <img
                             alt="image"
                             className={cn(
-                                "h-full object-cover", // Changed to cover the container
+                                "h-full  lg:border-2 border-gray-400  w-full object-cover", // Changed to cover the container
                                 imageClassName
                             )}
-                            width="800"
+                            width="1000"
                             height="1000"
                             src={imageUrl}
                         />

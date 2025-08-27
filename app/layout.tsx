@@ -6,8 +6,8 @@
 import type { Metadata } from "next";
 import { ClerkProvider } from "@clerk/nextjs";
 import "./globals.css";
-import NavBar from "@/components/Nav";
 import { syncUser } from "./actions/syncUser";
+import { Nav } from "@/components/Nav";
 // import { mooLahLah, bungee } from "@/lib/fonts";
 
 export const metadata: Metadata = {
@@ -25,7 +25,7 @@ export default async function RootLayout({
     <ClerkProvider>
       <html lang="en">
         <body className={`antialiased`}>
-          <NavBar/>
+          <Nav/>
           {children}
 
         </body>
