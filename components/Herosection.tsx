@@ -1,9 +1,5 @@
-
-
-
-
-
 import React from 'react';
+import Link from 'next/link';
 import { Tinos } from 'next/font/google';
 import { Highlighter } from "@/components/ui/Highlighter"
 import { Merriweather } from "next/font/google"
@@ -75,7 +71,8 @@ const Herosection = () => {
                 </span>
                 <div className="relative flex space-x-2 items-center z-10 rounded-full bg-zinc-950 py-0.5 px-4 ring-1 ring-white/10 ">
                   <span className='lg:text-lg text-xl'>
-                   Click to build
+                    <Link href={"/extract"}> Click to build</Link>
+                  
                   </span>
                   <svg
                     fill="none"

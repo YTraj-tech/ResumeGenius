@@ -67,6 +67,56 @@
 
 
 
+// "use Client"
+
+// import { Suspense } from "react";
+// import { auth } from "@clerk/nextjs/server";
+// import { redirect } from "next/navigation";
+// import ExtraData from "@/components/ExtraData";
+// import UrlUpload from "@/components/Urlupload";
+// import { checkUserResume } from "@/lib/resume-service";
+// import { motion } from "framer-motion";
+// import { HeroHighlight } from "@/components/ui/hero-highlight";
+// import { Highlight } from "@/components/ui/hero-highlight";
+// import TextHilight from "@/components/Text_hilight";
+
+
+
+
+// export default async function ExtractPage() {
+//   const { userId } = await auth();
+
+//   if (!userId) {
+//     redirect("/sign-in");
+//   }
+
+//   // Check if user already has extracted data
+//   const hasResume = await checkUserResume(userId);
+
+//   if (hasResume) {
+//     redirect("/templates");
+//   }
+
+//   return (
+//     <div className="min-h-screen  py-12">
+//       <div className="container mx-auto px-4">
+//         <div className="max-w-2xl mx-auto">
+//            <TextHilight  />       
+           
+//             <div className="bg-white rounded-lg shadow-md p-8 mt-8">
+//             <Suspense fallback={<div>Loading...</div>}>
+//               <UrlUpload userId={userId} />
+//             </Suspense>
+//           </div>
+//         </div>
+//         <ExtraData/>
+//       </div>
+//     </div>
+//   );
+// }
+
+
+
 "use Client"
 
 import { Suspense } from "react";
@@ -74,15 +124,7 @@ import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import UrlUpload from "@/components/Urlupload";
 import { checkUserResume } from "@/lib/resume-service";
-import { motion } from "framer-motion";
-
-
-import { HeroHighlight } from "@/components/ui/hero-highlight";
-import { Highlight } from "@/components/ui/hero-highlight";
 import TextHilight from "@/components/Text_hilight";
-
-
-
 
 export default async function ExtractPage() {
   const { userId } = await auth();
@@ -99,15 +141,17 @@ export default async function ExtractPage() {
   }
 
   return (
-    <div className="min-h-screen  py-12">
-      <div className="container mx-auto px-4">
-        <div className="max-w-2xl mx-auto">
-           <TextHilight  />       
-           
-            <div className="bg-white rounded-lg shadow-md p-8 mt-8">
-            <Suspense fallback={<div>Loading...</div>}>
-              <UrlUpload userId={userId} />
-            </Suspense>
+    <div className="h-screen flex flex-col bg-gradient-to-b from-gray-50 to-gray-100 overflow-hidden">
+      <div className="flex-1 container mx-auto px-4 sm:px-6 lg:px-8 flex flex-col py-4">
+        <div className="max-w-4xl mx-auto w-full flex flex-col gap-3">
+          <TextHilight />
+          <div className="flex flex-col md:flex-row gap-4 h-[80vh]">
+            <div className="bg-white rounded-2xl shadow-xl p-4 sm:p-6 flex-1 max-h-full overflow-y-auto animate-fadeInUp">
+              <Suspense fallback={<div className="text-center text-gray-500">Loading...</div>}>
+                <UrlUpload userId={userId} />
+              </Suspense>
+            </div>
+          
           </div>
         </div>
       </div>
