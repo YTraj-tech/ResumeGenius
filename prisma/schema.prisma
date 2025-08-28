@@ -12,7 +12,7 @@ model User {
   id        String   @id @default(uuid())
   clerkId   String   @unique
   email     String   @unique
-  mobile    String?  // New field - optional
+  mobil     String? // New field - optional
   name      String?
   imageUrl  String?
   createdAt DateTime @default(now())
@@ -30,16 +30,15 @@ model Resume {
   projects       Json
   experience     String[]
   education      String[]
-  achievements   Achievement[] // New relation
-  githubLink     String?
-  linkedinLink   String?
+  achievements   Achievement[]
   templateType   String        @default("technical")
-  createdAt      DateTime      @default(now())
-  updatedAt      DateTime      @updatedAt
-  user           User          @relation(fields: [userId], references: [id])
+
+  githubLink   String?
+  linkedinLink String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  user         User     @relation(fields: [userId], references: [id])
 }
-
-
 
 model Achievement {
   id           String    @id @default(uuid())
@@ -52,6 +51,3 @@ model Achievement {
   updatedAt    DateTime  @updatedAt
   resume       Resume    @relation(fields: [resumeId], references: [id], onDelete: Cascade)
 }
-
-
-

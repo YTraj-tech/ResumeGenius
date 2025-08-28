@@ -6,6 +6,10 @@ export type ResumeProject = {
   link?: string;
 };
 
+
+
+
+
 export type ResumeData = {
   id: string; // Keep as string to match Prisma
   name: string;
@@ -23,3 +27,8 @@ export type ResumeData = {
   userId?: string;
   createdAt?: Date | string;
 };
+
+ export interface ResumePreviewProps {
+  resumeData: ResumeData;
+  templateId: string;
+}

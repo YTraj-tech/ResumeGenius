@@ -1,29 +1,331 @@
-import React from 'react';
-import { ResumeData } from '@/lib/types/resume.type';
+// import ResumeShow from "../Resume/Resume_show";
+// import { ResumeProject } from "@/lib/types/resume.type";
+// import Selection from "../Resume/ResumeFormate";
+// import { ResumeData } from "@/lib/types/resume.type";
 
-export default function TechnicalTemplate({ data }: { data: ResumeData }) {
+
+
+
+
+//    export default  function TechnicalTemplate({ data }: { data: ResumeData }) {
+//   return (
+//     <div className="space-y-6">
+//       <div className="border-l-4 border-blue-500 pl-4">
+//         <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">{data.name}</h1>
+//         <p className="text-gray-600 mt-2">{data.summary}</p>
+//         {(data.linkedinLink || data.githubLink) && (
+//           <div className="flex gap-4 mt-3 text-sm">
+//             {data.linkedinLink && (
+//               <a href={data.linkedinLink} className="text-blue-600 hover:underline">
+//                 LinkedIn
+//               </a>
+//             )}
+//             {data.githubLink && (
+//               <a href={data.githubLink} className="text-gray-600 hover:underline">
+//                 GitHub
+//               </a>
+//             )}
+//           </div>
+//         )}
+//       </div>
+      
+//       <div className="grid md:grid-cols-3 gap-6">
+//         <div className="md:col-span-2 space-y-6">
+//           <Selection title="Experience" items={data.experience} />
+//           <Selection 
+//             title="Projects" 
+//             items={data.projects.map(p => (
+//               <div key={p.name} className="mb-3">
+//                 <h4 className="font-medium">{p.name}</h4>
+//                 <p className="text-gray-700">{p.description}</p>
+//                 {p.technologies && (
+//                   <div className="flex flex-wrap gap-1 mt-1">
+//                     {p.technologies.map(tech => (
+//                       <span key={tech} className="text-xs bg-gray-100 px-2 py-1 rounded">
+//                         {tech}
+//                       </span>
+//                     ))}
+//                   </div>
+//                 )}
+//                 {p.link && (
+//                   <a href={p.link} className="text-blue-600 text-sm hover:underline mt-1 inline-block">
+//                     View Project
+//                   </a>
+//                 )}
+//               </div>
+//             ))} 
+//           />
+//         </div>
+        
+//         <div className="space-y-6">
+//           <Selection 
+//             title="Skills" 
+//             items={[
+//               <div key="skills" className="flex flex-wrap gap-1">
+//                 {data.skills.map(skill => (
+//                   <span key={skill} className="text-xs bg-gray-100 px-2 py-1 rounded">
+//                     {skill}
+//                   </span>
+//                 ))}
+//               </div>
+//             ]} 
+//           />
+//           <Selection title="Education" items={data.education} />
+//           <Selection title="Certifications" items={data.certifications} />
+//         </div>
+//       </div>
+//     </div>
+//   );
+// }
+
+
+// import { ResumeData, ResumeProject } from "@/lib/types/resume.type";
+// import Selection from "../Resume/ResumeFormate";
+
+// // Helper function to transform projects data
+// const transformProjects = (projects: any[]): ResumeProject[] => {
+//   if (!projects || projects.length === 0) return [];
+  
+//   // Check if projects are already in the correct format
+//   if (projects[0] && typeof projects[0] === 'object' && 'name' in projects[0]) {
+//     return projects as ResumeProject[];
+//   }
+  
+//   // Convert from scraped format to ResumeProject format
+//   return projects.map(project => ({
+//     name: project.title || 'Untitled Project',
+//     description: project.subComponents?.[0]?.description?.[0]?.text || '',
+//     technologies: [],
+//     link: undefined
+//   }));
+// };
+
+// export default function TechnicalTemplate({ data }: { data: ResumeData }) {
+//   // Transform projects to the correct format
+//   const formattedProjects = transformProjects(data.projects || []);
+
+//   return (
+//     <div className="space-y-6">
+//       <div className="border-l-4 border-blue-500 pl-4">
+//         <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">{data.name}</h1>
+//         <p className="text-gray-600 mt-2">{data.summary}</p>
+//         {(data.linkedinLink || data.githubLink) && (
+//           <div className="flex gap-4 mt-3 text-sm">
+//             {data.linkedinLink && (
+//               <a href={data.linkedinLink} className="text-blue-600 hover:underline">
+//                 LinkedIn
+//               </a>
+//             )}
+//             {data.githubLink && (
+//               <a href={data.githubLink} className="text-gray-600 hover:underline">
+//                 GitHub
+//               </a>
+//             )}
+//           </div>
+//         )}
+//       </div>
+      
+//       <div className="grid md:grid-cols-3 gap-6">
+//         <div className="md:col-span-2 space-y-6">
+//           {data.experience && data.experience.length > 0 && (
+//             <Selection title="Experience" items={data.experience} />
+//           )}
+          
+//           {formattedProjects.length > 0 && (
+//             <Selection 
+//               title="Projects" 
+//               items={formattedProjects.map(p => (
+//                 <div key={p.name} className="mb-3">
+//                   <h4 className="font-medium">{p.name}</h4>
+//                   {p.description && <p className="text-gray-700">{p.description}</p>}
+//                   {p.technologies && p.technologies.length > 0 && (
+//                     <div className="flex flex-wrap gap-1 mt-1">
+//                       {p.technologies.map(tech => (
+//                         <span key={tech} className="text-xs bg-gray-100 px-2 py-1 rounded">
+//                           {tech}
+//                         </span>
+//                       ))}
+//                     </div>
+//                   )}
+//                   {p.link && (
+//                     <a href={p.link} className="text-blue-600 text-sm hover:underline mt-1 inline-block">
+//                       View Project
+//                     </a>
+//                   )}
+//                 </div>
+//               ))} 
+//             />
+//           )}
+//         </div>
+        
+//         <div className="space-y-6">
+//           {data.skills && data.skills.length > 0 && (
+//             <Selection 
+//               title="Skills" 
+//               items={[
+//                 <div key="skills" className="flex flex-wrap gap-1">
+//                   {data.skills.map(skill => (
+//                     <span key={skill} className="text-xs bg-gray-100 px-2 py-1 rounded">
+//                       {skill}
+//                     </span>
+//                   ))}
+//                 </div>
+//               ]} 
+//             />
+//           )}
+          
+//           {data.education && data.education.length > 0 && (
+//             <Selection title="Education" items={data.education} />
+//           )}
+          
+//           {data.certifications && data.certifications.length > 0 && (
+//             <Selection title="Certifications" items={data.certifications} />
+//           )}
+//         </div>
+//       </div>
+//     </div>
+//   );
+// }
+
+import { ResumeData, ResumeProject } from "@/lib/types/resume.type";
+import Selection from "../Resume/ResumeFormate";
+import Image from "next/image";
+
+// Helper function to transform projects data
+const transformProjects = (projects: any[]): ResumeProject[] => {
+  if (!projects || projects.length === 0) return [];
+  
+  // Check if projects are already in the correct format
+  if (projects[0] && typeof projects[0] === 'object' && 'name' in projects[0]) {
+    return projects as ResumeProject[];
+  }
+  
+  // Convert from scraped format to ResumeProject format
+  return projects.map(project => ({
+    name: project.title || 'Untitled Project',
+    description: project.subComponents?.[0]?.description?.[0]?.text || '',
+    technologies: [],
+    link: undefined
+  }));
+};
+
+interface TechnicalTemplateProps {
+  data: ResumeData;
+  user?: {
+    email: string;
+    imageUrl?: string | null;
+    name?: string | null;
+  };
+}
+
+export default function TechnicalTemplate({ data, user }: TechnicalTemplateProps) {
+  // Transform projects to the correct format
+  const formattedProjects = transformProjects(data.projects || []);
+
   return (
-    <div className="p-6 font-sans">
-      <h1 className="text-3xl font-bold">{data.name}</h1>
-      {data.summary && <p className="mt-2 text-gray-600">{data.summary}</p>}
-
-      <section className="mt-6">
-        <h2 className="text-xl font-semibold">Skills</h2>
-        <ul className="list-disc ml-5">
-          {data.skills.map((skill, i) => (
-            <li key={i}>{skill}</li>
-          ))}
-        </ul>
-      </section>
-
-      <section className="mt-6">
-        <h2 className="text-xl font-semibold">Experience</h2>
-        <ul className="list-disc ml-5">
-          {data.experience.map((exp, i) => (
-            <li key={i}>{exp}</li>
-          ))}
-        </ul>
-      </section>
+    <div className="space-y-6">
+      <div className="border-l-4 border-blue-500 pl-4">
+        {/* User info section */}
+        {user && (
+          <div className="flex items-center gap-4 mb-4">
+            {user.imageUrl && (
+              <Image
+                src={user.imageUrl}
+                alt="Profile"
+                width={60}
+                height={60}
+                className="rounded-full"
+              />
+            )}
+            <div>
+              <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">
+                {user.name || data.name}
+              </h1>
+              <p className="text-gray-600">{user.email}</p>
+            </div>
+          </div>
+        )}
+        
+        {/* Fallback to data.name if no user provided */}
+        {!user && (
+          <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">{data.name}</h1>
+        )}
+        
+        <p className="text-gray-600 mt-2">{data.summary}</p>
+        {(data.linkedinLink || data.githubLink) && (
+          <div className="flex gap-4 mt-3 text-sm">
+            {data.linkedinLink && (
+              <a href={data.linkedinLink} className="text-blue-600 hover:underline">
+                LinkedIn
+              </a>
+            )}
+            {data.githubLink && (
+              <a href={data.githubLink} className="text-gray-600 hover:underline">
+                GitHub
+              </a>
+            )}
+          </div>
+        )}
+      </div>
+      
+      <div className="grid md:grid-cols-3 gap-6">
+        <div className="md:col-span-2 space-y-6">
+          {data.experience && data.experience.length > 0 && (
+            <Selection title="Experience" items={data.experience} />
+          )}
+          
+          {formattedProjects.length > 0 && (
+            <Selection 
+              title="Projects" 
+              items={formattedProjects.map(p => (
+                <div key={p.name} className="mb-3">
+                  <h4 className="font-medium">{p.name}</h4>
+                  {p.description && <p className="text-gray-700">{p.description}</p>}
+                  {p.technologies && p.technologies.length > 0 && (
+                    <div className="flex flex-wrap gap-1 mt-1">
+                      {p.technologies.map(tech => (
+                        <span key={tech} className="text-xs bg-gray-100 px-2 py-1 rounded">
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
+                  )}
+                  {p.link && (
+                    <a href={p.link} className="text-blue-600 text-sm hover:underline mt-1 inline-block">
+                      View Project
+                    </a>
+                  )}
+                </div>
+              ))} 
+            />
+          )}
+        </div>
+        
+        <div className="space-y-6">
+          {data.skills && data.skills.length > 0 && (
+            <Selection 
+              title="Skills" 
+              items={[
+                <div key="skills" className="flex flex-wrap gap-1">
+                  {data.skills.map(skill => (
+                    <span key={skill} className="text-xs bg-gray-100 px-2 py-1 rounded">
+                      {skill}
+                    </span>
+                  ))}
+                </div>
+              ]} 
+            />
+          )}
+          
+          {data.education && data.education.length > 0 && (
+            <Selection title="Education" items={data.education} />
+          )}
+          
+          {data.certifications && data.certifications.length > 0 && (
+            <Selection title="Certifications" items={data.certifications} />
+          )}
+        </div>
+      </div>
     </div>
   );
 }

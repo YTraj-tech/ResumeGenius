@@ -29,6 +29,23 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  // images: {
+  //   remotePatterns: [
+  //     {
+  //       protocol: 'https',
+  //       hostname: 'img.clerk.com',
+  //     },
+  //   ],
+  // },
+
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "img.clerk.com"
+      },
+    ],
+  },
   eslint: {
     // ✅ Don’t fail production builds because of ESLint errors in generated files
     ignoreDuringBuilds: true,
