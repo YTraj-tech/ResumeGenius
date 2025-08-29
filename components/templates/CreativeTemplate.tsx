@@ -128,8 +128,196 @@
 
 
 
+// import { ResumeData, ResumeProject } from "@/lib/types/resume.type";
+// import Image from "next/image";
+
+// // Helper function to transform projects data
+// const transformProjects = (projects: any[]): ResumeProject[] => {
+//   if (!projects || projects.length === 0) return [];
+  
+//   // Check if projects are already in the correct format
+//   if (projects[0] && typeof projects[0] === 'object' && 'name' in projects[0]) {
+//     return projects as ResumeProject[];
+//   }
+  
+//   // Convert from scraped format to ResumeProject format
+//   return projects.map(project => ({
+//     name: project.title || 'Untitled Project',
+//     description: project.subComponents?.[0]?.description?.[0]?.text || '',
+//     technologies: [],
+//     link: undefined
+//   }));
+// };
+
+// interface CreativeTemplateProps {
+//   data: ResumeData;
+//   user?: {
+//     email: string;
+//     imageUrl?: string | null;
+//     name?: string | null;
+//   };
+// }
+
+// export default function CreativeTemplate({ data, user }: CreativeTemplateProps) {
+//   // Transform projects to the correct format
+//   const formattedProjects = transformProjects(data.projects || []);
+
+//   return (
+//     <div className="space-y-6">
+//       <div className="text-center bg-gradient-to-r from-purple-500 to-pink-500 text-white p-6 rounded-lg">
+//         {/* User info section */}
+//         {user && (
+//           <div className="flex flex-col items-center mb-4">
+//             {user.imageUrl && (
+//               <Image
+//                 src={user.imageUrl}
+//                 alt="Profile"
+//                 width={80}
+//                 height={80}
+//                 className="rounded-full mb-3 border-2 border-white"
+//               />
+//             )}
+//             <h1 className="text-2xl sm:text-3xl font-bold">
+//               {user.name || data.name}
+//             </h1>
+//             <p className="opacity-90">{user.email}</p>
+//           </div>
+//         )}
+        
+//         {/* Fallback if no user provided */}
+//         {!user && (
+//           <>
+//             <h1 className="text-2xl sm:text-3xl font-bold">{data.name}</h1>
+//             <p className="opacity-90 mt-2">{data.summary}</p>
+//           </>
+//         )}
+        
+//         {(data.linkedinLink || data.githubLink) && (
+//           <div className="flex justify-center gap-4 mt-4 text-sm">
+//             {data.linkedinLink && (
+//               <a href={data.linkedinLink} className="text-white hover:underline">
+//                 LinkedIn
+//               </a>
+//             )}
+//             {data.githubLink && (
+//               <a href={data.githubLink} className="text-white hover:underline">
+//                 GitHub
+//               </a>
+//             )}
+//           </div>
+//         )}
+//       </div>
+
+//       <div className="grid md:grid-cols-2 gap-8">
+        
+//         <div className="space-y-6">
+//           {/* Experience Section */}
+//           {data.experience && data.experience.length > 0 && (
+//             <div>
+//               <h2 className="text-lg font-semibold text-gray-900 mb-3 border-b border-gray-200 pb-1">
+//                 Experience
+//               </h2>
+//               <div className="space-y-3">
+//                 {data.experience.map((item, index) => (
+//                   <div key={index} className="text-gray-700">
+//                     {item}
+//                   </div>
+//                 ))}
+//               </div>
+//             </div>
+//           )}
+
+//           {/* Projects Section */}
+//           {formattedProjects.length > 0 && (
+//             <div>
+//               <h2 className="text-lg font-semibold text-gray-900 mb-3 border-b border-gray-200 pb-1">
+//                 Projects
+//               </h2>
+//               <div className="space-y-3">
+//                 {formattedProjects.map((p) => (
+//                   <div key={p.name} className="mb-3">
+//                     <h4 className="font-medium">{p.name}</h4>
+//                     {p.description && <p className="text-gray-700">{p.description}</p>}
+//                     {p.link && (
+//                       <a
+//                         href={p.link}
+//                         className="text-purple-600 text-sm hover:underline mt-1 inline-block"
+//                       >
+//                         View Project
+//                       </a>
+//                     )}
+//                   </div>
+//                 ))}
+//               </div>
+//             </div>
+//           )}
+//         </div>
+
+//         <div className="space-y-6">
+//           {/* Skills Section */}
+//           {data.skills && data.skills.length > 0 && (
+//             <div>
+//               <h2 className="text-lg font-semibold text-gray-900 mb-3 border-b border-gray-200 pb-1">
+//                 Skills
+//               </h2>
+//               <div className="space-y-3">
+//                 <div className="grid grid-cols-2 gap-2">
+//                   {data.skills.map((skill) => (
+//                     <span key={skill} className="text-sm">
+//                       • {skill}
+//                     </span>
+//                   ))}
+//                 </div>
+//               </div>
+//             </div>
+//           )}
+
+//           {/* Education Section */}
+//           {data.education && data.education.length > 0 && (
+//             <div>
+//               <h2 className="text-lg font-semibold text-gray-900 mb-3 border-b border-gray-200 pb-1">
+//                 Education
+//               </h2>
+//               <div className="space-y-3">
+//                 {data.education.map((item, index) => (
+//                   <div key={index} className="text-gray-700">
+//                     {item}
+//                   </div>
+//                 ))}
+//               </div>
+//             </div>
+//           )}
+
+//           {/* Certifications Section */}
+//           {data.certifications && data.certifications.length > 0 && (
+//             <div>
+//               <h2 className="text-lg font-semibold text-gray-900 mb-3 border-b border-gray-200 pb-1">
+//                 Certifications
+//               </h2>
+//               <div className="space-y-3">
+//                 {data.certifications.map((item, index) => (
+//                   <div key={index} className="text-gray-700">
+//                     {item}
+//                   </div>
+//                 ))}
+//               </div>
+//             </div>
+//           )}
+//         </div>
+//       </div>
+//     </div>
+//   );
+// }
+
+
+
+'use client';
+
 import { ResumeData, ResumeProject } from "@/lib/types/resume.type";
 import Image from "next/image";
+import { useEffect, useState } from "react";
+import { useUser } from "@clerk/nextjs";
+import { getSections } from '@/app/actions/section';
 
 // Helper function to transform projects data
 const transformProjects = (projects: any[]): ResumeProject[] => {
@@ -149,6 +337,15 @@ const transformProjects = (projects: any[]): ResumeProject[] => {
   }));
 };
 
+interface CustomSection {
+  id: string;
+  sectionType: string;
+  organization: string;
+  description: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
 interface CreativeTemplateProps {
   data: ResumeData;
   user?: {
@@ -159,8 +356,37 @@ interface CreativeTemplateProps {
 }
 
 export default function CreativeTemplate({ data, user }: CreativeTemplateProps) {
-  // Transform projects to the correct format
+  const { isLoaded: isUserLoaded } = useUser();
   const formattedProjects = transformProjects(data.projects || []);
+  const [sections, setSections] = useState<CustomSection[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  // Fetch sections using Server Action
+  const fetchSections = async () => {
+    try {
+      setLoading(true);
+      const result = await getSections();
+      
+      if (result.success) {
+        setSections(result.sections);
+        setError(null);
+      } else {
+        setError(result.error || 'Failed to load sections');
+      }
+    } catch (err) {
+      console.error('Error fetching sections:', err);
+      setError('An error occurred while fetching sections');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    if (isUserLoaded) {
+      fetchSections();
+    }
+  }, [isUserLoaded]);
 
   return (
     <div className="space-y-6">
@@ -206,6 +432,15 @@ export default function CreativeTemplate({ data, user }: CreativeTemplateProps) 
             )}
           </div>
         )}
+
+        {/* Refresh button */}
+        <button
+          onClick={fetchSections}
+          disabled={loading}
+          className="mt-4 px-4 py-2 bg-white text-purple-600 rounded-md hover:bg-gray-100 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+        >
+          {loading ? 'Refreshing...' : 'Refresh Sections'}
+        </button>
       </div>
 
       <div className="grid md:grid-cols-2 gap-8">
@@ -298,6 +533,57 @@ export default function CreativeTemplate({ data, user }: CreativeTemplateProps) 
                 {data.certifications.map((item, index) => (
                   <div key={index} className="text-gray-700">
                     {item}
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Custom Sections */}
+          {loading && (
+            <div className="p-4 text-center text-gray-500">
+              Loading additional sections...
+            </div>
+          )}
+
+          {error && (
+            <div className="p-4 text-center text-red-500">
+              {error}
+              <button 
+                onClick={fetchSections}
+                className="ml-2 text-blue-600 hover:underline"
+              >
+                Try again
+              </button>
+            </div>
+          )}
+
+          {!loading && !error && sections.length > 0 && (
+            <div>
+              <div className="flex justify-between items-center mb-3 border-b border-gray-200 pb-1">
+                <h2 className="text-lg font-semibold text-gray-900">
+                  Additional Sections
+                </h2>
+                <span className="text-sm text-gray-500">
+                  {sections.length} section(s)
+                </span>
+              </div>
+              <div className="space-y-4">
+                {sections.map((section) => (
+                  <div key={section.id} className="p-3 bg-gray-50 rounded-lg border">
+                    <h3 className="font-medium text-gray-800 capitalize">
+                      {section.sectionType.toLowerCase()}
+                    </h3>
+                    {section.organization && (
+                      <p className="text-sm text-gray-600 mt-1">
+                        <span className="font-medium">Organization:</span> {section.organization}
+                      </p>
+                    )}
+                    {section.description && (
+                      <p className="text-sm text-gray-700 mt-2">
+                        {section.description}
+                      </p>
+                    )}
                   </div>
                 ))}
               </div>

@@ -83,8 +83,7 @@
 //   );
 // }
 
-
-"use client";
+"use client"
 import { ResumeProject } from "@/lib/types/resume.type";
 import TechnicalTemplate from "./templates/TechnicalTemplate";
 import { useUser } from "@clerk/nextjs";

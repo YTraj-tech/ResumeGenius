@@ -10,7 +10,7 @@ const ca = Cabin({
 });
 
 type Tab = {
-  title: string;
+  title: string| any
   value: string;
   content?: string | React.ReactNode | any;
 };
@@ -51,7 +51,7 @@ export const Tabs = ({
       >
         {propTabs.map((tab, idx) => (
           <button
-            key={tab.title}
+            key={idx}
             onClick={() => {
               moveSelectedTabToTop(idx);
             }}
@@ -75,7 +75,7 @@ export const Tabs = ({
 
             <span
               className={cn(
-                `relative block text-lg ${ca.className} lg:text-3xl  transition-opacity duration-300`,
+                `relative block text-lg ${ca.className} lg:text-4xl lg:mr-[30px] transition-opacity duration-300`,
                 active.value === tab.value
                   ? "text-white opacity-100 font-semibold"
                   : "text-gray-400 opacity-60 hover:opacity-80"

@@ -649,6 +649,12 @@ import { cn } from '@/lib/utils';
 import { Cabin } from "next/font/google"
 import { Merriweather } from "next/font/google"
 
+
+import { IoCopyOutline } from "react-icons/io5";
+import { LuClipboardPaste } from "react-icons/lu";
+import { GrSelect } from "react-icons/gr";
+
+
 const Rak = Merriweather({
   subsets: ["latin"],
   weight: ["400"]
@@ -662,7 +668,7 @@ const ca = Cabin({
 const MeghaShow = () => {
   const tabs = [
     {
-      title: "Copy url",
+      title: <IoCopyOutline/>,
       value: "nature",
       content: (
         <div className="w-full overflow-hidden relative h-64 sm:h-80 lg:h-96 rounded-2xl">
@@ -675,7 +681,7 @@ const MeghaShow = () => {
       ),
     },
     {
-      title: "Paste url",
+      title: <LuClipboardPaste/>,
       value: "architecture",
       content: (
         <div className="w-full overflow-hidden relative h-64 sm:h-80 lg:h-96 rounded-2xl">
@@ -688,7 +694,7 @@ const MeghaShow = () => {
       ),
     },
     {
-      title: "Select temp",
+      title: <GrSelect/>,
       value: "technology",
       content: (
         <div className="w-full overflow-hidden relative h-64 sm:h-80 lg:h-96 rounded-2xl">

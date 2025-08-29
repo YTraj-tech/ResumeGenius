@@ -21,17 +21,13 @@ export function Nav() {
 
   const navItems = [
     {
-      name: "Features",
-      link: "#features",
+      name: "Home",
+      link: "/",
     },
     {
-      name: "Pricing",
-      link: "#pricing",
-    },
-    {
-      name: "Contact",
-      link: "#contact",
-    },
+      name: "Templates",
+      link: "/templates",
+    }
   ];
 
   const handleProfileClick = () => {

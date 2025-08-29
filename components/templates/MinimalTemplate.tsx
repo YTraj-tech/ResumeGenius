@@ -113,9 +113,13 @@
 
 
 
+'use client';
 
 import { ResumeData, ResumeProject } from "@/lib/types/resume.type";
 import Image from "next/image";
+import { useEffect, useState } from "react";
+import { useUser } from "@clerk/nextjs";
+import { getSections } from '@/app/actions/section';
 
 // Helper function to convert scraped project format to ResumeProject format
 const transformProjects = (projects: any[]): ResumeProject[] => {
@@ -130,11 +134,19 @@ const transformProjects = (projects: any[]): ResumeProject[] => {
   return projects.map(project => ({
     name: project.title || 'Untitled Project',
     description: project.subComponents?.[0]?.description?.[0]?.text || '',
-    // You can extract other fields if available
-    technologies: [], // You might need to extract these from the data
-    link: undefined // You might need to extract this from the data
+    technologies: [],
+    link: undefined
   }));
 };
+
+interface CustomSection {
+  id: string;
+  sectionType: string;
+  organization: string;
+  description: string;
+  createdAt: string;
+  updatedAt: string;
+}
 
 interface MinimalTemplateProps {
   data: ResumeData;
@@ -146,8 +158,37 @@ interface MinimalTemplateProps {
 }
 
 export default function MinimalTemplate({ data, user }: MinimalTemplateProps) {
-  // Transform projects to the correct format
+  const { isLoaded: isUserLoaded } = useUser();
   const formattedProjects = transformProjects(data.projects || []);
+  const [sections, setSections] = useState<CustomSection[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  // Fetch sections using Server Action
+  const fetchSections = async () => {
+    try {
+      setLoading(true);
+      const result = await getSections();
+      
+      if (result.success) {
+        setSections(result.sections);
+        setError(null);
+      } else {
+        setError(result.error || 'Failed to load sections');
+      }
+    } catch (err) {
+      console.error('Error fetching sections:', err);
+      setError('An error occurred while fetching sections');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    if (isUserLoaded) {
+      fetchSections();
+    }
+  }, [isUserLoaded]);
 
   return (
     <div className="space-y-6 max-w-3xl mx-auto">
@@ -195,6 +236,15 @@ export default function MinimalTemplate({ data, user }: MinimalTemplateProps) {
             )}
           </div>
         )}
+
+        {/* Refresh button */}
+        <button
+          onClick={fetchSections}
+          disabled={loading}
+          className="mt-4 px-3 py-1 bg-gray-100 text-gray-700 rounded text-sm hover:bg-gray-200 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+        >
+          {loading ? 'Refreshing...' : 'Refresh Sections'}
+        </button>
       </div>
 
       <div className="space-y-6">
@@ -299,6 +349,52 @@ export default function MinimalTemplate({ data, user }: MinimalTemplateProps) {
               {data.certifications.map((item, index) => (
                 <div key={index} className="text-gray-700">
                   {item}
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Custom Sections */}
+        {loading && (
+          <div className="p-3 text-center text-gray-500 text-sm">
+            Loading additional sections...
+          </div>
+        )}
+
+        {error && (
+          <div className="p-3 text-center text-red-500 text-sm">
+            {error}
+            <button 
+              onClick={fetchSections}
+              className="ml-2 text-blue-600 hover:underline"
+            >
+              Try again
+            </button>
+          </div>
+        )}
+
+        {!loading && !error && sections.length > 0 && (
+          <div>
+            <h2 className="text-lg font-semibold text-gray-900 mb-3 border-b border-gray-200 pb-1">
+              Additional Sections
+            </h2>
+            <div className="space-y-3">
+              {sections.map((section) => (
+                <div key={section.id} className="p-2 bg-gray-50 rounded border">
+                  <h3 className="font-medium text-gray-800 capitalize text-sm">
+                    {section.sectionType.toLowerCase()}
+                  </h3>
+                  {section.organization && (
+                    <p className="text-xs text-gray-600 mt-1">
+                      <span className="font-medium">Organization:</span> {section.organization}
+                    </p>
+                  )}
+                  {section.description && (
+                    <p className="text-xs text-gray-700 mt-1">
+                      {section.description}
+                    </p>
+                  )}
                 </div>
               ))}
             </div>

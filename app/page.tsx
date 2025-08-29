@@ -3,7 +3,7 @@
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { UserButton } from "@clerk/nextjs";
-import Loading from "./loading";
+import Loader from "./loading";
 import HeroSection from "@/components/Herosection";
 import BasicFretures from "@/components/Basic_fretures";
 import MegaShow from "@/components/Mega_show";
@@ -33,7 +33,7 @@ export default function Home() {
   }, []);
 
   if (!showContent) {
-    return <Loading />;
+    return <Loader />;
   }
 
   return (
