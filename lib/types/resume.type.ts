@@ -32,3 +32,34 @@ export type ResumeData = {
   resumeData: ResumeData;
   templateId: string;
 }
+
+
+
+
+export  interface CustomSection {
+  id: string;
+  sectionType: string;
+  organization: string;
+  description: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+ export interface CreativeTemplateProps {
+  data: ResumeData;
+  user?: {
+    email: string;
+    imageUrl?: string | null;
+    name?: string | null;
+  }
+}
+
+ export interface TechnicalTemplateProps {
+  data: ResumeData;
+  user?: {
+    email: string;
+    imageUrl?: string | null;
+    name?: string | null;
+  }
+}
+

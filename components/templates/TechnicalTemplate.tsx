@@ -28,7 +28,7 @@
 //           </div>
 //         )}
 //       </div>
-      
+
 //       <div className="grid md:grid-cols-3 gap-6">
 //         <div className="md:col-span-2 space-y-6">
 //           <Selection title="Experience" items={data.experience} />
@@ -56,7 +56,7 @@
 //             ))} 
 //           />
 //         </div>
-        
+
 //         <div className="space-y-6">
 //           <Selection 
 //             title="Skills" 
@@ -85,12 +85,12 @@
 // // Helper function to transform projects data
 // const transformProjects = (projects: any[]): ResumeProject[] => {
 //   if (!projects || projects.length === 0) return [];
-  
+
 //   // Check if projects are already in the correct format
 //   if (projects[0] && typeof projects[0] === 'object' && 'name' in projects[0]) {
 //     return projects as ResumeProject[];
 //   }
-  
+
 //   // Convert from scraped format to ResumeProject format
 //   return projects.map(project => ({
 //     name: project.title || 'Untitled Project',
@@ -124,13 +124,13 @@
 //           </div>
 //         )}
 //       </div>
-      
+
 //       <div className="grid md:grid-cols-3 gap-6">
 //         <div className="md:col-span-2 space-y-6">
 //           {data.experience && data.experience.length > 0 && (
 //             <Selection title="Experience" items={data.experience} />
 //           )}
-          
+
 //           {formattedProjects.length > 0 && (
 //             <Selection 
 //               title="Projects" 
@@ -157,7 +157,7 @@
 //             />
 //           )}
 //         </div>
-        
+
 //         <div className="space-y-6">
 //           {data.skills && data.skills.length > 0 && (
 //             <Selection 
@@ -173,11 +173,11 @@
 //               ]} 
 //             />
 //           )}
-          
+
 //           {data.education && data.education.length > 0 && (
 //             <Selection title="Education" items={data.education} />
 //           )}
-          
+
 //           {data.certifications && data.certifications.length > 0 && (
 //             <Selection title="Certifications" items={data.certifications} />
 //           )}
@@ -186,6 +186,19 @@
 //     </div>
 //   );
 // }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 'use client';
 
@@ -199,12 +212,12 @@ import { getSections } from '@/app/actions/section';
 // Helper function to transform projects data
 const transformProjects = (projects: any[]): ResumeProject[] => {
   if (!projects || projects.length === 0) return [];
-  
+
   // Check if projects are already in the correct format
   if (projects[0] && typeof projects[0] === 'object' && 'name' in projects[0]) {
     return projects as ResumeProject[];
   }
-  
+
   // Convert from scraped format to ResumeProject format
   return projects.map(project => ({
     name: project.title || 'Untitled Project',
@@ -244,7 +257,7 @@ export default function TechnicalTemplate({ data, user }: TechnicalTemplateProps
     try {
       setLoading(true);
       const result = await getSections();
-      
+
       if (result.success) {
         setSections(result.sections);
         setError(null);
@@ -288,12 +301,12 @@ export default function TechnicalTemplate({ data, user }: TechnicalTemplateProps
             </div>
           </div>
         )}
-        
+
         {/* Fallback to data.name if no user provided */}
         {!user && (
           <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">{data.name}</h1>
         )}
-        
+
         <p className="text-gray-600 mt-2">{data.summary}</p>
         {(data.linkedinLink || data.githubLink) && (
           <div className="flex gap-4 mt-3 text-sm">
@@ -310,25 +323,18 @@ export default function TechnicalTemplate({ data, user }: TechnicalTemplateProps
           </div>
         )}
 
-        {/* Refresh button */}
-        <button
-          onClick={fetchSections}
-          disabled={loading}
-          className="mt-4 px-4 py-2 bg-blue-100 text-blue-600 rounded-md hover:bg-blue-200 transition-colors disabled:opacity-50 disabled:cursor-not-allowed text-sm"
-        >
-          {loading ? 'Refreshing...' : 'Refresh Sections'}
-        </button>
+
       </div>
-      
+
       <div className="grid md:grid-cols-3 gap-6">
         <div className="md:col-span-2 space-y-6">
           {data.experience && data.experience.length > 0 && (
             <Selection title="Experience" items={data.experience} />
           )}
-          
+
           {formattedProjects.length > 0 && (
-            <Selection 
-              title="Projects" 
+            <Selection
+              title="Projects"
               items={formattedProjects.map(p => (
                 <div key={p.name} className="mb-3">
                   <h4 className="font-medium">{p.name}</h4>
@@ -348,15 +354,38 @@ export default function TechnicalTemplate({ data, user }: TechnicalTemplateProps
                     </a>
                   )}
                 </div>
-              ))} 
+              ))}
+            />
+          )}
+
+          {!loading && !error && sections.length > 0 && (
+            <Selection
+              title="Additional Sections"
+              items={sections.map((section) => (
+                <div key={section.id} className="mb-3 p-2 bg-gray-50 rounded border">
+                  <h4 className="font-medium text-gray-800 capitalize text-sm">
+                    {section.sectionType.toLowerCase()}
+                  </h4>
+                  {section.organization && (
+                    <p className="text-sm text-gray-600 mt-1">
+                      <span className="text-lg">Organization:</span> {section.organization}
+                    </p>
+                  )}
+                  {section.description && (
+                    <p className="text-sm text-gray-700 mt-1">
+                      {section.description}
+                    </p>
+                  )}
+                </div>
+              ))}
             />
           )}
         </div>
-        
+
         <div className="space-y-6">
           {data.skills && data.skills.length > 0 && (
-            <Selection 
-              title="Skills" 
+            <Selection
+              title="Skills"
               items={[
                 <div key="skills" className="flex flex-wrap gap-1">
                   {data.skills.map(skill => (
@@ -365,14 +394,14 @@ export default function TechnicalTemplate({ data, user }: TechnicalTemplateProps
                     </span>
                   ))}
                 </div>
-              ]} 
+              ]}
             />
           )}
-          
+
           {data.education && data.education.length > 0 && (
             <Selection title="Education" items={data.education} />
           )}
-          
+
           {data.certifications && data.certifications.length > 0 && (
             <Selection title="Certifications" items={data.certifications} />
           )}
@@ -387,7 +416,7 @@ export default function TechnicalTemplate({ data, user }: TechnicalTemplateProps
           {error && (
             <div className="p-3 text-center text-red-500 text-sm">
               {error}
-              <button 
+              <button
                 onClick={fetchSections}
                 className="ml-2 text-blue-600 hover:underline"
               >
@@ -396,28 +425,7 @@ export default function TechnicalTemplate({ data, user }: TechnicalTemplateProps
             </div>
           )}
 
-          {!loading && !error && sections.length > 0 && (
-            <Selection
-              title="Additional Sections"
-              items={sections.map((section) => (
-                <div key={section.id} className="mb-3 p-2 bg-gray-50 rounded border">
-                  <h4 className="font-medium text-gray-800 capitalize text-sm">
-                    {section.sectionType.toLowerCase()}
-                  </h4>
-                  {section.organization && (
-                    <p className="text-xs text-gray-600 mt-1">
-                      <span className="font-medium">Organization:</span> {section.organization}
-                    </p>
-                  )}
-                  {section.description && (
-                    <p className="text-xs text-gray-700 mt-1">
-                      {section.description}
-                    </p>
-                  )}
-                </div>
-              ))}
-            />
-          )}
+
         </div>
       </div>
     </div>

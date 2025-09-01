@@ -24,22 +24,22 @@ const ResumeShow = () => {
 
     return (
         <div
-            className='h-[700px] mb-[150px] pt-[120px] mt-[150px] sm:mt-[100px] md:mt-[120px] lg:mt-[100px]  lg:mx-[100px] xl:mx-[200px] 2xl:mx-[250px] border-2 border-gray-300 rounded-tr-[150px] flex flex-col md:flex-row items-center justify-center px-9 sm:px-6 md:px-8 lg:px-12 py-8 sm:py-12 md:py-16'
+            className='h-[680px] mb-[150px] pt-[120px] mt-[150px] sm:mt-[100px] md:mt-[120px] lg:mt-[100px]  lg:mx-[100px] xl:mx-[200px] 2xl:mx-[250px] border-2 border-gray-300 rounded-tr-[150px] flex flex-col md:flex-row items-center justify-center px-9 sm:px-6 md:px-8 lg:px-12 py-8 sm:py-12 md:py-16'
             style={{ background: "linear-gradient(to bottom left, #ffffff, #ffffff, #ffffff)" }}
         >
-            <div className="w-full lg:mt-[-20px]  md:w-1/2 mb-8 md:mb-0 md:pr-8 lg:pr-12">
+            <div className="w-full font-bold lg:mt-[-20px]  md:w-1/2 mb-8 md:mb-0 md:pr-8 lg:pr-12">
                 <h2 className={`text-3xl sm:text-2xl md:text-3xl lg:text-5xl xl:text-5xl font-bold text-gray-800 mb-3 sm:mb-4 leading-tight ${Rak.className}`}>
                     {author}
                 </h2>
 
-                <p className="text-lg sm:text-base text-gray-600 mb-4 sm:mb-6 leading-relaxed">
+                <p className="text-lg lg:mt-12 lg:text-lg sm:text-base text-gray-600 mb-4 sm:mb-6 leading-relaxed">
                     {quote}
                 </p>
 
                 <ul className="list-none space-y-2 sm:space-y-3">
                     {features.map((item, idx) => (
                         <li key={idx} className="flex items-start sm:items-center">
-                            <span className="text-blue-500 text-base sm:text-lg rounded-3xl font-bold mr-2 sm:mr-3 flex-shrink-0 mt-1 sm:mt-0">
+                            <span className="text-blue-500 text-base sm:text-lg lg:text-lg  rounded-3xl font-bold mr-2 sm:mr-3 flex-shrink-0 mt-1 sm:mt-0">
                                 <IoShieldCheckmarkOutline />
                             </span>
                             <span className="text-sm sm:text-base text-gray-700 leading-relaxed">{item}</span>
