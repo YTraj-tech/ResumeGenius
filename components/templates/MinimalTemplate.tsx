@@ -117,7 +117,7 @@
 
 import { ResumeData, ResumeProject } from "@/lib/types/resume.type";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { RefObject, useEffect, useState } from "react";
 import { useUser } from "@clerk/nextjs";
 import { getSections } from '@/app/actions/section';
 
@@ -155,6 +155,9 @@ interface MinimalTemplateProps {
     imageUrl?: string | null;
     name?: string | null;
   };
+
+      resumeRef: RefObject<HTMLDivElement | null>;
+  
 }
 
 export default function MinimalTemplate({ data, user }: MinimalTemplateProps) {

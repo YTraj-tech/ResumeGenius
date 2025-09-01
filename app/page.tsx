@@ -13,6 +13,7 @@ import FAQ from "@/components/Resume/FAQ";
 import Footer from "@/components/Resume/Footer";
 import ResumeShow from "@/components/Resume/Resume_show";
 import { FaceControls } from "@react-three/drei";
+import { Nav } from "@/components/Nav";
 
 
 export default function Home() {
@@ -38,7 +39,7 @@ export default function Home() {
 
   return (
     <div>
-
+      <Nav/>
       <HeroSection />
       <BasicFretures />
       <MegaShow />

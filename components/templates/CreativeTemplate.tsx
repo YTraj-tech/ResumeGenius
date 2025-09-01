@@ -1127,6 +1127,709 @@
 
 
 
+// 'use client';
+
+// import { ResumeData, ResumeProject } from "@/lib/types/resume.type";
+// import Image from "next/image";
+// import { useUser } from "@clerk/nextjs";
+// import { useEffect, useState } from "react";
+// import { getSections } from '@/app/actions/section';
+
+// // Icons for various sections
+// import {
+//   FiBriefcase,
+//   FiBook,
+//   FiAward,
+//   FiCode,
+//   FiLink,
+//   FiMail,
+//   FiMapPin,
+//   FiGithub,
+//   FiLinkedin,
+//   FiUser,
+//   FiStar,
+//   FiBookOpen,
+//   FiCalendar,
+//   FiGlobe
+// } from "react-icons/fi";
+
+// // Helper function to transform projects data
+// const transformProjects = (projects: any[]): ResumeProject[] => {
+//   if (!projects || projects.length === 0) return [];
+
+//   // Check if projects are already in the correct format
+//   if (projects[0] && typeof projects[0] === 'object' && 'name' in projects[0]) {
+//     return projects as ResumeProject[];
+//   }
+
+//   // Convert from scraped format to ResumeProject format
+//   return projects.map(project => ({
+//     name: project.title || 'Untitled Project',
+//     description: project.subComponents?.[0]?.description?.[0]?.text || '',
+//     technologies: [],
+//     link: undefined
+//   }));
+// };
+
+// interface CustomSection {
+//   id: string;
+//   sectionType: string;
+//   organization: string;
+//   description: string;
+//   createdAt: string;
+//   updatedAt: string;
+// }
+
+// interface CreativeTemplateProps {
+//   data: ResumeData;
+//   user?: {
+//     email: string;
+//     imageUrl?: string | null;
+//     name?: string | null;
+//   };
+// }
+
+// export default function CreativeTemplate({ data, user }: CreativeTemplateProps) {
+//   const { isLoaded: isUserLoaded } = useUser();
+//   const formattedProjects = transformProjects(data.projects || []);
+//   const [sections, setSections] = useState<CustomSection[]>([]);
+//   const [loading, setLoading] = useState(true);
+//   const [error, setError] = useState<string | null>(null);
+
+//   // Fetch sections using Server Action
+//   const fetchSections = async () => {
+//     try {
+//       setLoading(true);
+//       const result = await getSections();
+
+//       if (result.success) {
+//         setSections(result.sections);
+//         setError(null);
+//       } else {
+//         setError(result.error || 'Failed to load sections');
+//       }
+//     } catch (err) {
+//       console.error('Error fetching sections:', err);
+//       setError('An error occurred while fetching sections');
+//     } finally {
+//       setLoading(false);
+//     }
+//   };
+
+//   useEffect(() => {
+//     if (isUserLoaded) {
+//       fetchSections();
+//     }
+//   }, [isUserLoaded]);
+
+//   return (
+//     <div className="max-w-5xl mx-auto my-4 p-6 bg-white rounded-2xl shadow-xl border border-gray-100 print:my-0 print:shadow-none print:border-0">
+//       {/* Header Section with Creative Design */}
+//       <div className="relative mb-8 print:mb-6">
+//         <div className="absolute -inset-3 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl -z-10 print:hidden"></div>
+
+//         <div className="flex flex-col md:flex-row items-center gap-5 p-5">
+//           {user?.imageUrl && (
+//             <div className="relative">
+//               <Image
+//                 src={user.imageUrl}
+//                 alt="Profile"
+//                 width={100}
+//                 height={100}
+//                 className="rounded-full border-4 border-white shadow-lg print:shadow-none"
+//               />
+//               <div className="absolute -bottom-1 -right-1 bg-blue-600 rounded-full p-1.5 print:hidden">
+//                 <FiUser className="text-white text-xs" />
+//               </div>
+//             </div>
+//           )}
+
+//           <div className="flex-1 text-center md:text-left">
+//             <h1 className="text-2xl md:text-3xl font-bold text-gray-900 mb-1.5">
+//               {user?.name || data.name}
+//             </h1>
+//             <p className="text-gray-600 flex items-center justify-center md:justify-start gap-1.5 mb-2 text-sm">
+//               <FiMail className="text-blue-600" />
+//               {user?.email}
+//             </p>
+//             {data.summary && (
+//               <p className="text-gray-700 bg-white p-3 rounded-lg shadow-sm border border-gray-100 text-sm print:border-0 print:shadow-none">
+//                 {data.summary}
+//               </p>
+//             )}
+
+//             {(data.linkedinLink || data.githubLink) && (
+//               <div className="flex gap-3 mt-3 justify-center md:justify-start">
+//                 {data.linkedinLink && (
+//                   <a
+//                     href={data.linkedinLink}
+//                     className="flex items-center gap-1 text-blue-700 hover:text-blue-900 transition-colors text-sm print:text-blue-900"
+//                   >
+//                     <FiLinkedin className="text-base" />
+//                     <span>LinkedIn</span>
+//                   </a>
+//                 )}
+//                 {data.githubLink && (
+//                   <a
+//                     href={data.githubLink}
+//                     className="flex items-center gap-1 text-gray-700 hover:text-gray-900 transition-colors text-sm print:text-gray-900"
+//                   >
+//                     <FiGithub className="text-base" />
+//                     <span>GitHub</span>
+//                   </a>
+//                 )}
+//               </div>
+//             )}
+//           </div>
+//         </div>
+//       </div>
+
+//       {/* Main Content Grid */}
+//       <div className="grid md:grid-cols-3 gap-6 print:gap-4">
+//         {/* Left Column - Experience and Projects */}
+//         <div className="md:col-span-2 space-y-6 print:space-y-4">
+//           {/* Experience Section */}
+//           {data.experience && data.experience.length > 0 && (
+//             <div className="bg-gradient-to-br from-blue-50 to-indigo-50 p-5 rounded-xl shadow-sm print:shadow-none print:bg-white print:border print:border-gray-200">
+//               <div className="flex items-center gap-2 mb-4">
+//                 <div className="p-2 bg-blue-600 rounded-lg">
+//                   <FiBriefcase className="text-white text-lg" />
+//                 </div>
+//                 <h2 className="text-xl font-bold text-gray-900">Work Experience</h2>
+//               </div>
+
+//               <div className="space-y-4">
+//                 {data.experience.map((item, index) => (
+//                   <div key={index} className="bg-white p-3 rounded-lg shadow-xs border-l-4 border-blue-500 print:shadow-none">
+//                     <p className="text-gray-700 text-sm">{item}</p>
+//                   </div>
+//                 ))}
+//               </div>
+//             </div>
+//           )}
+
+//           {/* Projects Section */}
+//           {formattedProjects.length > 0 && (
+//             <div className="bg-gradient-to-br from-purple-50 to-pink-50 p-5 rounded-xl shadow-sm print:shadow-none print:bg-white print:border print:border-gray-200">
+//               <div className="flex items-center gap-2 mb-4">
+//                 <div className="p-2 bg-purple-600 rounded-lg">
+//                   <FiCode className="text-white text-lg" />
+//                 </div>
+//                 <h2 className="text-xl font-bold text-gray-900">Projects</h2>
+//               </div>
+
+//               <div className="space-y-4">
+//                 {formattedProjects.map((p, index) => (
+//                   <div key={index} className="bg-white p-3 rounded-lg shadow-xs border border-gray-100 print:shadow-none">
+//                     <h4 className="font-semibold text-gray-800 flex items-center gap-1.5 text-sm">
+//                       <FiStar className="text-yellow-500 text-xs" />
+//                       {p.name}
+//                     </h4>
+//                     {p.description && (
+//                       <p className="text-gray-600 text-xs mt-1.5">{p.description}</p>
+//                     )}
+//                     {p.link && (
+//                       <a
+//                         href={p.link}
+//                         className="flex items-center gap-1 text-blue-600 text-xs mt-2 hover:underline print:text-blue-900"
+//                       >
+//                         <FiLink className="text-xs" />
+//                         View Project
+//                       </a>
+//                     )}
+//                   </div>
+//                 ))}
+//               </div>
+//             </div>
+//           )}
+
+//           {/* Additional Sections */}
+//           {!loading && !error && sections.length > 0 && (
+//             <div className="bg-gradient-to-br from-teal-50 to-green-50 p-5 rounded-xl shadow-sm print:shadow-none print:bg-white print:border print:border-gray-200">
+//               <div className="flex items-center gap-2 mb-4">
+//                 <div className="p-2 bg-teal-600 rounded-lg">
+//                   <FiBookOpen className="text-white text-lg" />
+//                 </div>
+//                 <h2 className="text-xl font-bold text-gray-900">Additional Activities</h2>
+//               </div>
+
+//               <div className="space-y-9">
+//                 {sections.map((section) => (
+//                   <div key={section.id} className="bg-white p-3 rounded-lg shadow-xs border border-gray-100 print:shadow-none">
+//                     <h4 className="font-medium text-gray-800 capitalize flex items-center gap-1.5 text-sm">
+//                       <FiMapPin className="text-teal-500 text-xs" />
+//                       {section.sectionType.toLowerCase()}
+//                     </h4>
+//                     {section.organization && (
+//                       <p className="text-xs text-gray-600 mt-1.5">
+//                         <span className="font-medium">Organization:</span> {section.organization}
+//                       </p>
+//                     )}
+//                     {section.description && (
+//                       <p className="text-xs text-gray-700 mt-1.5">
+//                         {section.description}
+//                       </p>
+//                     )}
+//                   </div>
+//                 ))}
+//               </div>
+//             </div>
+//           )}
+//         </div>
+
+//         {/* Right Column - Skills, Education, Certifications */}
+//         <div className="space-y-6 print:space-y-4">
+//           {/* Skills Section */}
+//           {data.skills && data.skills.length > 0 && (
+//             <div className="bg-gradient-to-br from-amber-50 to-orange-50 p-5 rounded-xl shadow-sm print:shadow-none print:bg-white print:border print:border-gray-200">
+//               <div className="flex items-center gap-2 mb-4">
+//                 <div className="p-2 bg-amber-600 rounded-lg">
+//                   <FiAward className="text-white text-lg" />
+//                 </div>
+//                 <h2 className="text-xl font-bold text-gray-900">Skills & Expertise</h2>
+//               </div>
+
+//               <div className="flex flex-wrap gap-1.5">
+//                 {data.skills.map((skill, index) => (
+//                   <span
+//                     key={index}
+//                     className="px-2.5 py-1 bg-white text-gray-700 rounded-full text-xs shadow-xs border border-gray-100 print:shadow-none"
+//                   >
+//                     {skill}
+//                   </span>
+//                 ))}
+//               </div>
+//             </div>
+//           )}
+
+//           {/* Education Section */}
+//           {data.education && data.education.length > 0 && (
+//             <div className="bg-gradient-to-br from-indigo-50 to-blue-50 p-5 rounded-xl shadow-sm print:shadow-none print:bg-white print:border print:border-gray-200">
+//               <div className="flex items-center gap-2 mb-4">
+//                 <div className="p-2 bg-indigo-600 rounded-lg">
+//                   <FiBook className="text-white text-lg" />
+//                 </div>
+//                 <h2 className="text-xl font-bold text-gray-900">Education</h2>
+//               </div>
+
+//               <div className="space-y-3">
+//                 {data.education.map((item, index) => (
+//                   <div key={index} className="bg-white p-3 rounded-lg shadow-xs border-l-4 border-indigo-500 print:shadow-none">
+//                     <p className="text-gray-700 text-sm">{item}</p>
+//                   </div>
+//                 ))}
+//               </div>
+//             </div>
+//           )}
+
+//           {/* Certifications Section */}
+//           {data.certifications && data.certifications.length > 0 && (
+//             <div className="bg-gradient-to-br from-rose-50 to-pink-50 p-5 rounded-xl shadow-sm print:shadow-none print:bg-white print:border print:border-gray-200">
+//               <div className="flex items-center gap-2 mb-4">
+//                 <div className="p-2 bg-rose-600 rounded-lg">
+//                   <FiAward className="text-white text-lg" />
+//                 </div>
+//                 <h2 className="text-xl font-bold text-gray-900">Certifications</h2>
+//               </div>
+
+//               <div className="space-y-3">
+//                 {data.certifications.map((item, index) => (
+//                   <div key={index} className="bg-white p-3 rounded-lg shadow-xs border-l-4 border-rose-500 print:shadow-none">
+//                     <p className="text-gray-700 text-sm">{item}</p>
+//                   </div>
+//                 ))}
+//               </div>
+//             </div>
+//           )}
+
+
+
+//           {/* Loading and Error States */}
+//           {loading && (
+//             <div className="p-3 text-center text-gray-500 bg-gray-50 rounded-lg text-xs">
+//               <div className="flex items-center justify-center gap-1.5">
+//                 <div className="h-3 w-3 bg-blue-400 rounded-full animate-pulse"></div>
+//                 <span>Loading additional sections...</span>
+//               </div>
+//             </div>
+//           )}
+
+//           {error && (
+//             <div className="p-3 text-center text-red-500 bg-red-50 rounded-lg text-xs">
+//               <p>{error}</p>
+//               <button
+//                 onClick={fetchSections}
+//                 className="mt-1.5 px-3 py-1 bg-red-500 text-white rounded text-xs hover:bg-red-600 transition-colors print:hidden"
+//               >
+//                 Try again
+//               </button>
+//             </div>
+//           )}
+//         </div>
+//       </div>
+
+//       {/* Footer - Only show in digital view */}
+//       <div className="mt-8 pt-5 border-t border-gray-200 text-center text-gray-500 text-xs print:hidden">
+//         <p>Generated with Resume Builder • {new Date().getFullYear()}</p>
+//       </div>
+//     </div>
+//   );
+// }
+
+
+
+
+
+
+
+
+
+
+
+
+// 'use client';
+
+// import { ResumeData, ResumeProject } from "@/lib/types/resume.type";
+// import Image from "next/image";
+// import { useUser } from "@clerk/nextjs";
+// import { useEffect, useState } from "react";
+// import { getSections } from '@/app/actions/section';
+
+// // Icons for various sections
+// import {
+//   FiBriefcase,
+//   FiBook,
+//   FiAward,
+//   FiCode,
+//   FiLink,
+//   FiMail,
+//   FiMapPin,
+//   FiGithub,
+//   FiLinkedin,
+//   FiUser,
+//   FiStar,
+//   FiBookOpen,
+//   FiCalendar,
+//   FiGlobe
+// } from "react-icons/fi";
+
+// // Helper function to transform projects data
+// const transformProjects = (projects: any[]): ResumeProject[] => {
+//   if (!projects || projects.length === 0) return [];
+
+//   // Check if projects are already in the correct format
+//   if (projects[0] && typeof projects[0] === 'object' && 'name' in projects[0]) {
+//     return projects as ResumeProject[];
+//   }
+
+//   // Convert from scraped format to ResumeProject format
+//   return projects.map(project => ({
+//     name: project.title || 'Untitled Project',
+//     description: project.subComponents?.[0]?.description?.[0]?.text || '',
+//     technologies: [],
+//     link: undefined
+//   }));
+// };
+
+// interface CustomSection {
+//   id: string;
+//   sectionType: string;
+//   organization: string;
+//   description: string;
+//   createdAt: string;
+//   updatedAt: string;
+// }
+
+// interface CreativeTemplateProps {
+//   data: ResumeData;
+//   user?: {
+//     email: string;
+//     imageUrl?: string | null;
+//     name?: string | null;
+//   };
+// }
+
+// export default function CreativeTemplate({ data, user }: CreativeTemplateProps) {
+//   const { isLoaded: isUserLoaded } = useUser();
+//   const formattedProjects = transformProjects(data.projects || []);
+//   const [sections, setSections] = useState<CustomSection[]>([]);
+//   const [loading, setLoading] = useState(true);
+//   const [error, setError] = useState<string | null>(null);
+
+//   // Fetch sections using Server Action
+//   const fetchSections = async () => {
+//     try {
+//       setLoading(true);
+//       const result = await getSections();
+
+//       if (result.success) {
+//         setSections(result.sections);
+//         setError(null);
+//       } else {
+//         setError(result.error || 'Failed to load sections');
+//       }
+//     } catch (err) {
+//       console.error('Error fetching sections:', err);
+//       setError('An error occurred while fetching sections');
+//     } finally {
+//       setLoading(false);
+//     }
+//   };
+
+//   useEffect(() => {
+//     if (isUserLoaded) {
+//       fetchSections();
+//     }
+//   }, [isUserLoaded]);
+
+//   return (
+//     <div className="w-full mx-auto p-4 bg-white rounded-xl shadow-md border border-gray-100 print:my-0 print:shadow-none print:border-0 print:p-2">
+//       {/* Header Section with Creative Design */}
+//       <div className="relative mb-6 print:mb-4">
+//         <div className="absolute -inset-2 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl -z-10 print:hidden"></div>
+
+//         <div className="flex flex-col items-center gap-4 p-4 sm:flex-row sm:items-start">
+//           {user?.imageUrl && (
+//             <div className="relative">
+//               <Image
+//                 src={user.imageUrl}
+//                 alt="Profile"
+//                 width={80}
+//                 height={80}
+//                 className="rounded-full border-3 border-white shadow-md print:shadow-none"
+//               />
+//               <div className="absolute -bottom-1 -right-1 bg-blue-600 rounded-full p-1 print:hidden">
+//                 <FiUser className="text-white text-xs" />
+//               </div>
+//             </div>
+//           )}
+
+//           <div className="flex-1 text-center sm:text-left">
+//             <h1 className="text-xl font-bold text-gray-900 mb-1 sm:text-2xl">
+//               {user?.name || data.name}
+//             </h1>
+//             <p className="text-gray-600 flex items-center justify-center sm:justify-start gap-1.5 mb-2 text-xs sm:text-sm">
+//               <FiMail className="text-blue-600 text-sm" />
+//               {user?.email}
+//             </p>
+//             {data.summary && (
+//               <p className="text-gray-700 bg-white p-2 rounded-lg shadow-xs border border-gray-100 text-xs sm:text-sm print:border-0 print:shadow-none">
+//                 {data.summary}
+//               </p>
+//             )}
+
+//             {(data.linkedinLink || data.githubLink) && (
+//               <div className="flex gap-2 mt-2 justify-center sm:justify-start">
+//                 {data.linkedinLink && (
+//                   <a 
+//                     href={data.linkedinLink} 
+//                     className="flex items-center gap-1 text-blue-700 hover:text-blue-900 transition-colors text-xs sm:text-sm print:text-blue-900"
+//                   >
+//                     <FiLinkedin className="text-sm" />
+//                     <span className="hidden xs:inline">LinkedIn</span>
+//                   </a>
+//                 )}
+//                 {data.githubLink && (
+//                   <a 
+//                     href={data.githubLink} 
+//                     className="flex items-center gap-1 text-gray-700 hover:text-gray-900 transition-colors text-xs sm:text-sm print:text-gray-900"
+//                   >
+//                     <FiGithub className="text-sm" />
+//                     <span className="hidden xs:inline">GitHub</span>
+//                   </a>
+//                 )}
+//               </div>
+//             )}
+//           </div>
+//         </div>
+//       </div>
+
+//       {/* Main Content - Single column for mobile */}
+//       <div className="space-y-4 print:space-y-2">
+//         {/* Experience Section */}
+//         {data.experience && data.experience.length > 0 && (
+//           <div className="bg-gradient-to-br from-blue-50 to-indigo-50 p-4 rounded-lg shadow-xs print:shadow-none print:bg-white print:border print:border-gray-200">
+//             <div className="flex items-center gap-2 mb-3">
+//               <div className="p-1.5 bg-blue-600 rounded-md">
+//                 <FiBriefcase className="text-white text-base" />
+//               </div>
+//               <h2 className="text-lg font-bold text-gray-900">Work Experience</h2>
+//             </div>
+
+//             <div className="space-y-2">
+//               {data.experience.map((item, index) => (
+//                 <div key={index} className="bg-white p-2 rounded-md border-l-3 border-blue-500 print:shadow-none">
+//                   <p className="text-gray-700 text-xs sm:text-sm">{item}</p>
+//                 </div>
+//               ))}
+//             </div>
+//           </div>
+//         )}
+
+//         {/* Projects Section */}
+//         {formattedProjects.length > 0 && (
+//           <div className="bg-gradient-to-br from-purple-50 to-pink-50 p-4 rounded-lg shadow-xs print:shadow-none print:bg-white print:border print:border-gray-200">
+//             <div className="flex items-center gap-2 mb-3">
+//               <div className="p-1.5 bg-purple-600 rounded-md">
+//                 <FiCode className="text-white text-base" />
+//               </div>
+//               <h2 className="text-lg font-bold text-gray-900">Projects</h2>
+//             </div>
+
+//             <div className="space-y-2">
+//               {formattedProjects.map((p, index) => (
+//                 <div key={index} className="bg-white p-2 rounded-md border border-gray-100 print:shadow-none">
+//                   <h4 className="font-semibold text-gray-800 flex items-center gap-1 text-xs sm:text-sm">
+//                     <FiStar className="text-yellow-500 text-xs" />
+//                     {p.name}
+//                   </h4>
+//                   {p.description && (
+//                     <p className="text-gray-600 text-xs mt-1">{p.description}</p>
+//                   )}
+//                   {p.link && (
+//                     <a
+//                       href={p.link}
+//                       className="flex items-center gap-0.5 text-blue-600 text-xs mt-1 hover:underline print:text-blue-900"
+//                     >
+//                       <FiLink className="text-xs" />
+//                       View Project
+//                     </a>
+//                   )}
+//                 </div>
+//               ))}
+//             </div>
+//           </div>
+//         )}
+
+//         {/* Skills Section */}
+//         {data.skills && data.skills.length > 0 && (
+//           <div className="bg-gradient-to-br from-amber-50 to-orange-50 p-4 rounded-lg shadow-xs print:shadow-none print:bg-white print:border print:border-gray-200">
+//             <div className="flex items-center gap-2 mb-3">
+//               <div className="p-1.5 bg-amber-600 rounded-md">
+//                 <FiAward className="text-white text-base" />
+//               </div>
+//               <h2 className="text-lg font-bold text-gray-900">Skills</h2>
+//             </div>
+
+//             <div className="flex flex-wrap gap-1">
+//               {data.skills.map((skill, index) => (
+//                 <span 
+//                   key={index} 
+//                   className="px-2 py-0.5 bg-white text-gray-700 rounded-full text-xs shadow-xs border border-gray-100 print:shadow-none"
+//                 >
+//                   {skill}
+//                 </span>
+//               ))}
+//             </div>
+//           </div>
+//         )}
+
+//         {/* Education Section */}
+//         {data.education && data.education.length > 0 && (
+//           <div className="bg-gradient-to-br from-indigo-50 to-blue-50 p-4 rounded-lg shadow-xs print:shadow-none print:bg-white print:border print:border-gray-200">
+//             <div className="flex items-center gap-2 mb-3">
+//               <div className="p-1.5 bg-indigo-600 rounded-md">
+//                 <FiBook className="text-white text-base" />
+//               </div>
+//               <h2 className="text-lg font-bold text-gray-900">Education</h2>
+//             </div>
+
+//             <div className="space-y-2">
+//               {data.education.map((item, index) => (
+//                 <div key={index} className="bg-white p-2 rounded-md border-l-3 border-indigo-500 print:shadow-none">
+//                   <p className="text-gray-700 text-xs sm:text-sm">{item}</p>
+//                 </div>
+//               ))}
+//             </div>
+//           </div>
+//         )}
+
+//         {/* Certifications Section */}
+//         {data.certifications && data.certifications.length > 0 && (
+//           <div className="bg-gradient-to-br from-rose-50 to-pink-50 p-4 rounded-lg shadow-xs print:shadow-none print:bg-white print:border print:border-gray-200">
+//             <div className="flex items-center gap-2 mb-3">
+//               <div className="p-1.5 bg-rose-600 rounded-md">
+//                 <FiAward className="text-white text-base" />
+//               </div>
+//               <h2 className="text-lg font-bold text-gray-900">Certifications</h2>
+//             </div>
+
+//             <div className="space-y-2">
+//               {data.certifications.map((item, index) => (
+//                 <div key={index} className="bg-white p-2 rounded-md border-l-3 border-rose-500 print:shadow-none">
+//                   <p className="text-gray-700 text-xs sm:text-sm">{item}</p>
+//                 </div>
+//               ))}
+//             </div>
+//           </div>
+//         )}
+
+//         {/* Additional Sections */}
+//         {!loading && !error && sections.length > 0 && (
+//           <div className="bg-gradient-to-br from-teal-50 to-green-50 p-4 rounded-lg shadow-xs print:shadow-none print:bg-white print:border print:border-gray-200">
+//             <div className="flex items-center gap-2 mb-3">
+//               <div className="p-1.5 bg-teal-600 rounded-md">
+//                 <FiBookOpen className="text-white text-base" />
+//               </div>
+//               <h2 className="text-lg font-bold text-gray-900">Additional</h2>
+//             </div>
+
+//             <div className="space-y-2">
+//               {sections.map((section) => (
+//                 <div key={section.id} className="bg-white p-2 rounded-md border border-gray-100 print:shadow-none">
+//                   <h4 className="font-medium text-gray-800 capitalize flex items-center gap-1 text-xs sm:text-sm">
+//                     <FiMapPin className="text-teal-500 text-xs" />
+//                     {section.sectionType.toLowerCase()}
+//                   </h4>
+//                   {section.organization && (
+//                     <p className="text-xs text-gray-600 mt-1">
+//                       <span className="font-medium">Organization:</span> {section.organization}
+//                     </p>
+//                   )}
+//                   {section.description && (
+//                     <p className="text-xs text-gray-700 mt-1">
+//                       {section.description}
+//                     </p>
+//                   )}
+//                 </div>
+//               ))}
+//             </div>
+//           </div>
+//         )}
+
+//         {/* Loading and Error States */}
+//         {loading && (
+//           <div className="p-2 text-center text-gray-500 bg-gray-50 rounded-lg text-xs">
+//             <div className="flex items-center justify-center gap-1">
+//               <div className="h-2 w-2 bg-blue-400 rounded-full animate-pulse"></div>
+//               <span>Loading sections...</span>
+//             </div>
+//           </div>
+//         )}
+
+//         {error && (
+//           <div className="p-2 text-center text-red-500 bg-red-50 rounded-lg text-xs">
+//             <p>{error}</p>
+//             <button
+//               onClick={fetchSections}
+//               className="mt-1 px-2 py-0.5 bg-red-500 text-white rounded text-xs hover:bg-red-600 transition-colors print:hidden"
+//             >
+//               Try again
+//             </button>
+//           </div>
+//         )}
+//       </div>
+
+//       {/* Footer - Only show in digital view */}
+//       <div className="mt-6 pt-4 border-t border-gray-200 text-center text-gray-500 text-xs print:hidden">
+//         <p>Generated with Resume Builder • {new Date().getFullYear()}</p>
+//       </div>
+//     </div>
+//   );
+// }
+
+
+
 'use client';
 
 import { ResumeData, ResumeProject } from "@/lib/types/resume.type";
@@ -1134,6 +1837,7 @@ import Image from "next/image";
 import { useUser } from "@clerk/nextjs";
 import { useEffect, useState } from "react";
 import { getSections } from '@/app/actions/section';
+import { RefObject } from "react";
 
 // Icons for various sections
 import {
@@ -1187,9 +1891,10 @@ interface CreativeTemplateProps {
     imageUrl?: string | null;
     name?: string | null;
   };
+  resumeRef: RefObject<HTMLDivElement | null>;
 }
 
-export default function CreativeTemplate({ data, user }: CreativeTemplateProps) {
+export default function CreativeTemplate({ data, user, resumeRef }: CreativeTemplateProps) {
   const { isLoaded: isUserLoaded } = useUser();
   const formattedProjects = transformProjects(data.projects || []);
   const [sections, setSections] = useState<CustomSection[]>([]);
@@ -1223,59 +1928,62 @@ export default function CreativeTemplate({ data, user }: CreativeTemplateProps) 
   }, [isUserLoaded]);
 
   return (
-    <div className="max-w-5xl mx-auto my-4 p-6 bg-white rounded-2xl shadow-xl border border-gray-100 print:my-0 print:shadow-none print:border-0">
+    <div
+      ref={resumeRef}
+      className="w-full bg-white rounded-xl shadow-md border border-gray-100 print:my-0 print:shadow-none print:border-0 print:p-0 print-mode"
+    >
       {/* Header Section with Creative Design */}
-      <div className="relative mb-8 print:mb-6">
-        <div className="absolute -inset-3 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl -z-10 print:hidden"></div>
+      <div className="relative mb-6 print:mb-4">
+        <div className="absolute -inset-2 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl -z-10 print:hidden"></div>
 
-        <div className="flex flex-col md:flex-row items-center gap-5 p-5">
+        <div className="flex flex-col items-center gap-4 p-4 sm:flex-row sm:items-start">
           {user?.imageUrl && (
             <div className="relative">
               <Image
                 src={user.imageUrl}
                 alt="Profile"
-                width={100}
-                height={100}
-                className="rounded-full border-4 border-white shadow-lg print:shadow-none"
+                width={80}
+                height={80}
+                className="rounded-full border-3 border-white shadow-md print:shadow-none"
               />
-              <div className="absolute -bottom-1 -right-1 bg-blue-600 rounded-full p-1.5 print:hidden">
+              <div className="absolute -bottom-1 -right-1 bg-blue-600 rounded-full p-1 print:hidden">
                 <FiUser className="text-white text-xs" />
               </div>
             </div>
           )}
 
-          <div className="flex-1 text-center md:text-left">
-            <h1 className="text-2xl md:text-3xl font-bold text-gray-900 mb-1.5">
+          <div className="flex-1 text-center sm:text-left">
+            <h1 className="text-xl font-bold text-gray-900 mb-1 sm:text-2xl">
               {user?.name || data.name}
             </h1>
-            <p className="text-gray-600 flex items-center justify-center md:justify-start gap-1.5 mb-2 text-sm">
-              <FiMail className="text-blue-600" />
+            <p className="text-gray-600 flex items-center justify-center sm:justify-start gap-1.5 mb-2 text-xs sm:text-sm">
+              <FiMail className="text-blue-600 text-sm" />
               {user?.email}
             </p>
             {data.summary && (
-              <p className="text-gray-700 bg-white p-3 rounded-lg shadow-sm border border-gray-100 text-sm print:border-0 print:shadow-none">
+              <p className="text-gray-700 bg-white p-2 rounded-lg shadow-xs border border-gray-100 text-xs sm:text-sm print:border-0 print:shadow-none">
                 {data.summary}
               </p>
             )}
 
             {(data.linkedinLink || data.githubLink) && (
-              <div className="flex gap-3 mt-3 justify-center md:justify-start">
+              <div className="flex gap-2 mt-2 justify-center sm:justify-start">
                 {data.linkedinLink && (
                   <a
                     href={data.linkedinLink}
-                    className="flex items-center gap-1 text-blue-700 hover:text-blue-900 transition-colors text-sm print:text-blue-900"
+                    className="flex items-center gap-1 text-blue-700 hover:text-blue-900 transition-colors text-xs sm:text-sm print:text-blue-900"
                   >
-                    <FiLinkedin className="text-base" />
-                    <span>LinkedIn</span>
+                    <FiLinkedin className="text-sm" />
+                    <span className="hidden xs:inline">LinkedIn</span>
                   </a>
                 )}
                 {data.githubLink && (
                   <a
                     href={data.githubLink}
-                    className="flex items-center gap-1 text-gray-700 hover:text-gray-900 transition-colors text-sm print:text-gray-900"
+                    className="flex items-center gap-1 text-gray-700 hover:text-gray-900 transition-colors text-xs sm:text-sm print:text-gray-900"
                   >
-                    <FiGithub className="text-base" />
-                    <span>GitHub</span>
+                    <FiGithub className="text-sm" />
+                    <span className="hidden xs:inline">GitHub</span>
                   </a>
                 )}
               </div>
@@ -1284,192 +1992,184 @@ export default function CreativeTemplate({ data, user }: CreativeTemplateProps) 
         </div>
       </div>
 
-      {/* Main Content Grid */}
-      <div className="grid md:grid-cols-3 gap-6 print:gap-4">
-        {/* Left Column - Experience and Projects */}
-        <div className="md:col-span-2 space-y-6 print:space-y-4">
-          {/* Experience Section */}
-          {data.experience && data.experience.length > 0 && (
-            <div className="bg-gradient-to-br from-blue-50 to-indigo-50 p-5 rounded-xl shadow-sm print:shadow-none print:bg-white print:border print:border-gray-200">
-              <div className="flex items-center gap-2 mb-4">
-                <div className="p-2 bg-blue-600 rounded-lg">
-                  <FiBriefcase className="text-white text-lg" />
+      {/* Main Content - Single column for mobile */}
+      <div className="space-y-4 p-4 print:space-y-2 print:p-2">
+        {/* Experience Section */}
+        {data.experience && data.experience.length > 0 && (
+          <div className="bg-gradient-to-br from-blue-50 to-indigo-50 p-4 rounded-lg shadow-xs print:shadow-none print:bg-white print:border print:border-gray-200">
+            <div className="flex items-center gap-2 mb-3">
+              <div className="p-1.5 bg-blue-600 rounded-md">
+                <FiBriefcase className="text-white text-base" />
+              </div>
+              <h2 className="text-lg font-bold text-gray-900">Work Experience</h2>
+            </div>
+
+            <div className="space-y-2">
+              {data.experience.map((item, index) => (
+                <div key={index} className="bg-white p-2 rounded-md border-l-3 border-blue-500 print:shadow-none">
+                  <p className="text-gray-700 text-xs sm:text-sm">{item}</p>
                 </div>
-                <h2 className="text-xl font-bold text-gray-900">Work Experience</h2>
-              </div>
-
-              <div className="space-y-4">
-                {data.experience.map((item, index) => (
-                  <div key={index} className="bg-white p-3 rounded-lg shadow-xs border-l-4 border-blue-500 print:shadow-none">
-                    <p className="text-gray-700 text-sm">{item}</p>
-                  </div>
-                ))}
-              </div>
+              ))}
             </div>
-          )}
+          </div>
+        )}
 
-          {/* Projects Section */}
-          {formattedProjects.length > 0 && (
-            <div className="bg-gradient-to-br from-purple-50 to-pink-50 p-5 rounded-xl shadow-sm print:shadow-none print:bg-white print:border print:border-gray-200">
-              <div className="flex items-center gap-2 mb-4">
-                <div className="p-2 bg-purple-600 rounded-lg">
-                  <FiCode className="text-white text-lg" />
+        {/* Projects Section */}
+        {formattedProjects.length > 0 && (
+          <div className="bg-gradient-to-br from-purple-50 to-pink-50 p-4 rounded-lg shadow-xs print:shadow-none print:bg-white print:border print:border-gray-200">
+            <div className="flex items-center gap-2 mb-3">
+              <div className="p-1.5 bg-purple-600 rounded-md">
+                <FiCode className="text-white text-base" />
+              </div>
+              <h2 className="text-lg font-bold text-gray-900">Projects</h2>
+            </div>
+
+            <div className="space-y-2">
+              {formattedProjects.map((p, index) => (
+                <div key={index} className="bg-white p-2 rounded-md border border-gray-100 print:shadow-none">
+                  <h4 className="font-semibold text-gray-800 flex items-center gap-1 text-xs sm:text-sm">
+                    <FiStar className="text-yellow-500 text-xs" />
+                    {p.name}
+                  </h4>
+                  {p.description && (
+                    <p className="text-gray-600 text-xs mt-1">{p.description}</p>
+                  )}
+                  {p.link && (
+                    <a
+                      href={p.link}
+                      className="flex items-center gap-0.5 text-blue-600 text-xs mt-1 hover:underline print:text-blue-900"
+                    >
+                      <FiLink className="text-xs" />
+                      View Project
+                    </a>
+                  )}
                 </div>
-                <h2 className="text-xl font-bold text-gray-900">Projects</h2>
-              </div>
-
-              <div className="space-y-4">
-                {formattedProjects.map((p, index) => (
-                  <div key={index} className="bg-white p-3 rounded-lg shadow-xs border border-gray-100 print:shadow-none">
-                    <h4 className="font-semibold text-gray-800 flex items-center gap-1.5 text-sm">
-                      <FiStar className="text-yellow-500 text-xs" />
-                      {p.name}
-                    </h4>
-                    {p.description && (
-                      <p className="text-gray-600 text-xs mt-1.5">{p.description}</p>
-                    )}
-                    {p.link && (
-                      <a
-                        href={p.link}
-                        className="flex items-center gap-1 text-blue-600 text-xs mt-2 hover:underline print:text-blue-900"
-                      >
-                        <FiLink className="text-xs" />
-                        View Project
-                      </a>
-                    )}
-                  </div>
-                ))}
-              </div>
+              ))}
             </div>
-          )}
+          </div>
+        )}
 
-          {/* Additional Sections */}
-          {!loading && !error && sections.length > 0 && (
-            <div className="bg-gradient-to-br from-teal-50 to-green-50 p-5 rounded-xl shadow-sm print:shadow-none print:bg-white print:border print:border-gray-200">
-              <div className="flex items-center gap-2 mb-4">
-                <div className="p-2 bg-teal-600 rounded-lg">
-                  <FiBookOpen className="text-white text-lg" />
+        {/* Skills Section */}
+        {data.skills && data.skills.length > 0 && (
+          <div className="bg-gradient-to-br from-amber-50 to-orange-50 p-4 rounded-lg shadow-xs print:shadow-none print:bg-white print:border print:border-gray-200">
+            <div className="flex items-center gap-2 mb-3">
+              <div className="p-1.5 bg-amber-600 rounded-md">
+                <FiAward className="text-white text-base" />
+              </div>
+              <h2 className="text-lg font-bold text-gray-900">Skills</h2>
+            </div>
+
+            <div className="flex flex-wrap gap-1">
+              {data.skills.map((skill, index) => (
+                <span
+                  key={index}
+                  className="px-2 py-0.5 bg-white text-gray-700 rounded-full text-xs shadow-xs border border-gray-100 print:shadow-none"
+                >
+                  {skill}
+                </span>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Education Section */}
+        {data.education && data.education.length > 0 && (
+          <div className="bg-gradient-to-br from-indigo-50 to-blue-50 p-4 rounded-lg shadow-xs print:shadow-none print:bg-white print:border print:border-gray-200">
+            <div className="flex items-center gap-2 mb-3">
+              <div className="p-1.5 bg-indigo-600 rounded-md">
+                <FiBook className="text-white text-base" />
+              </div>
+              <h2 className="text-lg font-bold text-gray-900">Education</h2>
+            </div>
+
+            <div className="space-y-2">
+              {data.education.map((item, index) => (
+                <div key={index} className="bg-white p-2 rounded-md border-l-3 border-indigo-500 print:shadow-none">
+                  <p className="text-gray-700 text-xs sm:text-sm">{item}</p>
                 </div>
-                <h2 className="text-xl font-bold text-gray-900">Additional Activities</h2>
-              </div>
-
-              <div className="space-y-9">
-                {sections.map((section) => (
-                  <div key={section.id} className="bg-white p-3 rounded-lg shadow-xs border border-gray-100 print:shadow-none">
-                    <h4 className="font-medium text-gray-800 capitalize flex items-center gap-1.5 text-sm">
-                      <FiMapPin className="text-teal-500 text-xs" />
-                      {section.sectionType.toLowerCase()}
-                    </h4>
-                    {section.organization && (
-                      <p className="text-xs text-gray-600 mt-1.5">
-                        <span className="font-medium">Organization:</span> {section.organization}
-                      </p>
-                    )}
-                    {section.description && (
-                      <p className="text-xs text-gray-700 mt-1.5">
-                        {section.description}
-                      </p>
-                    )}
-                  </div>
-                ))}
-              </div>
+              ))}
             </div>
-          )}
-        </div>
+          </div>
+        )}
 
-        {/* Right Column - Skills, Education, Certifications */}
-        <div className="space-y-6 print:space-y-4">
-          {/* Skills Section */}
-          {data.skills && data.skills.length > 0 && (
-            <div className="bg-gradient-to-br from-amber-50 to-orange-50 p-5 rounded-xl shadow-sm print:shadow-none print:bg-white print:border print:border-gray-200">
-              <div className="flex items-center gap-2 mb-4">
-                <div className="p-2 bg-amber-600 rounded-lg">
-                  <FiAward className="text-white text-lg" />
+        {/* Certifications Section */}
+        {data.certifications && data.certifications.length > 0 && (
+          <div className="bg-gradient-to-br from-rose-50 to-pink-50 p-4 rounded-lg shadow-xs print:shadow-none print:bg-white print:border print:border-gray-200">
+            <div className="flex items-center gap-2 mb-3">
+              <div className="p-1.5 bg-rose-600 rounded-md">
+                <FiAward className="text-white text-base" />
+              </div>
+              <h2 className="text-lg font-bold text-gray-900">Certifications</h2>
+            </div>
+
+            <div className="space-y-2">
+              {data.certifications.map((item, index) => (
+                <div key={index} className="bg-white p-2 rounded-md border-l-3 border-rose-500 print:shadow-none">
+                  <p className="text-gray-700 text-xs sm:text-sm">{item}</p>
                 </div>
-                <h2 className="text-xl font-bold text-gray-900">Skills & Expertise</h2>
-              </div>
-
-              <div className="flex flex-wrap gap-1.5">
-                {data.skills.map((skill, index) => (
-                  <span
-                    key={index}
-                    className="px-2.5 py-1 bg-white text-gray-700 rounded-full text-xs shadow-xs border border-gray-100 print:shadow-none"
-                  >
-                    {skill}
-                  </span>
-                ))}
-              </div>
+              ))}
             </div>
-          )}
+          </div>
+        )}
 
-          {/* Education Section */}
-          {data.education && data.education.length > 0 && (
-            <div className="bg-gradient-to-br from-indigo-50 to-blue-50 p-5 rounded-xl shadow-sm print:shadow-none print:bg-white print:border print:border-gray-200">
-              <div className="flex items-center gap-2 mb-4">
-                <div className="p-2 bg-indigo-600 rounded-lg">
-                  <FiBook className="text-white text-lg" />
+        {/* Additional Sections */}
+        {!loading && !error && sections.length > 0 && (
+          <div className="bg-gradient-to-br from-teal-50 to-green-50 p-4 rounded-lg shadow-xs print:shadow-none print:bg-white print:border print:border-gray-200">
+            <div className="flex items-center gap-2 mb-3">
+              <div className="p-1.5 bg-teal-600 rounded-md">
+                <FiBookOpen className="text-white text-base" />
+              </div>
+              <h2 className="text-lg font-bold text-gray-900">Additional</h2>
+            </div>
+
+            <div className="space-y-2">
+              {sections.map((section) => (
+                <div key={section.id} className="bg-white p-2 rounded-md border border-gray-100 print:shadow-none">
+                  <h4 className="font-medium text-gray-800 capitalize flex items-center gap-1 text-xs sm:text-sm">
+                    <FiMapPin className="text-teal-500 text-xs" />
+                    {section.sectionType.toLowerCase()}
+                  </h4>
+                  {section.organization && (
+                    <p className="text-xs text-gray-600 mt-1">
+                      <span className="font-medium">Organization:</span> {section.organization}
+                    </p>
+                  )}
+                  {section.description && (
+                    <p className="text-xs text-gray-700 mt-1">
+                      {section.description}
+                    </p>
+                  )}
                 </div>
-                <h2 className="text-xl font-bold text-gray-900">Education</h2>
-              </div>
-
-              <div className="space-y-3">
-                {data.education.map((item, index) => (
-                  <div key={index} className="bg-white p-3 rounded-lg shadow-xs border-l-4 border-indigo-500 print:shadow-none">
-                    <p className="text-gray-700 text-sm">{item}</p>
-                  </div>
-                ))}
-              </div>
+              ))}
             </div>
-          )}
+          </div>
+        )}
 
-          {/* Certifications Section */}
-          {data.certifications && data.certifications.length > 0 && (
-            <div className="bg-gradient-to-br from-rose-50 to-pink-50 p-5 rounded-xl shadow-sm print:shadow-none print:bg-white print:border print:border-gray-200">
-              <div className="flex items-center gap-2 mb-4">
-                <div className="p-2 bg-rose-600 rounded-lg">
-                  <FiAward className="text-white text-lg" />
-                </div>
-                <h2 className="text-xl font-bold text-gray-900">Certifications</h2>
-              </div>
-
-              <div className="space-y-3">
-                {data.certifications.map((item, index) => (
-                  <div key={index} className="bg-white p-3 rounded-lg shadow-xs border-l-4 border-rose-500 print:shadow-none">
-                    <p className="text-gray-700 text-sm">{item}</p>
-                  </div>
-                ))}
-              </div>
+        {/* Loading and Error States */}
+        {loading && (
+          <div className="p-2 text-center text-gray-500 bg-gray-50 rounded-lg text-xs">
+            <div className="flex items-center justify-center gap-1">
+              <div className="h-2 w-2 bg-blue-400 rounded-full animate-pulse"></div>
+              <span>Loading sections...</span>
             </div>
-          )}
+          </div>
+        )}
 
-
-
-          {/* Loading and Error States */}
-          {loading && (
-            <div className="p-3 text-center text-gray-500 bg-gray-50 rounded-lg text-xs">
-              <div className="flex items-center justify-center gap-1.5">
-                <div className="h-3 w-3 bg-blue-400 rounded-full animate-pulse"></div>
-                <span>Loading additional sections...</span>
-              </div>
-            </div>
-          )}
-
-          {error && (
-            <div className="p-3 text-center text-red-500 bg-red-50 rounded-lg text-xs">
-              <p>{error}</p>
-              <button
-                onClick={fetchSections}
-                className="mt-1.5 px-3 py-1 bg-red-500 text-white rounded text-xs hover:bg-red-600 transition-colors print:hidden"
-              >
-                Try again
-              </button>
-            </div>
-          )}
-        </div>
+        {error && (
+          <div className="p-2 text-center text-red-500 bg-red-50 rounded-lg text-xs">
+            <p>{error}</p>
+            <button
+              onClick={fetchSections}
+              className="mt-1 px-2 py-0.5 bg-red-500 text-white rounded text-xs hover:bg-red-600 transition-colors print:hidden"
+            >
+              Try again
+            </button>
+          </div>
+        )}
       </div>
 
       {/* Footer - Only show in digital view */}
-      <div className="mt-8 pt-5 border-t border-gray-200 text-center text-gray-500 text-xs print:hidden">
+      <div className="mt-6 pt-4 border-t border-gray-200 text-center text-gray-500 text-xs print:hidden p-4">
         <p>Generated with Resume Builder • {new Date().getFullYear()}</p>
       </div>
     </div>

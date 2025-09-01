@@ -199,13 +199,12 @@
 
 
 
-
 'use client';
 
 import { ResumeData, ResumeProject } from "@/lib/types/resume.type";
 import Selection from "../Resume/ResumeFormate";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { RefObject, useEffect, useState } from "react";
 import { useUser } from "@clerk/nextjs";
 import { getSections } from '@/app/actions/section';
 
@@ -243,9 +242,10 @@ interface TechnicalTemplateProps {
     imageUrl?: string | null;
     name?: string | null;
   };
+  resumeRef: RefObject<HTMLDivElement | null>;
 }
 
-export default function TechnicalTemplate({ data, user }: TechnicalTemplateProps) {
+export default function TechnicalTemplate({ data, user, resumeRef }: TechnicalTemplateProps) {
   const { isLoaded: isUserLoaded } = useUser();
   const formattedProjects = transformProjects(data.projects || []);
   const [sections, setSections] = useState<CustomSection[]>([]);
@@ -279,55 +279,58 @@ export default function TechnicalTemplate({ data, user }: TechnicalTemplateProps
   }, [isUserLoaded]);
 
   return (
-    <div className="space-y-6">
-      <div className="border-l-4 border-blue-500 pl-4">
+    <div
+      ref={resumeRef}
+      className="space-y-6 print:space-y-4 print:p-0 print:max-w-none"
+    >
+      <div className="border-l-4 border-blue-500 pl-4 print:border-l-2 print:pl-2">
         {/* User info section */}
         {user && (
-          <div className="flex items-center gap-4 mb-4">
+          <div className="flex items-center gap-4 mb-4 print:mb-3 print:gap-3">
             {user.imageUrl && (
               <Image
                 src={user.imageUrl}
                 alt="Profile"
                 width={60}
                 height={60}
-                className="rounded-full"
+                className="rounded-full print:w-12 print:h-12"
               />
             )}
             <div>
-              <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">
+              <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 print:text-xl">
                 {user.name || data.name}
               </h1>
-              <p className="text-gray-600">{user.email}</p>
+              <p className="text-gray-600 print:text-sm">{user.email}</p>
             </div>
           </div>
         )}
 
         {/* Fallback to data.name if no user provided */}
         {!user && (
-          <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">{data.name}</h1>
+          <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 print:text-xl">
+            {data.name}
+          </h1>
         )}
 
-        <p className="text-gray-600 mt-2">{data.summary}</p>
+        <p className="text-gray-600 mt-2 print:text-sm print:mt-1">{data.summary}</p>
         {(data.linkedinLink || data.githubLink) && (
-          <div className="flex gap-4 mt-3 text-sm">
+          <div className="flex gap-4 mt-3 text-sm print:mt-2 print:text-xs">
             {data.linkedinLink && (
-              <a href={data.linkedinLink} className="text-blue-600 hover:underline">
+              <a href={data.linkedinLink} className="text-blue-600 hover:underline print:text-blue-800">
                 LinkedIn
               </a>
             )}
             {data.githubLink && (
-              <a href={data.githubLink} className="text-gray-600 hover:underline">
+              <a href={data.githubLink} className="text-gray-600 hover:underline print:text-gray-800">
                 GitHub
               </a>
             )}
           </div>
         )}
-
-
       </div>
 
-      <div className="grid md:grid-cols-3 gap-6">
-        <div className="md:col-span-2 space-y-6">
+      <div className="grid md:grid-cols-3 gap-6 print:gap-4 print:grid-cols-1 print:md:grid-cols-3">
+        <div className="md:col-span-2 space-y-6 print:space-y-4 print:md:col-span-2">
           {data.experience && data.experience.length > 0 && (
             <Selection title="Experience" items={data.experience} />
           )}
@@ -336,20 +339,20 @@ export default function TechnicalTemplate({ data, user }: TechnicalTemplateProps
             <Selection
               title="Projects"
               items={formattedProjects.map(p => (
-                <div key={p.name} className="mb-3">
-                  <h4 className="font-medium">{p.name}</h4>
-                  {p.description && <p className="text-gray-700">{p.description}</p>}
+                <div key={p.name} className="mb-3 print:mb-2">
+                  <h4 className="font-medium print:text-sm">{p.name}</h4>
+                  {p.description && <p className="text-gray-700 print:text-xs">{p.description}</p>}
                   {p.technologies && p.technologies.length > 0 && (
-                    <div className="flex flex-wrap gap-1 mt-1">
+                    <div className="flex flex-wrap gap-1 mt-1 print:mt-0.5">
                       {p.technologies.map(tech => (
-                        <span key={tech} className="text-xs bg-gray-100 px-2 py-1 rounded">
+                        <span key={tech} className="text-xs bg-gray-100 px-2 py-1 rounded print:text-2xs print:px-1.5 print:py-0.5">
                           {tech}
                         </span>
                       ))}
                     </div>
                   )}
                   {p.link && (
-                    <a href={p.link} className="text-blue-600 text-sm hover:underline mt-1 inline-block">
+                    <a href={p.link} className="text-blue-600 text-sm hover:underline mt-1 inline-block print:text-xs print:mt-0.5">
                       View Project
                     </a>
                   )}
@@ -362,17 +365,17 @@ export default function TechnicalTemplate({ data, user }: TechnicalTemplateProps
             <Selection
               title="Additional Sections"
               items={sections.map((section) => (
-                <div key={section.id} className="mb-3 p-2 bg-gray-50 rounded border">
-                  <h4 className="font-medium text-gray-800 capitalize text-sm">
+                <div key={section.id} className="mb-3 p-2 bg-gray-50 rounded border print:mb-2 print:p-1.5">
+                  <h4 className="font-medium text-gray-800 capitalize text-sm print:text-xs">
                     {section.sectionType.toLowerCase()}
                   </h4>
                   {section.organization && (
-                    <p className="text-sm text-gray-600 mt-1">
-                      <span className="text-lg">Organization:</span> {section.organization}
+                    <p className="text-sm text-gray-600 mt-1 print:text-xs print:mt-0.5">
+                      <span className="font-medium">Organization:</span> {section.organization}
                     </p>
                   )}
                   {section.description && (
-                    <p className="text-sm text-gray-700 mt-1">
+                    <p className="text-sm text-gray-700 mt-1 print:text-xs print:mt-0.5">
                       {section.description}
                     </p>
                   )}
@@ -382,14 +385,14 @@ export default function TechnicalTemplate({ data, user }: TechnicalTemplateProps
           )}
         </div>
 
-        <div className="space-y-6">
+        <div className="space-y-6 print:space-y-4">
           {data.skills && data.skills.length > 0 && (
             <Selection
               title="Skills"
               items={[
-                <div key="skills" className="flex flex-wrap gap-1">
+                <div key="skills" className="flex flex-wrap gap-1 print:gap-0.5">
                   {data.skills.map(skill => (
-                    <span key={skill} className="text-xs bg-gray-100 px-2 py-1 rounded">
+                    <span key={skill} className="text-xs bg-gray-100 px-2 py-1 rounded print:text-2xs print:px-1.5 print:py-0.5">
                       {skill}
                     </span>
                   ))}
@@ -408,24 +411,22 @@ export default function TechnicalTemplate({ data, user }: TechnicalTemplateProps
 
           {/* Custom Sections */}
           {loading && (
-            <div className="p-3 text-center text-gray-500 text-sm">
+            <div className="p-3 text-center text-gray-500 text-sm print:p-2 print:text-xs">
               Loading additional sections...
             </div>
           )}
 
           {error && (
-            <div className="p-3 text-center text-red-500 text-sm">
+            <div className="p-3 text-center text-red-500 text-sm print:p-2 print:text-xs">
               {error}
               <button
                 onClick={fetchSections}
-                className="ml-2 text-blue-600 hover:underline"
+                className="ml-2 text-blue-600 hover:underline print:text-blue-800 print:ml-1"
               >
                 Try again
               </button>
             </div>
           )}
-
-
         </div>
       </div>
     </div>

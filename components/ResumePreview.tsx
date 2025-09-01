@@ -84,7 +84,6 @@
 // }
 
 
-
 "use client";
 
 import { useRef } from "react";
@@ -106,34 +105,44 @@ export function ResumePreview({ resumeData, templateId }: ResumePreviewProps) {
   const { user } = useUser();
   const resumeRef = useRef<HTMLDivElement>(null);
 
-
-
   const handleDownload = useReactToPrint({
     contentRef: resumeRef,
     documentTitle: "My_Resume",
     pageStyle: `
-    @page {
-      size: A4;
-      margin: 10mm; // Reduced margins
-    }
-    body {
-      -webkit-print-color-adjust: exact;
-      print-color-adjust: exact;
-      width: 100% !important;
-      zoom: 0.9; // Slightly zoom out if needed
-    }
-    @media print {
-      html, body {
-        width: 210mm;
-        height: 297mm;
+      @page {
+        size: A4;
+        margin: 0;
       }
-      .resume-container {
-        width: 190mm !important; // Account for margins
-        margin: 0 auto;
+      @media print {
+        body, html {
+          width: 100% !important;
+          height: auto !important;
+          margin: 0 !important;
+          padding: 0 !important;
+          background: white !important;
+          -webkit-print-color-adjust: exact;
+          print-color-adjust: exact;
+        }
+        .print-mode {
+          width: 100% !important;
+          max-width: none !important;
+          margin: 0 !important;
+          padding: 0 !important;
+          box-shadow: none !important;
+          border: none !important;
+          border-radius: 0 !important;
+        }
+        .no-print {
+          display: none !important;
+        }
+        * {
+          -webkit-print-color-adjust: exact;
+          print-color-adjust: exact;
+        }
       }
-    }
-  `,
+    `,
   });
+
   const templateUser: TemplateUser | undefined = user
     ? {
       email: user.primaryEmailAddress?.emailAddress || "",
@@ -144,8 +153,8 @@ export function ResumePreview({ resumeData, templateId }: ResumePreviewProps) {
 
   return (
     <div className="max-w-4xl mx-auto p-4">
-      {/* Header with actions */}
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
+      {/* Header with actions - will be hidden when printing */}
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8 no-print">
         <div>
           <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">
             Your Resume
@@ -165,21 +174,35 @@ export function ResumePreview({ resumeData, templateId }: ResumePreviewProps) {
         </div>
       </div>
 
-      {/* Resume content → printable area */}
-      <div ref={resumeRef} className="bg-white rounded-lg shadow-md p-6 sm:p-8">
-        {templateId === "technical" && (
-          <TechnicalTemplate data={resumeData} user={templateUser} />
-        )}
-        {templateId === "creative" && (
-          <CreativeTemplate data={resumeData} user={templateUser} />
-        )}
-        {templateId === "minimal" && (
-          <MinimalTemplate data={resumeData} user={templateUser} />
-        )}
-        {!templateId && (
-          <TechnicalTemplate data={resumeData} user={templateUser} />
-        )}
-      </div>
+      {/* Pass resumeRef as a prop to the template */}
+      {templateId === "technical" && (
+        <TechnicalTemplate
+          data={resumeData}
+          user={templateUser}
+          resumeRef={resumeRef}
+        />
+      )}
+      {templateId === "creative" && (
+        <CreativeTemplate
+          data={resumeData}
+          user={templateUser}
+          resumeRef={resumeRef}
+        />
+      )}
+      {templateId === "minimal" && (
+        <MinimalTemplate
+          data={resumeData}
+          user={templateUser}
+          resumeRef={resumeRef}
+        />
+      )}
+      {!templateId && (
+        <TechnicalTemplate
+          data={resumeData}
+          user={templateUser}
+          resumeRef={resumeRef}
+        />
+      )}
     </div>
   );
 }
