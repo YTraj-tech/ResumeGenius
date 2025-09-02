@@ -126,7 +126,6 @@
 
 
 
-
 'use client';
 
 import { useRef } from "react";
@@ -166,13 +165,18 @@ export function ResumePreview({ resumeData, templateId }: ResumePreviewProps) {
           -webkit-print-color-adjust: exact;
           print-color-adjust: exact;
         }
-        .resume-container > * {
+        /* Hide everything except the resume */
+        body > *:not(.resume-container) {
+          display: none !important;
+        }
+        .resume-container {
           width: 100% !important;
           max-width: none !important;
           margin: 0 !important;
           padding: 0 !important;
         }
-        .no-print {
+        /* Ensure all no-print elements are hidden */
+        .no-print, .no-print * {
           display: none !important;
         }
         * {
@@ -183,15 +187,35 @@ export function ResumePreview({ resumeData, templateId }: ResumePreviewProps) {
       }
     `,
     onBeforePrint: () => {
+      // Hide all elements except the resume container
+      const bodyChildren = document.body.children;
+      for (let i = 0; i < bodyChildren.length; i++) {
+        const child = bodyChildren[i] as HTMLElement;
+        if (!child.classList.contains('resume-container')) {
+          child.style.display = 'none';
+        }
+      }
+
+      // Also hide any no-print elements
       document.querySelectorAll('.no-print').forEach(el => {
         (el as HTMLElement).style.display = 'none';
       });
+
       return Promise.resolve();
     },
     onAfterPrint: () => {
+      // Restore all hidden elements
+      const bodyChildren = document.body.children;
+      for (let i = 0; i < bodyChildren.length; i++) {
+        const child = bodyChildren[i] as HTMLElement;
+        child.style.display = '';
+      }
+
+      // Restore no-print elements
       document.querySelectorAll('.no-print').forEach(el => {
         (el as HTMLElement).style.display = '';
       });
+
       return Promise.resolve();
     }
   });
