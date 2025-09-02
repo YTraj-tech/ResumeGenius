@@ -40,8 +40,6 @@
 
 
 
-
-// app/resume/[templateId]/page.tsx
 import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import { prisma } from "@/lib/prisma";
@@ -94,16 +92,21 @@ export default async function ResumePage({ params }: ResumePageProps) {
   }
 
   return (
-    <div className="min-h-screen bg-gray-100 py-8">
+    <div className="h-fit bg-gray-100 py-8">
       <div className="container mx-auto px-4">
-        <ResumePreview
-          resumeData={resumeData}
-          templateId={templateId}
-        />
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          {/* Left Column - Resume Preview */}
+          <div>
+            <ResumePreview
+              resumeData={resumeData}
+              templateId={templateId}
+            />
+          </div>
 
-        <div className="mt-8">
-          <h1 className="text-3xl font-bold mb-8">Additional Sections</h1>
-          <ResumeSections resumeId={resume.id} userId={userId} />
+          {/* Right Column - Additional Sections Form */}
+          <div>
+            <ResumeSections resumeId={resume.id} userId={userId} />
+          </div>
         </div>
       </div>
     </div>
