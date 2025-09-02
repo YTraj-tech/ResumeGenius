@@ -1,4 +1,5 @@
 import React from 'react'
+import Link from 'next/link';
 import { DirectionAwareHoverDemo } from "@/components/Card_direaction"
 import { IoShieldCheckmarkOutline } from "react-icons/io5";
 import { Merriweather } from "next/font/google"
@@ -52,9 +53,12 @@ const ResumeShow = () => {
                             <span className="absolute inset-0 rounded-full bg-[image:radial-gradient(75%_100%_at_50%_0%,rgba(56,189,248,0.6)_0%,rgba(56,189,248,0)_75%)] opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
                         </span>
                         <div className="relative flex space-x-2 items-center z-10 rounded-full bg-blue-500 py-0.5 px-4 ring-1 ring-white/10 ">
-                            <span className='text-lg'>
-                                Start building
-                            </span>
+                            <Link href={"/extract"}>
+                                <span className='text-lg'>
+                                    Start building
+                                </span>
+                            </Link>
+
                             <svg
                                 fill="none"
                                 height="16"

@@ -1,10 +1,11 @@
 import React from 'react';
 import { SparklesText } from '../ui/Sparkels';
 import { Tinos } from 'next/font/google';
+import Link from 'next/link';
 
 const Rak = Tinos({
-    subsets:["latin"],
-    weight:["700"]
+  subsets: ["latin"],
+  weight: ["700"]
 })
 const Footer = () => {
   return (
@@ -20,19 +21,20 @@ const Footer = () => {
 
         {/* Main headline */}
         <h1 className={` text-white   bg-clip-text   sm:text-2xl md:text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight mb-6 sm:mb-8 ${Rak.className} `}>
-         <SparklesText> Build a standout resume in just clicks </SparklesText>
+          <SparklesText> Build a standout resume in just clicks </SparklesText>
         </h1>
 
         {/* Supporting tagline */}
         <p className="text-gray-300 mx-5 lg:ml-[80px] text-center sm:text-lg md:text-xl max-w-2xl  mb-8">
-          Resumepier turns your experience into a professional, job-winning resume. 
+          Resumepier turns your experience into a professional, job-winning resume.
           No stress, no design headaches—just results that get you noticed.
         </p>
 
         {/* Main CTA */}
         <div className="flex justify-center mb-6">
           <button className="bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white px-8 py-4 rounded-full font-semibold text-lg transition-all duration-300 transform hover:scale-105 shadow-xl">
-            Build My Resume 
+            <Link href={"/extract"}>            Build My Resume </Link>
+
           </button>
         </div>
 
