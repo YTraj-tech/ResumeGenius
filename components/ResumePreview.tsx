@@ -141,10 +141,9 @@
 
 
 
-
 'use client';
 
-import { useRef } from "react";
+import { useRef, useEffect, useState } from "react";
 import { useUser } from "@clerk/nextjs";
 import { useReactToPrint } from "react-to-print";
 
@@ -152,6 +151,7 @@ import TechnicalTemplate from "./templates/TechnicalTemplate";
 import CreativeTemplate from "./templates/CreativeTemplate";
 import MinimalTemplate from "./templates/MinimalTemplate";
 import { ResumePreviewProps } from "@/lib/types/resume.type";
+import { getSections } from "@/app/actions/section";
 
 interface TemplateUser {
   email: string;
@@ -159,41 +159,77 @@ interface TemplateUser {
   name?: string | null;
 }
 
+interface CustomSection {
+  id: string;
+  sectionType: string;
+  organization: string;
+  description: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
 export function ResumePreview({ resumeData, templateId }: ResumePreviewProps) {
-  const { user } = useUser();
+  const { user, isLoaded } = useUser();
   const resumeRef = useRef<HTMLDivElement>(null);
+
+  // State for extra sections
+  const [sections, setSections] = useState<CustomSection[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  const fetchSections = async () => {
+    try {
+      setLoading(true);
+      const result = await getSections();
+
+      if (result.success) {
+        setSections(result.sections);
+        setError(null);
+      } else {
+        setError(result.error || "Failed to load sections");
+      }
+    } catch (err) {
+      console.error("Error fetching sections:", err);
+      setError("An error occurred while fetching sections");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    if (isLoaded) {
+      fetchSections();
+    }
+  }, [isLoaded]);
 
   const handleDownload = useReactToPrint({
     contentRef: resumeRef,
     documentTitle: "My_Resume",
     pageStyle: `
-    @page {
-      size: A4;
-      margin: 30px !important;
-    }
-    @media print {
-      body, html {
-        width: 100% !important;
-        height: auto !important;
-        margin: 0 !important;
-        padding: 0 !important;
-        background: white !important;
-        -webkit-print-color-adjust: exact;
-        print-color-adjust: exact;
+      @page {
+        size: A4;
+        margin: 30px !important;
       }
-      .no-print {
-        display: none !important;
+      @media print {
+        body, html {
+          width: 100% !important;
+          height: auto !important;
+          margin: 0 !important;
+          padding: 0 !important;
+          background: white !important;
+          -webkit-print-color-adjust: exact;
+          print-color-adjust: exact;
+        }
+        .no-print {
+          display: none !important;
+        }
+        * {
+          -webkit-print-color-adjust: exact;
+          print-color-adjust: exact;
+          box-sizing: border-box;
+        }
       }
-      * {
-        -webkit-print-color-adjust: exact;
-        print-color-adjust: exact;
-        box-sizing: border-box;
-      }
-    }
-  `,
-    onAfterPrint: () => {
-      console.log("PDF printed successfully");
-    },
+    `,
   });
 
   const templateUser: TemplateUser | undefined = user
@@ -227,11 +263,18 @@ export function ResumePreview({ resumeData, templateId }: ResumePreviewProps) {
         </div>
       </div>
 
-      {/* Resume content - ONLY this prints */}
+      {/* Resume content */}
       <div className="resume-container">
         <div ref={resumeRef}>
           {templateId === "technical" && (
-            <TechnicalTemplate data={resumeData} user={templateUser} />
+            <TechnicalTemplate
+              data={resumeData}
+              user={templateUser}
+              sections={sections}
+              loading={loading}
+              error={error}
+              onRetry={fetchSections}
+            />
           )}
           {templateId === "creative" && (
             <CreativeTemplate data={resumeData} user={templateUser} />
@@ -240,7 +283,14 @@ export function ResumePreview({ resumeData, templateId }: ResumePreviewProps) {
             <MinimalTemplate data={resumeData} user={templateUser} />
           )}
           {!templateId && (
-            <TechnicalTemplate data={resumeData} user={templateUser} />
+            <TechnicalTemplate
+              data={resumeData}
+              user={templateUser}
+              sections={sections}
+              loading={loading}
+              error={error}
+              onRetry={fetchSections}
+            />
           )}
         </div>
       </div>

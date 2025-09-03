@@ -436,17 +436,12 @@
 
 
 
-
 'use client';
 
 import { ResumeData, ResumeProject } from "@/lib/types/resume.type";
 import Selection from "../Resume/ResumeFormate";
 import Image from "next/image";
-import { useEffect, useState } from "react";
-import { useUser } from "@clerk/nextjs";
-import { getSections } from '@/app/actions/section';
 
-// Helper function to transform projects data
 const transformProjects = (projects: any[]): ResumeProject[] => {
   if (!projects || projects.length === 0) return [];
 
@@ -478,39 +473,21 @@ interface TechnicalTemplateProps {
     imageUrl?: string | null;
     name?: string | null;
   };
+  sections: CustomSection[];
+  loading: boolean;
+  error: string | null;
+  onRetry: () => void;
 }
 
-export default function TechnicalTemplate({ data, user }: TechnicalTemplateProps) {
-  const { isLoaded: isUserLoaded } = useUser();
+export default function TechnicalTemplate({
+  data,
+  user,
+  sections,
+  loading,
+  error,
+  onRetry,
+}: TechnicalTemplateProps) {
   const formattedProjects = transformProjects(data.projects || []);
-  const [sections, setSections] = useState<CustomSection[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-
-  const fetchSections = async () => {
-    try {
-      setLoading(true);
-      const result = await getSections();
-
-      if (result.success) {
-        setSections(result.sections);
-        setError(null);
-      } else {
-        setError(result.error || "Failed to load sections");
-      }
-    } catch (err) {
-      console.error("Error fetching sections:", err);
-      setError("An error occurred while fetching sections");
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    if (isUserLoaded) {
-      fetchSections();
-    }
-  }, [isUserLoaded]);
 
   return (
     <div className="space-y-6 w-full max-w-4xl px-9 py-20 mt-[100px] mx-auto print:space-y-4 print:max-w-none print:bg-white print:text-black print:h-auto print:p-[30px] print:mx-0">
@@ -589,7 +566,6 @@ export default function TechnicalTemplate({ data, user }: TechnicalTemplateProps
                       {p.description}
                     </p>
                   )}
-            
                   {p.link && (
                     <a
                       href={p.link}
@@ -636,10 +612,7 @@ export default function TechnicalTemplate({ data, user }: TechnicalTemplateProps
             <Selection
               title="Skills"
               items={[
-                <div
-                  key="skills"
-                  className="flex flex-wrap gap-1 print:gap-0.5"
-                >
+                <div key="skills" className="flex flex-wrap gap-1 print:gap-0.5">
                   {data.skills.map(skill => (
                     <span
                       key={skill}
@@ -671,7 +644,7 @@ export default function TechnicalTemplate({ data, user }: TechnicalTemplateProps
             <div className="p-3 text-center text-red-500 text-sm print:hidden">
               {error}
               <button
-                onClick={fetchSections}
+                onClick={onRetry}
                 className="ml-2 text-blue-600 hover:underline"
               >
                 Try again
