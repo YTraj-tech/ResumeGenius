@@ -149,10 +149,9 @@ interface MinimalTemplateProps {
     imageUrl?: string | null;
     name?: string | null;
   };
-  resumeRef: RefObject<HTMLDivElement | null>;
 }
 
-export default function MinimalTemplate({ data, user, resumeRef }: MinimalTemplateProps) {
+export default function MinimalTemplate({ data, user }: MinimalTemplateProps) {
   const { isLoaded: isUserLoaded } = useUser();
   const formattedProjects = transformProjects(data.projects || []);
   const [sections, setSections] = useState<CustomSection[]>([]);
@@ -186,7 +185,6 @@ export default function MinimalTemplate({ data, user, resumeRef }: MinimalTempla
 
   return (
     <div
-      ref={resumeRef}
       className="w-full max-w-3xl mx-auto p-8 print:p-[30px] print:my-0 print:shadow-none print:border-0 print:bg-white print:text-black bg-white text-gray-800"
     >
       {/* Header Section */}

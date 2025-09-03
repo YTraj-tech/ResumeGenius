@@ -1881,7 +1881,6 @@ interface CreativeTemplateProps {
     imageUrl?: string | null;
     name?: string | null;
   };
-  resumeRef: RefObject<HTMLDivElement | null>;
 }
 
 // Simple section component to replace Selection
@@ -1892,7 +1891,7 @@ const Section = ({ title, children }: { title: string; children: React.ReactNode
   </div>
 );
 
-export default function CreativeTemplate({ data, user, resumeRef }: CreativeTemplateProps) {
+export default function CreativeTemplate({ data, user, }: CreativeTemplateProps) {
   const { isLoaded: isUserLoaded } = useUser();
   const formattedProjects = transformProjects(data.projects || []);
   const [sections, setSections] = useState<CustomSection[]>([]);
@@ -1927,7 +1926,6 @@ export default function CreativeTemplate({ data, user, resumeRef }: CreativeTemp
 
   return (
     <div
-      ref={resumeRef}
       className="w-full   max-w-4xl  bg-white p-8 print:p-6 print:my-0 print:shadow-none print:border-0 print-mode font-sans"
     >
       {/* Header Section */}
