@@ -141,6 +141,12 @@
 
 
 
+
+
+
+
+
+
 'use client';
 
 import { useRef, useEffect, useState } from "react";
@@ -205,29 +211,11 @@ export function ResumePreview({ resumeData, templateId }: ResumePreviewProps) {
   const handleDownload = useReactToPrint({
     contentRef: resumeRef,
     documentTitle: "My_Resume",
+    bodyClass: "print-only-resume", // 🔑 ensures only resume area prints
     pageStyle: `
       @page {
         size: A4;
         margin: 30px !important;
-      }
-      @media print {
-        body, html {
-          width: 100% !important;
-          height: auto !important;
-          margin: 0 !important;
-          padding: 0 !important;
-          background: white !important;
-          -webkit-print-color-adjust: exact;
-          print-color-adjust: exact;
-        }
-        .no-print {
-          display: none !important;
-        }
-        * {
-          -webkit-print-color-adjust: exact;
-          print-color-adjust: exact;
-          box-sizing: border-box;
-        }
       }
     `,
   });
@@ -263,9 +251,9 @@ export function ResumePreview({ resumeData, templateId }: ResumePreviewProps) {
         </div>
       </div>
 
-      {/* Resume content */}
+      {/* Resume content - Only this prints */}
       <div className="resume-container">
-        <div ref={resumeRef}>
+        <div ref={resumeRef} className="resume-print-area">
           {templateId === "technical" && (
             <TechnicalTemplate
               data={resumeData}

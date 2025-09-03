@@ -225,3 +225,35 @@
     }
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+/* Print only resume */
+@media print {
+  body * {
+    visibility: hidden !important;
+  }
+
+  .resume-print-area,
+  .resume-print-area * {
+    visibility: visible !important;
+  }
+
+  .resume-print-area {
+    position: absolute !important;
+    left: 0;
+    top: 0;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    background: white !important;
+  }
+}
