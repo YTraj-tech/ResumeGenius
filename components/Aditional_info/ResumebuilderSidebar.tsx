@@ -194,7 +194,7 @@ export default function ResumeBuilderSidebar({ resumeId, userId }: ResumeBuilder
   ];
 
   return (
-    <div className="h-full flex flex-col">
+    <div className="h-fit flex flex-col">
       {/* Mobile Header */}
       <div className="flex justify-between items-center p-4 border-b lg:hidden">
         <h2 className="text-lg font-semibold">Edit Resume</h2>
@@ -224,7 +224,7 @@ export default function ResumeBuilderSidebar({ resumeId, userId }: ResumeBuilder
       </div>
 
       {/* Form Content */}
-      <div className="flex-1 p-4 overflow-y-auto">
+      <div className="flex-1 p-4 lg:pt-[100px] overflow-y-auto">
         <div className="space-y-6">
           {activeTab === 'personal' && (
             <div className="space-y-4">

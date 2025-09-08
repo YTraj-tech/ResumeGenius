@@ -3,10 +3,12 @@
 import { useRef, useState, useEffect } from "react";
 import { useUser } from "@clerk/nextjs";
 import { useReactToPrint } from "react-to-print";
-
+   
+   
 import TechnicalTemplate from "./templates/TechnicalTemplate";
 import CreativeTemplate from "./templates/CreativeTemplate";
 import MinimalTemplate from "./templates/MinimalTemplate";
+
 import { ResumePreviewProps } from "@/lib/types/resume.type";
 import { getSections } from "@/app/actions/resumeSection";
 import { getPersonalInfoByUserId } from "@/app/actions/section";
@@ -159,7 +161,7 @@ export function ResumePreview({ resumeData, templateId }: ResumePreviewProps) {
 
       {/* Resume content - Only this prints */}
       {!loading && (
-        <div className="resume-container">
+        <div className="resume-container border-2 border-black ">
           <div ref={resumeRef} className="resume-print-area">
             {templateId === "technical" && (
               <TechnicalTemplate

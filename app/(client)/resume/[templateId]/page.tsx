@@ -174,7 +174,7 @@ export default async function ResumePage({ params }: ResumePageProps) {
   }
 
   return (
-    <div className="min-h-screen bg-gray-100">
+    <div className="min-h-screen lg:ml-[-300px] bg-gray-100">
       {/* Mobile Header */}
       <div className="lg:hidden bg-white shadow-sm p-4 flex justify-between items-center">
         <h1 className="text-xl font-semibold">Resume Builder</h1>
@@ -188,7 +188,7 @@ export default async function ResumePage({ params }: ResumePageProps) {
       <div className="container mx-auto px-0 lg:px-4">
         <div className="flex flex-col lg:flex-row">
           {/* Sidebar - Left on desktop, hidden on mobile (opens via drawer) */}
-          <div className="lg:w-1/3 xl:w-1/4">
+          <div className="lg:w-1/3 lg:pt-[100px] xl:w-1/4">
             <input id="sidebar-toggle" type="checkbox" className="drawer-toggle" />
             <div className="drawer-side lg:drawer-open z-50">
               <label htmlFor="sidebar-toggle" className="drawer-overlay lg:hidden"></label>

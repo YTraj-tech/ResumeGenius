@@ -66,7 +66,7 @@ export default function TechnicalTemplate({
   const profileImage = personalInfo?.imageUrl || user?.imageUrl;
 
   return (
-    <div className="space-y-6 w-full max-w-4xl px-9 py-20 mt-[100px] mx-auto print:space-y-4 print:max-w-none print:bg-white print:text-black print:h-auto print:p-[30px] print:mx-0">
+    <div className="space-y-6 w-full max-w-4xl px-9 py-20  mx-auto print:space-y-4 print:max-w-none print:bg-white print:text-black print:h-auto print:p-[30px] print:mx-0">
       <div className="border-l-4 border-blue-500 pl-4 print:border-l-2 print:pl-2">
         {/* User info section */}
         {(user || personalInfo) && (
