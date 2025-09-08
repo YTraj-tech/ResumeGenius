@@ -1,62 +1,27 @@
-// import type { NextConfig } from "next";
-
-// const nextConfig: NextConfig = {
-//   eslint: {
-//     // ✅ Don’t fail production builds because of ESLint errors in generated files
-//     ignoreDuringBuilds: true,
-//   },
-//   typescript: {
-//     // ✅ Fail the build on type errors (recommended for production safety)
-//     ignoreBuildErrors: false,
-//   },
-//     content: [
-//     "./pages/**/*.{js,ts,jsx,tsx,mdx}",
-//     "./components/**/*.{js,ts,jsx,tsx,mdx}",
-//     "./app/**/*.{js,ts,jsx,tsx,mdx}",
-//   ],
-//   theme: {
-//     extend: {},
-//   },
-//   plugins: [],
-// };
-
-// export default nextConfig;
-
-
-
-
-
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  // images: {
-  //   remotePatterns: [
-  //     {
-  //       protocol: 'https',
-  //       hostname: 'img.clerk.com',
-  //     },
-  //   ],
-  // },
-
   images: {
     remotePatterns: [
       {
         protocol: "https",
         hostname: "img.clerk.com"
       },
+      {
+        protocol: "https",
+        hostname: "*.cloud.appwrite.io",
+      },
     ],
+    // Disable image optimization in development for faster builds
+    unoptimized: process.env.NODE_ENV === 'development',
   },
   eslint: {
-    // ✅ Don’t fail production builds because of ESLint errors in generated files
     ignoreDuringBuilds: true,
   },
   typescript: {
-    // ✅ Fail the build on type errors (recommended for production safety)
     ignoreBuildErrors: false,
   },
-  reactStrictMode: true, // Recommended for catching errors early
+  reactStrictMode: true,
 };
 
 export default nextConfig;
-
-

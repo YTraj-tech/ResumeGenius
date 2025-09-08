@@ -1,611 +1,7 @@
-// import { ResumeData } from "@/lib/types/resume.type";
-
-// export default function CreativeTemplate({ data }: { data: ResumeData }) {
-//   return (
-//     <div className="space-y-6">
-//       <div className="text-center bg-gradient-to-r from-purple-500 to-pink-500 text-white p-6 rounded-lg">
-//         <h1 className="text-2xl sm:text-3xl font-bold">{data.name}</h1>
-//         <p className="opacity-90 mt-2">{data.summary}</p>
-//         {(data.linkedinLink || data.githubLink) && (
-//           <div className="flex justify-center gap-4 mt-4 text-sm">
-//             {data.linkedinLink && (
-//               <a href={data.linkedinLink} className="text-white hover:underline">
-//                 LinkedIn
-//               </a>
-//             )}
-//             {data.githubLink && (
-//               <a href={data.githubLink} className="text-white hover:underline">
-//                 GitHub
-//               </a>
-//             )}
-//           </div>
-//         )}
-//       </div>
-
-//       <div className="grid md:grid-cols-2 gap-8">
-
-//         <div className="space-y-6">
-//           {/* Experience Section */}
-//           {data.experience && data.experience.length > 0 && (
-//             <div>
-//               <h2 className="text-lg font-semibold text-gray-900 mb-3 border-b border-gray-200 pb-1">
-//                 Experience
-//               </h2>
-//               <div className="space-y-3">
-//                 {data.experience.map((item, index) => (
-//                   <div key={index} className="text-gray-700">
-//                     {item}
-//                   </div>
-//                 ))}
-//               </div>
-//             </div>
-//           )}
-
-//           {/* Projects Section */}
-//           {data.projects && data.projects.length > 0 && (
-//             <div>
-//               <h2 className="text-lg font-semibold text-gray-900 mb-3 border-b border-gray-200 pb-1">
-//                 Projects
-//               </h2>
-//               <div className="space-y-3">
-//                 {data.projects.map((p) => (
-//                   <div key={p.name} className="mb-3">
-//                     <h4 className="font-medium">{p.name}</h4>
-//                     <p className="text-gray-700">{p.description}</p>
-//                     {p.link && (
-//                       <a
-//                         href={p.link}
-//                         className="text-purple-600 text-sm hover:underline mt-1 inline-block"
-//                       >
-//                         View Project
-//                       </a>
-//                     )}
-//                   </div>
-//                 ))}
-//               </div>
-//             </div>
-//           )}
-//         </div>
-
-//         <div className="space-y-6">
-//           {/* Skills Section */}
-//           {data.skills && data.skills.length > 0 && (
-//             <div>
-//               <h2 className="text-lg font-semibold text-gray-900 mb-3 border-b border-gray-200 pb-1">
-//                 Skills
-//               </h2>
-//               <div className="space-y-3">
-//                 <div className="grid grid-cols-2 gap-2">
-//                   {data.skills.map((skill) => (
-//                     <span key={skill} className="text-sm">
-//                       • {skill}
-//                     </span>
-//                   ))}
-//                 </div>
-//               </div>
-//             </div>
-//           )}
-
-//           {/* Education Section */}
-//           {data.education && data.education.length > 0 && (
-//             <div>
-//               <h2 className="text-lg font-semibold text-gray-900 mb-3 border-b border-gray-200 pb-1">
-//                 Education
-//               </h2>
-//               <div className="space-y-3">
-//                 {data.education.map((item, index) => (
-//                   <div key={index} className="text-gray-700">
-//                     {item}
-//                   </div>
-//                 ))}
-//               </div>
-//             </div>
-//           )}
-
-//           {/* Certifications Section */}
-//           {data.certifications && data.certifications.length > 0 && (
-//             <div>
-//               <h2 className="text-lg font-semibold text-gray-900 mb-3 border-b border-gray-200 pb-1">
-//                 Certifications
-//               </h2>
-//               <div className="space-y-3">
-//                 {data.certifications.map((item, index) => (
-//                   <div key={index} className="text-gray-700">
-//                     {item}
-//                   </div>
-//                 ))}
-//               </div>
-//             </div>
-//           )}
-//         </div>
-//       </div>
-//     </div>
-//   );
-// }
-
-
-
-
-
-
-// import { ResumeData, ResumeProject } from "@/lib/types/resume.type";
-// import Image from "next/image";
-
-// // Helper function to transform projects data
-// const transformProjects = (projects: any[]): ResumeProject[] => {
-//   if (!projects || projects.length === 0) return [];
-
-//   // Check if projects are already in the correct format
-//   if (projects[0] && typeof projects[0] === 'object' && 'name' in projects[0]) {
-//     return projects as ResumeProject[];
-//   }
-
-//   // Convert from scraped format to ResumeProject format
-//   return projects.map(project => ({
-//     name: project.title || 'Untitled Project',
-//     description: project.subComponents?.[0]?.description?.[0]?.text || '',
-//     technologies: [],
-//     link: undefined
-//   }));
-// };
-
-// interface CreativeTemplateProps {
-//   data: ResumeData;
-//   user?: {
-//     email: string;
-//     imageUrl?: string | null;
-//     name?: string | null;
-//   };
-// }
-
-// export default function CreativeTemplate({ data, user }: CreativeTemplateProps) {
-//   // Transform projects to the correct format
-//   const formattedProjects = transformProjects(data.projects || []);
-
-//   return (
-//     <div className="space-y-6">
-//       <div className="text-center bg-gradient-to-r from-purple-500 to-pink-500 text-white p-6 rounded-lg">
-//         {/* User info section */}
-//         {user && (
-//           <div className="flex flex-col items-center mb-4">
-//             {user.imageUrl && (
-//               <Image
-//                 src={user.imageUrl}
-//                 alt="Profile"
-//                 width={80}
-//                 height={80}
-//                 className="rounded-full mb-3 border-2 border-white"
-//               />
-//             )}
-//             <h1 className="text-2xl sm:text-3xl font-bold">
-//               {user.name || data.name}
-//             </h1>
-//             <p className="opacity-90">{user.email}</p>
-//           </div>
-//         )}
-
-//         {/* Fallback if no user provided */}
-//         {!user && (
-//           <>
-//             <h1 className="text-2xl sm:text-3xl font-bold">{data.name}</h1>
-//             <p className="opacity-90 mt-2">{data.summary}</p>
-//           </>
-//         )}
-
-//         {(data.linkedinLink || data.githubLink) && (
-//           <div className="flex justify-center gap-4 mt-4 text-sm">
-//             {data.linkedinLink && (
-//               <a href={data.linkedinLink} className="text-white hover:underline">
-//                 LinkedIn
-//               </a>
-//             )}
-//             {data.githubLink && (
-//               <a href={data.githubLink} className="text-white hover:underline">
-//                 GitHub
-//               </a>
-//             )}
-//           </div>
-//         )}
-//       </div>
-
-//       <div className="grid md:grid-cols-2 gap-8">
-
-//         <div className="space-y-6">
-//           {/* Experience Section */}
-//           {data.experience && data.experience.length > 0 && (
-//             <div>
-//               <h2 className="text-lg font-semibold text-gray-900 mb-3 border-b border-gray-200 pb-1">
-//                 Experience
-//               </h2>
-//               <div className="space-y-3">
-//                 {data.experience.map((item, index) => (
-//                   <div key={index} className="text-gray-700">
-//                     {item}
-//                   </div>
-//                 ))}
-//               </div>
-//             </div>
-//           )}
-
-//           {/* Projects Section */}
-//           {formattedProjects.length > 0 && (
-//             <div>
-//               <h2 className="text-lg font-semibold text-gray-900 mb-3 border-b border-gray-200 pb-1">
-//                 Projects
-//               </h2>
-//               <div className="space-y-3">
-//                 {formattedProjects.map((p) => (
-//                   <div key={p.name} className="mb-3">
-//                     <h4 className="font-medium">{p.name}</h4>
-//                     {p.description && <p className="text-gray-700">{p.description}</p>}
-//                     {p.link && (
-//                       <a
-//                         href={p.link}
-//                         className="text-purple-600 text-sm hover:underline mt-1 inline-block"
-//                       >
-//                         View Project
-//                       </a>
-//                     )}
-//                   </div>
-//                 ))}
-//               </div>
-//             </div>
-//           )}
-//         </div>
-
-//         <div className="space-y-6">
-//           {/* Skills Section */}
-//           {data.skills && data.skills.length > 0 && (
-//             <div>
-//               <h2 className="text-lg font-semibold text-gray-900 mb-3 border-b border-gray-200 pb-1">
-//                 Skills
-//               </h2>
-//               <div className="space-y-3">
-//                 <div className="grid grid-cols-2 gap-2">
-//                   {data.skills.map((skill) => (
-//                     <span key={skill} className="text-sm">
-//                       • {skill}
-//                     </span>
-//                   ))}
-//                 </div>
-//               </div>
-//             </div>
-//           )}
-
-//           {/* Education Section */}
-//           {data.education && data.education.length > 0 && (
-//             <div>
-//               <h2 className="text-lg font-semibold text-gray-900 mb-3 border-b border-gray-200 pb-1">
-//                 Education
-//               </h2>
-//               <div className="space-y-3">
-//                 {data.education.map((item, index) => (
-//                   <div key={index} className="text-gray-700">
-//                     {item}
-//                   </div>
-//                 ))}
-//               </div>
-//             </div>
-//           )}
-
-//           {/* Certifications Section */}
-//           {data.certifications && data.certifications.length > 0 && (
-//             <div>
-//               <h2 className="text-lg font-semibold text-gray-900 mb-3 border-b border-gray-200 pb-1">
-//                 Certifications
-//               </h2>
-//               <div className="space-y-3">
-//                 {data.certifications.map((item, index) => (
-//                   <div key={index} className="text-gray-700">
-//                     {item}
-//                   </div>
-//                 ))}
-//               </div>
-//             </div>
-//           )}
-//         </div>
-//       </div>
-//     </div>
-//   );
-// }
-
-
-
 // 'use client';
 
 // import { ResumeData, ResumeProject } from "@/lib/types/resume.type";
 // import Image from "next/image";
-// import { useEffect, useState } from "react";
-// import { useUser } from "@clerk/nextjs";
-// import { getSections } from '@/app/actions/section';
-
-// // Helper function to transform projects data
-// const transformProjects = (projects: any[]): ResumeProject[] => {
-//   if (!projects || projects.length === 0) return [];
-
-//   // Check if projects are already in the correct format
-//   if (projects[0] && typeof projects[0] === 'object' && 'name' in projects[0]) {
-//     return projects as ResumeProject[];
-//   }
-
-//   // Convert from scraped format to ResumeProject format
-//   return projects.map(project => ({
-//     name: project.title || 'Untitled Project',
-//     description: project.subComponents?.[0]?.description?.[0]?.text || '',
-//     technologies: [],
-//     link: undefined
-//   }));
-// };
-
-// interface CustomSection {
-//   id: string;
-//   sectionType: string;
-//   organization: string;
-//   description: string;
-//   createdAt: string;
-//   updatedAt: string;
-// }
-
-// interface CreativeTemplateProps {
-//   data: ResumeData;
-//   user?: {
-//     email: string;
-//     imageUrl?: string | null;
-//     name?: string | null;
-//   };
-// }
-
-// export default function CreativeTemplate({ data, user }: CreativeTemplateProps) {
-//   const { isLoaded: isUserLoaded } = useUser();
-//   const formattedProjects = transformProjects(data.projects || []);
-//   const [sections, setSections] = useState<CustomSection[]>([]);
-//   const [loading, setLoading] = useState(true);
-//   const [error, setError] = useState<string | null>(null);
-
-//   // Fetch sections using Server Action
-//   const fetchSections = async () => {
-//     try {
-//       setLoading(true);
-//       const result = await getSections();
-
-//       if (result.success) {
-//         setSections(result.sections);
-//         setError(null);
-//       } else {
-//         setError(result.error || 'Failed to load sections');
-//       }
-//     } catch (err) {
-//       console.error('Error fetching sections:', err);
-//       setError('An error occurred while fetching sections');
-//     } finally {
-//       setLoading(false);
-//     }
-//   };
-
-//   useEffect(() => {
-//     if (isUserLoaded) {
-//       fetchSections();
-//     }
-//   }, [isUserLoaded]);
-
-//   return (
-//     <div className="space-y-6">
-//       <div className="text-center bg-gradient-to-r from-purple-500 to-pink-500 text-white p-6 rounded-lg">
-//         {/* User info section */}
-//         {user && (
-//           <div className="flex flex-col items-center mb-4">
-//             {user.imageUrl && (
-//               <Image
-//                 src={user.imageUrl}
-//                 alt="Profile"
-//                 width={80}
-//                 height={80}
-//                 className="rounded-full mb-3 border-2 border-white"
-//               />
-//             )}
-//             <h1 className="text-2xl sm:text-3xl font-bold">
-//               {user.name || data.name}
-//             </h1>
-//             <p className="opacity-90">{user.email}</p>
-//           </div>
-//         )}
-
-//         {/* Fallback if no user provided */}
-//         {!user && (
-//           <>
-//             <h1 className="text-2xl sm:text-3xl font-bold">{data.name}</h1>
-//             <p className="opacity-90 mt-2">{data.summary}</p>
-//           </>
-//         )}
-
-//         {(data.linkedinLink || data.githubLink) && (
-//           <div className="flex justify-center gap-4 mt-4 text-sm">
-//             {data.linkedinLink && (
-//               <a href={data.linkedinLink} className="text-white hover:underline">
-//                 LinkedIn
-//               </a>
-//             )}
-//             {data.githubLink && (
-//               <a href={data.githubLink} className="text-white hover:underline">
-//                 GitHub
-//               </a>
-//             )}
-//           </div>
-//         )}
-
-//         {/* Refresh button */}
-//         <button
-//           onClick={fetchSections}
-//           disabled={loading}
-//           className="mt-4 px-4 py-2 bg-white text-purple-600 rounded-md hover:bg-gray-100 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-//         >
-//           {loading ? 'Refreshing...' : 'Refresh Sections'}
-//         </button>
-//       </div>
-
-//       <div className="grid md:grid-cols-2 gap-8">
-
-//         <div className="space-y-6">
-//           {/* Experience Section */}
-//           {data.experience && data.experience.length > 0 && (
-//             <div>
-//               <h2 className="text-lg font-semibold text-gray-900 mb-3 border-b border-gray-200 pb-1">
-//                 Experience
-//               </h2>
-//               <div className="space-y-3">
-//                 {data.experience.map((item, index) => (
-//                   <div key={index} className="text-gray-700">
-//                     {item}
-//                   </div>
-//                 ))}
-//               </div>
-//             </div>
-//           )}
-
-//           {/* Projects Section */}
-//           {formattedProjects.length > 0 && (
-//             <div>
-//               <h2 className="text-lg font-semibold text-gray-900 mb-3 border-b border-gray-200 pb-1">
-//                 Projects
-//               </h2>
-//               <div className="space-y-3">
-//                 {formattedProjects.map((p) => (
-//                   <div key={p.name} className="mb-3">
-//                     <h4 className="font-medium">{p.name}</h4>
-//                     {p.description && <p className="text-gray-700">{p.description}</p>}
-//                     {p.link && (
-//                       <a
-//                         href={p.link}
-//                         className="text-purple-600 text-sm hover:underline mt-1 inline-block"
-//                       >
-//                         View Project
-//                       </a>
-//                     )}
-//                   </div>
-//                 ))}
-//               </div>
-//             </div>
-//           )}
-//         </div>
-
-//         <div className="space-y-6">
-//           {/* Skills Section */}
-//           {data.skills && data.skills.length > 0 && (
-//             <div>
-//               <h2 className="text-lg font-semibold text-gray-900 mb-3 border-b border-gray-200 pb-1">
-//                 Skills
-//               </h2>
-//               <div className="space-y-3">
-//                 <div className="grid grid-cols-2 gap-2">
-//                   {data.skills.map((skill) => (
-//                     <span key={skill} className="text-sm">
-//                       • {skill}
-//                     </span>
-//                   ))}
-//                 </div>
-//               </div>
-//             </div>
-//           )}
-
-//           {/* Education Section */}
-//           {data.education && data.education.length > 0 && (
-//             <div>
-//               <h2 className="text-lg font-semibold text-gray-900 mb-3 border-b border-gray-200 pb-1">
-//                 Education
-//               </h2>
-//               <div className="space-y-3">
-//                 {data.education.map((item, index) => (
-//                   <div key={index} className="text-gray-700">
-//                     {item}
-//                   </div>
-//                 ))}
-//               </div>
-//             </div>
-//           )}
-
-//           {/* Certifications Section */}
-//           {data.certifications && data.certifications.length > 0 && (
-//             <div>
-//               <h2 className="text-lg font-semibold text-gray-900 mb-3 border-b border-gray-200 pb-1">
-//                 Certifications
-//               </h2>
-//               <div className="space-y-3">
-//                 {data.certifications.map((item, index) => (
-//                   <div key={index} className="text-gray-700">
-//                     {item}
-//                   </div>
-//                 ))}
-//               </div>
-//             </div>
-//           )}
-
-//           {/* Custom Sections */}
-//           {loading && (
-//             <div className="p-4 text-center text-gray-500">
-//               Loading additional sections...
-//             </div>
-//           )}
-
-//           {error && (
-//             <div className="p-4 text-center text-red-500">
-//               {error}
-//               <button 
-//                 onClick={fetchSections}
-//                 className="ml-2 text-blue-600 hover:underline"
-//               >
-//                 Try again
-//               </button>
-//             </div>
-//           )}
-
-//           {!loading && !error && sections.length > 0 && (
-//             <div>
-//               <div className="flex justify-between items-center mb-3 border-b border-gray-200 pb-1">
-//                 <h2 className="text-lg font-semibold text-gray-900">
-//                   Additional Sections
-//                 </h2>
-//                 <span className="text-sm text-gray-500">
-//                   {sections.length} section(s)
-//                 </span>
-//               </div>
-//               <div className="space-y-4">
-//                 {sections.map((section) => (
-//                   <div key={section.id} className="p-3 bg-gray-50 rounded-lg border">
-//                     <h3 className="font-medium text-gray-800 capitalize">
-//                       {section.sectionType.toLowerCase()}
-//                     </h3>
-//                     {section.organization && (
-//                       <p className="text-sm text-gray-600 mt-1">
-//                         <span className="font-medium">Organization:</span> {section.organization}
-//                       </p>
-//                     )}
-//                     {section.description && (
-//                       <p className="text-sm text-gray-700 mt-2">
-//                         {section.description}
-//                       </p>
-//                     )}
-//                   </div>
-//                 ))}
-//               </div>
-//             </div>
-//           )}
-//         </div>
-//       </div>
-//     </div>
-//   );
-// }
-
-
-
-
-// 'use client';
-
-// import { ResumeData, ResumeProject } from "@/lib/types/resume.type";
-// import Image from "next/image";
-// import {CustomSection , CreativeTemplateProps} from "@/lib/types/resume.type"
-// import { useEffect, useState } from "react";
-// import { useUser } from "@clerk/nextjs";
-// import { getSections } from '@/app/actions/section';
 // import Link from "next/link";
 
 // // Helper function to transform projects data
@@ -626,245 +22,6 @@
 //   }));
 // };
 
-
-
-// export default function CreativeTemplate({ data, user }: CreativeTemplateProps) {
-//   const { isLoaded: isUserLoaded } = useUser();
-//   const formattedProjects = transformProjects(data.projects || []);
-//   const [sections, setSections] = useState<CustomSection[]>([]);
-//   const [loading, setLoading] = useState(true);
-//   const [error, setError] = useState<string | null>(null);
-
-//   // Fetch sections using Server Action
-//   const fetchSections = async () => {
-//     try {
-//       setLoading(true);
-//       const result = await getSections();
-
-//       if (result.success) {
-//         setSections(result.sections);
-//         setError(null);
-//       } else {
-//         setError(result.error || 'Failed to load sections');
-//       }
-//     } catch (err) {
-//       console.error('Error fetching sections:', err);
-//       setError('An error occurred while fetching sections');
-//     } finally {
-//       setLoading(false);
-//     }
-//   };
-
-//   useEffect(() => {
-//     if (isUserLoaded) {
-//       fetchSections();
-//     }
-//   }, [isUserLoaded]);
-
-//   return (
-//     <div className="max-w-4xl mx-auto p-6 bg-white shadow-lg">
-//       <div className="flex flex-col md:flex-row items-start gap-8">
-//         {/* Left Column - Personal Info and Skills */}
-//         <div className="w-full md:w-1/3 bg-gray-50 p-6 rounded-lg">
-//           <div className="text-center mb-6">
-//             {user && user.imageUrl && (
-//               <Image
-//                 src={user.imageUrl}
-//                 alt="Profile"
-//                 width={150}
-//                 height={150}
-//                 className="rounded-full mx-auto border-4 border-green-600 mb-4"
-//               />
-//             )}
-//             <h1 className="text-2xl font-bold text-gray-800">{user?.name || data.name}</h1>
-//             <div className="flex flex-col items-center gap-2 mt-4 text-sm text-gray-600">
-//               {user?.email && <span>{user.email}</span>}
-//               {data.linkedinLink && <Link href={data.linkedinLink} className="text-green-600 hover:underline">LinkedIn</Link>}
-//               {data.githubLink && <Link href={data.githubLink} className="text-green-600 hover:underline">GitHub</Link>}
-//             </div>
-//           </div>
-
-//           {data.education && data.education.length > 0 && (
-//             <div className="mt-6">
-//               <h2 className="text-lg font-semibold text-gray-800 mb-2">Education</h2>
-//               <div className="text-gray-700 space-y-2">
-//                 {data.education.map((edu, index) => (
-//                   <p key={index} className="text-sm">{edu}</p>
-//                 ))}
-//               </div>
-//             </div>
-//           )}
-
-//           {data.skills && data.skills.length > 0 && (
-//             <div className="mt-6">
-//               <h2 className="text-lg font-semibold text-gray-800 mb-2">Skills</h2>
-//               <div className="space-y-4">
-//                 {data.skills.map((skill, index) => (
-//                   <div key={index}>
-//                     <p className="text-gray-700 text-sm">{skill}</p>
-//                     <div className="w-full bg-gray-200 rounded-full h-2.5">
-//                       <div className="bg-green-600 h-2.5 rounded-full" style={{ width: '80%' }}></div>
-//                     </div>
-//                   </div>
-//                 ))}
-//               </div>
-//             </div>
-//           )}
-
-//           {data.certifications && data.certifications.length > 0 && (
-//             <div className="mt-6">
-//               <h2 className="text-lg font-semibold text-gray-800 mb-2">Certifications</h2>
-//               <div className="space-y-4">
-//                 {data.certifications.map((cert, index) => (
-//                   <div key={index}>
-//                     <p className="text-gray-700 text-sm">{cert}</p>
-//                     <div className="w-full bg-gray-200 rounded-full h-2.5">
-//                       <div className="bg-brown-600 h-2.5 rounded-full" style={{ width: '80%' }}></div>
-//                     </div>
-//                   </div>
-//                 ))}
-//               </div>
-//             </div>
-//           )}
-//         </div>
-
-//         {/* Right Column - Profile and Experience */}
-//         <div className="w-full md:w-2/3 p-6">
-//           {data.summary && (
-//             <div className="mb-6">
-//               <h2 className="text-lg font-semibold text-gray-800 mb-2">Profile</h2>
-//               <p className="text-gray-700 text-sm">{data.summary}</p>
-//             </div>
-//           )}
-
-//           {data.experience && data.experience.length > 0 && (
-//             <div className="mb-6">
-//               <h2 className="text-lg font-semibold text-gray-800 mb-2">Experience</h2>
-//               <ul className="list-disc list-inside text-gray-700 space-y-4">
-//                 {data.experience.map((exp, index) => (
-//                   <li key={index} className="text-sm">
-//                     {exp}
-//                   </li>
-//                 ))}
-//               </ul>
-//             </div>
-//           )}
-
-//           {formattedProjects.length > 0 && (
-//             <div className="mb-6">
-//               <h2 className="text-lg font-semibold text-gray-800 mb-2">Projects</h2>
-//               <div className="space-y-4">
-//                 {formattedProjects.map((project) => (
-//                   <div key={project.name} className="text-sm">
-//                     <h3 className="font-medium text-gray-700">{project.name}</h3>
-//                     {project.description && <p className="text-gray-600 mt-1">{project.description}</p>}
-//                     {project.link && <Link href={project.link} className="text-green-600 hover:underline mt-1 inline-block">View Project</Link>}
-//                   </div>
-//                 ))}
-//               </div>
-//             </div>
-//           )}
-
-//           {/* Custom Sections */}
-//           {loading && (
-//             <div className="p-4 text-center text-gray-500">
-//               Loading additional sections...
-//             </div>
-//           )}
-
-//           {error && (
-//             <div className="p-4 text-center text-red-500">
-//               {error}
-//               <button 
-//                 onClick={fetchSections}
-//                 className="ml-2 text-blue-600 hover:underline"
-//               >
-//                 Try again
-//               </button>
-//             </div>
-//           )}
-
-//           {!loading && !error && sections.length > 0 && (
-//             <div>
-//               <div className="flex justify-between items-center mb-3 border-b border-gray-200 pb-1">
-//                 <h2 className="text-lg font-semibold text-gray-900">
-//                   Additional Sections
-//                 </h2>
-//                 <span className="text-sm text-gray-500">
-//                   {sections.length} section(s)
-//                 </span>
-//               </div>
-//               <div className="space-y-4">
-//                 {sections.map((section) => (
-//                   <div key={section.id} className="p-3 bg-gray-50 rounded-lg border">
-//                     <h3 className="font-medium text-gray-800 capitalize">
-//                       {section.sectionType.toLowerCase()}
-//                     </h3>
-//                     {section.organization && (
-//                       <p className="text-sm text-gray-600 mt-1">
-//                         <span className="font-medium">Organization:</span> {section.organization}
-//                       </p>
-//                     )}
-//                     {section.description && (
-//                       <p className="text-sm text-gray-700 mt-2">
-//                         {section.description}
-//                       </p>
-//                     )}
-//                   </div>
-//                 ))}
-//               </div>
-//             </div>
-//           )}
-//         </div>
-//       </div>
-
-//       {/* Refresh button */}
-//       <button
-//         onClick={fetchSections}
-//         disabled={loading}
-//         className="mt-6 px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed w-full md:w-auto"
-//       >
-//         {loading ? 'Refreshing...' : 'Refresh Sections'}
-//       </button>
-//     </div>
-//   );
-// }
-
-
-
-
-
-
-
-
-
-
-// 'use client';
-
-// import { ResumeData, ResumeProject } from "@/lib/types/resume.type";
-// import Image from "next/image";
-// import { useEffect, useState } from "react";
-// import { useUser } from "@clerk/nextjs";
-// import { getSections } from '@/app/actions/section';
-
-// // Helper function to transform projects data
-// const transformProjects = (projects: any[]): ResumeProject[] => {
-//   if (!projects || projects.length === 0) return [];
-
-//   // Check if projects are already in the correct format
-//   if (projects[0] && typeof projects[0] === 'object' && 'name' in projects[0]) {
-//     return projects as ResumeProject[];
-//   }
-
-//   // Convert from scraped format to ResumeProject format
-//   return projects.map(project => ({
-//     name: project.title || 'Untitled Project',
-//     description: project.subComponents?.[0]?.description?.[0]?.text || '',
-//     technologies: [],
-//     link: undefined
-//   }));
-// };
-
 // interface CustomSection {
 //   id: string;
 //   sectionType: string;
@@ -881,960 +38,302 @@
 //     imageUrl?: string | null;
 //     name?: string | null;
 //   };
+//   sections?: CustomSection[];
 // }
 
-// export default function CreativeTemplate({ data, user }: CreativeTemplateProps) {
-//   const { isLoaded: isUserLoaded } = useUser();
-//   const formattedProjects = transformProjects(data.projects || []);
-//   const [sections, setSections] = useState<CustomSection[]>([]);
-//   const [loading, setLoading] = useState(true);
-//   const [error, setError] = useState<string | null>(null);
+// // Simple section component
+// const Section = ({ title, children }: { title: string; children: React.ReactNode }) => (
+//   <div className="mb-8 print:mb-6">
+//     <h2 className="text-xl font-bold text-gray-900 uppercase mb-4 print:text-lg border-b border-gray-300 pb-2">
+//       {title}
+//     </h2>
+//     {children}
+//   </div>
+// );
 
-//   // Fetch sections using Server Action
-//   const fetchSections = async () => {
-//     try {
-//       setLoading(true);
-//       const result = await getSections();
-
-//       if (result.success) {
-//         setSections(result.sections);
-//         setError(null);
-//       } else {
-//         setError(result.error || 'Failed to load sections');
-//       }
-//     } catch (err) {
-//       console.error('Error fetching sections:', err);
-//       setError('An error occurred while fetching sections');
-//     } finally {
-//       setLoading(false);
-//     }
-//   };
-
-//   useEffect(() => {
-//     if (isUserLoaded) {
-//       fetchSections();
-//     }
-//   }, [isUserLoaded]);
-
-//   return (
-//     <div className="space-y-6">
-//       <div className="text-center bg-gradient-to-r from-purple-500 to-pink-500 text-white p-6 rounded-lg">
-//         {/* User info section */}
-//         {user && (
-//           <div className="flex flex-col items-center mb-4">
-//             {user.imageUrl && (
-//               <Image
-//                 src={user.imageUrl}
-//                 alt="Profile"
-//                 width={80}
-//                 height={80}
-//                 className="rounded-full mb-3 border-2 border-white"
-//               />
-//             )}
-//             <h1 className="text-2xl sm:text-3xl font-bold">
-//               {user.name || data.name}
-//             </h1>
-//             <p className="opacity-90">{user.email}</p>
-//           </div>
-//         )}
-
-//         {/* Fallback if no user provided */}
-//         {!user && (
-//           <>
-//             <h1 className="text-2xl sm:text-3xl font-bold">{data.name}</h1>
-//             <p className="opacity-90 mt-2">{data.summary}</p>
-//           </>
-//         )}
-
-//         {(data.linkedinLink || data.githubLink) && (
-//           <div className="flex justify-center gap-4 mt-4 text-sm">
-//             {data.linkedinLink && (
-//               <a href={data.linkedinLink} className="text-white hover:underline">
-//                 LinkedIn
-//               </a>
-//             )}
-//             {data.githubLink && (
-//               <a href={data.githubLink} className="text-white hover:underline">
-//                 GitHub
-//               </a>
-//             )}
-//           </div>
-//         )}
-
-//         {/* Refresh button */}
-//         <button
-//           onClick={fetchSections}
-//           disabled={loading}
-//           className="mt-4 px-4 py-2 bg-white text-purple-600 rounded-md hover:bg-gray-100 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-//         >
-//           {loading ? 'Refreshing...' : 'Refresh Sections'}
-//         </button>
-//       </div>
-
-//       <div className="grid md:grid-cols-2 gap-8">
-
-//         <div className="space-y-6">
-//           {/* Experience Section */}
-//           {data.experience && data.experience.length > 0 && (
-//             <div>
-//               <h2 className="text-lg font-semibold text-gray-900 mb-3 border-b border-gray-200 pb-1">
-//                 Experience
-//               </h2>
-//               <div className="space-y-3">
-//                 {data.experience.map((item, index) => (
-//                   <div key={index} className="text-gray-700">
-//                     {item}
-//                   </div>
-//                 ))}
-//               </div>
-//             </div>
-//           )}
-
-//           {/* Projects Section */}
-//           {formattedProjects.length > 0 && (
-//             <div>
-//               <h2 className="text-lg font-semibold text-gray-900 mb-3 border-b border-gray-200 pb-1">
-//                 Projects
-//               </h2>
-//               <div className="space-y-3">
-//                 {formattedProjects.map((p) => (
-//                   <div key={p.name} className="mb-3">
-//                     <h4 className="font-medium">{p.name}</h4>
-//                     {p.description && <p className="text-gray-700">{p.description}</p>}
-//                     {p.link && (
-//                       <a
-//                         href={p.link}
-//                         className="text-purple-600 text-sm hover:underline mt-1 inline-block"
-//                       >
-//                         View Project
-//                       </a>
-//                     )}
-//                   </div>
-//                 ))}
-//               </div>
-//             </div>
-//           )}
-//         </div>
-
-//         <div className="space-y-6">
-//           {/* Skills Section */}
-//           {data.skills && data.skills.length > 0 && (
-//             <div>
-//               <h2 className="text-lg font-semibold text-gray-900 mb-3 border-b border-gray-200 pb-1">
-//                 Skills
-//               </h2>
-//               <div className="space-y-3">
-//                 <div className="grid grid-cols-2 gap-2">
-//                   {data.skills.map((skill) => (
-//                     <span key={skill} className="text-sm">
-//                       • {skill}
-//                     </span>
-//                   ))}
-//                 </div>
-//               </div>
-//             </div>
-//           )}
-
-//           {/* Education Section */}
-//           {data.education && data.education.length > 0 && (
-//             <div>
-//               <h2 className="text-lg font-semibold text-gray-900 mb-3 border-b border-gray-200 pb-1">
-//                 Education
-//               </h2>
-//               <div className="space-y-3">
-//                 {data.education.map((item, index) => (
-//                   <div key={index} className="text-gray-700">
-//                     {item}
-//                   </div>
-//                 ))}
-//               </div>
-//             </div>
-//           )}
-
-//           {/* Certifications Section */}
-//           {data.certifications && data.certifications.length > 0 && (
-//             <div>
-//               <h2 className="text-lg font-semibold text-gray-900 mb-3 border-b border-gray-200 pb-1">
-//                 Certifications
-//               </h2>
-//               <div className="space-y-3">
-//                 {data.certifications.map((item, index) => (
-//                   <div key={index} className="text-gray-700">
-//                     {item}
-//                   </div>
-//                 ))}
-//               </div>
-//             </div>
-//           )}
-
-//           {/* Custom Sections */}
-//           {loading && (
-//             <div className="p-4 text-center text-gray-500">
-//               Loading additional sections...
-//             </div>
-//           )}
-
-//           {error && (
-//             <div className="p-4 text-center text-red-500">
-//               {error}
-//               <button
-//                 onClick={fetchSections}
-//                 className="ml-2 text-blue-600 hover:underline"
-//               >
-//                 Try again
-//               </button>
-//             </div>
-//           )}
-
-//           {!loading && !error && sections.length > 0 && (
-//             <div>
-//               <div className="flex justify-between items-center mb-3 border-b border-gray-200 pb-1">
-//                 <h2 className="text-lg font-semibold text-gray-900">
-//                   Additional Sections
-//                 </h2>
-//                 <span className="text-sm text-gray-500">
-//                   {sections.length} section(s)
-//                 </span>
-//               </div>
-//               <div className="space-y-4">
-//                 {sections.map((section) => (
-//                   <div key={section.id} className="p-3 bg-gray-50 rounded-lg border">
-//                     <h3 className="font-medium text-gray-800 capitalize">
-//                       {section.sectionType.toLowerCase()}
-//                     </h3>
-//                     {section.organization && (
-//                       <p className="text-sm text-gray-600 mt-1">
-//                         <span className="font-medium">Organization:</span> {section.organization}
-//                       </p>
-//                     )}
-//                     {section.description && (
-//                       <p className="text-sm text-gray-700 mt-2">
-//                         {section.description}
-//                       </p>
-//                     )}
-//                   </div>
-//                 ))}
-//               </div>
-//             </div>
-//           )}
-//         </div>
-//       </div>
+// // Experience item component
+// const ExperienceItem = ({ title, period, bullets }: { title: string; period?: string; bullets: string[] }) => (
+//   <div className="mb-6">
+//     <div className="flex justify-between items-start mb-2">
+//       <h3 className="font-semibold text-gray-800 text-lg">{title}</h3>
+//       {period && <span className="text-sm text-gray-500 whitespace-nowrap">{period}</span>}
 //     </div>
-//   );
-// }
+//     <ul className="list-disc list-inside ml-4">
+//       {bullets.map((bullet, i) => (
+//         <li key={i} className="text-gray-700 mb-1">{bullet}</li>
+//       ))}
+//     </ul>
+//   </div>
+// );
 
+// // Education item component
+// const EducationItem = ({ degree, institution, details, period }: {
+//   degree: string;
+//   institution: string;
+//   details: string[];
+//   period?: string;
+// }) => (
+//   <div className="mb-6">
+//     <div className="flex justify-between items-start mb-1">
+//       <h3 className="font-semibold text-gray-800 text-lg">{degree}</h3>
+//       {period && <span className="text-sm text-gray-500">{period}</span>}
+//     </div>
+//     <p className="text-gray-700 mb-1">{institution}</p>
+//     <ul className="list-disc list-inside ml-4">
+//       {details.map((detail, i) => (
+//         <li key={i} className="text-gray-700">{detail}</li>
+//       ))}
+//     </ul>
+//   </div>
+// );
 
-
-
-
-// 'use client';
-
-// import { ResumeData, ResumeProject } from "@/lib/types/resume.type";
-// import Image from "next/image";
-// import { useUser } from "@clerk/nextjs";
-// import { useEffect, useState } from "react";
-// import { getSections } from '@/app/actions/section';
-
-// // Icons for various sections
-// import {
-//   FiBriefcase,
-//   FiBook,
-//   FiAward,
-//   FiCode,
-//   FiLink,
-//   FiMail,
-//   FiMapPin,
-//   FiGithub,
-//   FiLinkedin,
-//   FiUser,
-//   FiStar,
-//   FiBookOpen,
-//   FiCalendar,
-//   FiGlobe
-// } from "react-icons/fi";
-
-// // Helper function to transform projects data
-// const transformProjects = (projects: any[]): ResumeProject[] => {
-//   if (!projects || projects.length === 0) return [];
-
-//   // Check if projects are already in the correct format
-//   if (projects[0] && typeof projects[0] === 'object' && 'name' in projects[0]) {
-//     return projects as ResumeProject[];
-//   }
-
-//   // Convert from scraped format to ResumeProject format
-//   return projects.map(project => ({
-//     name: project.title || 'Untitled Project',
-//     description: project.subComponents?.[0]?.description?.[0]?.text || '',
-//     technologies: [],
-//     link: undefined
-//   }));
-// };
-
-// interface CustomSection {
-//   id: string;
-//   sectionType: string;
-//   organization: string;
-//   description: string;
-//   createdAt: string;
-//   updatedAt: string;
-// }
-
-// interface CreativeTemplateProps {
-//   data: ResumeData;
-//   user?: {
-//     email: string;
-//     imageUrl?: string | null;
-//     name?: string | null;
-//   };
-// }
-
-// export default function CreativeTemplate({ data, user }: CreativeTemplateProps) {
-//   const { isLoaded: isUserLoaded } = useUser();
+// export default function CreativeTemplate({ data, user, sections = [] }: CreativeTemplateProps) {
 //   const formattedProjects = transformProjects(data.projects || []);
-//   const [sections, setSections] = useState<CustomSection[]>([]);
-//   const [loading, setLoading] = useState(true);
-//   const [error, setError] = useState<string | null>(null);
 
-//   // Fetch sections using Server Action
-//   const fetchSections = async () => {
-//     try {
-//       setLoading(true);
-//       const result = await getSections();
+//   // Parse experience data from the database
+//   const parseExperience = () => {
+//     if (!data.experience || data.experience.length === 0) return [];
 
-//       if (result.success) {
-//         setSections(result.sections);
-//         setError(null);
-//       } else {
-//         setError(result.error || 'Failed to load sections');
-//       }
-//     } catch (err) {
-//       console.error('Error fetching sections:', err);
-//       setError('An error occurred while fetching sections');
-//     } finally {
-//       setLoading(false);
-//     }
+//     return data.experience.map(exp => {
+//       // Try to extract title and period using different delimiters
+//       const titleMatch = exp.match(/^(.*?)(?:☐|•|$)/);
+//       const title = titleMatch ? titleMatch[1].trim() : exp;
+
+//       const periodMatch = exp.match(/☐\s*([^•]*)/);
+//       const period = periodMatch ? periodMatch[1].trim() : undefined;
+
+//       const bullets = exp.split('•').slice(1).map(b => b.trim()).filter(b => b);
+
+//       return { title, period, bullets };
+//     });
 //   };
 
-//   useEffect(() => {
-//     if (isUserLoaded) {
-//       fetchSections();
-//     }
-//   }, [isUserLoaded]);
+//   // Parse education data from the database
+//   const parseEducation = () => {
+//     if (!data.education || data.education.length === 0) return [];
+
+//     return data.education.map(edu => {
+//       // Try to extract degree and period using different delimiters
+//       const degreeMatch = edu.match(/^(.*?)(?:☐|•|$)/);
+//       const degree = degreeMatch ? degreeMatch[1].trim() : edu;
+
+//       const periodMatch = edu.match(/☐\s*([^•]*)/);
+//       const period = periodMatch ? periodMatch[1].trim() : undefined;
+
+//       // Extract institution and details (assuming format: Degree ☐ Period • Institution • Detail1 • Detail2)
+//       const parts = edu.split('•').map(p => p.trim()).filter(p => p);
+//       const institution = parts.length > 1 ? parts[1] : '';
+//       const details = parts.slice(2);
+
+//       return { degree, institution, details, period };
+//     });
+//   };
+
+//   const experiences = parseExperience();
+//   const educations = parseEducation();
 
 //   return (
-//     <div className="max-w-5xl mx-auto my-4 p-6 bg-white rounded-2xl shadow-xl border border-gray-100 print:my-0 print:shadow-none print:border-0">
-//       {/* Header Section with Creative Design */}
-//       <div className="relative mb-8 print:mb-6">
-//         <div className="absolute -inset-3 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl -z-10 print:hidden"></div>
-
-//         <div className="flex flex-col md:flex-row items-center gap-5 p-5">
+//     <div className="w-full max-w-4xl bg-white p-8 print:p-6 print:my-0 print:shadow-none print:border-0 font-sans">
+//       {/* Header Section with profile image */}
+//       <div className="mb-8 print:mb-6">
+//         <div className="flex items-center gap-4 mb-4 print:gap-3">
 //           {user?.imageUrl && (
-//             <div className="relative">
-//               <Image
-//                 src={user.imageUrl}
-//                 alt="Profile"
-//                 width={100}
-//                 height={100}
-//                 className="rounded-full border-4 border-white shadow-lg print:shadow-none"
-//               />
-//               <div className="absolute -bottom-1 -right-1 bg-blue-600 rounded-full p-1.5 print:hidden">
-//                 <FiUser className="text-white text-xs" />
-//               </div>
-//             </div>
+//             <Image
+//               src={user.imageUrl}
+//               alt="Profile"
+//               width={60}
+//               height={60}
+//               className="rounded-full print:w-12 print:h-12"
+//             />
 //           )}
-
-//           <div className="flex-1 text-center md:text-left">
-//             <h1 className="text-2xl md:text-3xl font-bold text-gray-900 mb-1.5">
-//               {user?.name || data.name}
+//           <div>
+//             <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 print:text-xl">
+//               {user?.name || data.name || "Your Name"}
 //             </h1>
-//             <p className="text-gray-600 flex items-center justify-center md:justify-start gap-1.5 mb-2 text-sm">
-//               <FiMail className="text-blue-600" />
-//               {user?.email}
-//             </p>
-//             {data.summary && (
-//               <p className="text-gray-700 bg-white p-3 rounded-lg shadow-sm border border-gray-100 text-sm print:border-0 print:shadow-none">
-//                 {data.summary}
-//               </p>
-//             )}
-
-//             {(data.linkedinLink || data.githubLink) && (
-//               <div className="flex gap-3 mt-3 justify-center md:justify-start">
-//                 {data.linkedinLink && (
-//                   <a
-//                     href={data.linkedinLink}
-//                     className="flex items-center gap-1 text-blue-700 hover:text-blue-900 transition-colors text-sm print:text-blue-900"
-//                   >
-//                     <FiLinkedin className="text-base" />
-//                     <span>LinkedIn</span>
-//                   </a>
-//                 )}
-//                 {data.githubLink && (
-//                   <a
-//                     href={data.githubLink}
-//                     className="flex items-center gap-1 text-gray-700 hover:text-gray-900 transition-colors text-sm print:text-gray-900"
-//                   >
-//                     <FiGithub className="text-base" />
-//                     <span>GitHub</span>
-//                   </a>
-//                 )}
-//               </div>
-//             )}
+//             {user?.email && <p className="text-gray-600 print:text-sm">{user.email}</p>}
 //           </div>
 //         </div>
+
+//         {/* Summary */}
+//         {data.summary && (
+//           <p className="text-gray-600 mt-2 print:text-sm print:mt-1">
+//             {data.summary}
+//           </p>
+//         )}
+
+//         {/* Contact Information with improved link handling */}
+//         <div className="flex gap-4 mt-3 text-sm print:mt-2 print:text-xs">
+//           {data.linkedinLink && (
+//             <a
+//               href={data.linkedinLink}
+//               className="text-blue-600 hover:underline print:text-black print:no-underline"
+//             >
+//               LinkedIn
+//             </a>
+//           )}
+//           {data.githubLink && (
+//             <a
+//               href={data.githubLink}
+//               className="text-gray-600 hover:underline print:text-black print:no-underline"
+//             >
+//               GitHub
+//             </a>
+//           )}
+//           {user?.email && !data.linkedinLink && !data.githubLink && (
+//             <span>{user.email}</span>
+//           )}
+//         </div>
+
+//         <div className="border-b border-gray-300 my-4 print:my-3"></div>
 //       </div>
 
-//       {/* Main Content Grid */}
+//       {/* Two-column layout */}
 //       <div className="grid md:grid-cols-3 gap-6 print:gap-4">
-//         {/* Left Column - Experience and Projects */}
 //         <div className="md:col-span-2 space-y-6 print:space-y-4">
 //           {/* Experience Section */}
-//           {data.experience && data.experience.length > 0 && (
-//             <div className="bg-gradient-to-br from-blue-50 to-indigo-50 p-5 rounded-xl shadow-sm print:shadow-none print:bg-white print:border print:border-gray-200">
-//               <div className="flex items-center gap-2 mb-4">
-//                 <div className="p-2 bg-blue-600 rounded-lg">
-//                   <FiBriefcase className="text-white text-lg" />
+//           {experiences.length > 0 && (
+//             <>
+//               <Section title="WORK EXPERIENCE">
+//                 <div className="space-y-6 print:space-y-4">
+//                   {experiences.map((exp, index) => (
+//                     <ExperienceItem
+//                       key={index}
+//                       title={exp.title}
+//                       period={exp.period}
+//                       bullets={exp.bullets}
+//                     />
+//                   ))}
 //                 </div>
-//                 <h2 className="text-xl font-bold text-gray-900">Work Experience</h2>
-//               </div>
-
-//               <div className="space-y-4">
-//                 {data.experience.map((item, index) => (
-//                   <div key={index} className="bg-white p-3 rounded-lg shadow-xs border-l-4 border-blue-500 print:shadow-none">
-//                     <p className="text-gray-700 text-sm">{item}</p>
-//                   </div>
-//                 ))}
-//               </div>
-//             </div>
+//               </Section>
+//               <div className="border-b border-gray-300 my-4 print:my-3"></div>
+//             </>
 //           )}
 
-//           {/* Projects Section */}
+//           {/* Projects Section with improved formatting */}
 //           {formattedProjects.length > 0 && (
-//             <div className="bg-gradient-to-br from-purple-50 to-pink-50 p-5 rounded-xl shadow-sm print:shadow-none print:bg-white print:border print:border-gray-200">
-//               <div className="flex items-center gap-2 mb-4">
-//                 <div className="p-2 bg-purple-600 rounded-lg">
-//                   <FiCode className="text-white text-lg" />
+//             <>
+//               <Section title="PROJECTS">
+//                 <div className="space-y-6 print:space-y-4">
+//                   {formattedProjects.map((project, index) => (
+//                     <div key={index} className="mb-4">
+//                       <h3 className="font-semibold text-gray-800 mb-1">{project.name}</h3>
+//                       {project.description && (
+//                         <p className="text-gray-700 text-sm mb-2">{project.description}</p>
+//                       )}
+//                       {project.technologies && project.technologies.length > 0 && (
+//                         <div className="flex flex-wrap gap-1 mb-2">
+//                           {project.technologies.map((tech, techIndex) => (
+//                             <span key={techIndex} className="text-xs bg-gray-100 px-2 py-1 rounded">
+//                               {tech}
+//                             </span>
+//                           ))}
+//                         </div>
+//                       )}
+//                       {project.link && (
+//                         <a 
+//                           href={project.link} 
+//                           className="text-blue-600 text-sm hover:underline print:text-black print:no-underline"
+//                         >
+//                           View Project
+//                         </a>
+//                       )}
+//                     </div>
+//                   ))}
 //                 </div>
-//                 <h2 className="text-xl font-bold text-gray-900">Projects</h2>
-//               </div>
-
-//               <div className="space-y-4">
-//                 {formattedProjects.map((p, index) => (
-//                   <div key={index} className="bg-white p-3 rounded-lg shadow-xs border border-gray-100 print:shadow-none">
-//                     <h4 className="font-semibold text-gray-800 flex items-center gap-1.5 text-sm">
-//                       <FiStar className="text-yellow-500 text-xs" />
-//                       {p.name}
-//                     </h4>
-//                     {p.description && (
-//                       <p className="text-gray-600 text-xs mt-1.5">{p.description}</p>
-//                     )}
-//                     {p.link && (
-//                       <a
-//                         href={p.link}
-//                         className="flex items-center gap-1 text-blue-600 text-xs mt-2 hover:underline print:text-blue-900"
-//                       >
-//                         <FiLink className="text-xs" />
-//                         View Project
-//                       </a>
-//                     )}
-//                   </div>
-//                 ))}
-//               </div>
-//             </div>
+//               </Section>
+//               <div className="border-b border-gray-300 my-4 print:my-3"></div>
+//             </>
 //           )}
 
 //           {/* Additional Sections */}
-//           {!loading && !error && sections.length > 0 && (
-//             <div className="bg-gradient-to-br from-teal-50 to-green-50 p-5 rounded-xl shadow-sm print:shadow-none print:bg-white print:border print:border-gray-200">
-//               <div className="flex items-center gap-2 mb-4">
-//                 <div className="p-2 bg-teal-600 rounded-lg">
-//                   <FiBookOpen className="text-white text-lg" />
+//           {sections.length > 0 && (
+//             <>
+//               <Section title="ADDITIONAL">
+//                 <div className="space-y-4 print:space-y-3">
+//                   {sections.map((section) => (
+//                     <div key={section.id}>
+//                       <h3 className="font-semibold text-gray-800 uppercase mb-1">
+//                         {section.sectionType}
+//                       </h3>
+//                       {section.organization && (
+//                         <p className="text-gray-700 text-sm mb-1">
+//                           {section.organization}
+//                         </p>
+//                       )}
+//                       {section.description && (
+//                         <p className="text-gray-600 text-sm">
+//                           {section.description}
+//                         </p>
+//                       )}
+//                     </div>
+//                   ))}
 //                 </div>
-//                 <h2 className="text-xl font-bold text-gray-900">Additional Activities</h2>
-//               </div>
-
-//               <div className="space-y-9">
-//                 {sections.map((section) => (
-//                   <div key={section.id} className="bg-white p-3 rounded-lg shadow-xs border border-gray-100 print:shadow-none">
-//                     <h4 className="font-medium text-gray-800 capitalize flex items-center gap-1.5 text-sm">
-//                       <FiMapPin className="text-teal-500 text-xs" />
-//                       {section.sectionType.toLowerCase()}
-//                     </h4>
-//                     {section.organization && (
-//                       <p className="text-xs text-gray-600 mt-1.5">
-//                         <span className="font-medium">Organization:</span> {section.organization}
-//                       </p>
-//                     )}
-//                     {section.description && (
-//                       <p className="text-xs text-gray-700 mt-1.5">
-//                         {section.description}
-//                       </p>
-//                     )}
-//                   </div>
-//                 ))}
-//               </div>
-//             </div>
+//               </Section>
+//               <div className="border-b border-gray-300 my-4 print:my-3"></div>
+//             </>
 //           )}
 //         </div>
 
-//         {/* Right Column - Skills, Education, Certifications */}
 //         <div className="space-y-6 print:space-y-4">
-//           {/* Skills Section */}
+//           {/* Skills Section with improved styling */}
 //           {data.skills && data.skills.length > 0 && (
-//             <div className="bg-gradient-to-br from-amber-50 to-orange-50 p-5 rounded-xl shadow-sm print:shadow-none print:bg-white print:border print:border-gray-200">
-//               <div className="flex items-center gap-2 mb-4">
-//                 <div className="p-2 bg-amber-600 rounded-lg">
-//                   <FiAward className="text-white text-lg" />
+//             <>
+//               <Section title="SKILLS">
+//                 <div className="flex flex-wrap gap-1 print:gap-0.5">
+//                   {data.skills.map((skill, index) => (
+//                     <span
+//                       key={index}
+//                       className="text-xs bg-gray-100 px-2 py-1 rounded print:text-2xs print:px-1.5 print:py-0.5 print:bg-gray-200"
+//                     >
+//                       {skill}
+//                     </span>
+//                   ))}
 //                 </div>
-//                 <h2 className="text-xl font-bold text-gray-900">Skills & Expertise</h2>
-//               </div>
-
-//               <div className="flex flex-wrap gap-1.5">
-//                 {data.skills.map((skill, index) => (
-//                   <span
-//                     key={index}
-//                     className="px-2.5 py-1 bg-white text-gray-700 rounded-full text-xs shadow-xs border border-gray-100 print:shadow-none"
-//                   >
-//                     {skill}
-//                   </span>
-//                 ))}
-//               </div>
-//             </div>
+//               </Section>
+//               <div className="border-b border-gray-300 my-4 print:my-3"></div>
+//             </>
 //           )}
 
 //           {/* Education Section */}
-//           {data.education && data.education.length > 0 && (
-//             <div className="bg-gradient-to-br from-indigo-50 to-blue-50 p-5 rounded-xl shadow-sm print:shadow-none print:bg-white print:border print:border-gray-200">
-//               <div className="flex items-center gap-2 mb-4">
-//                 <div className="p-2 bg-indigo-600 rounded-lg">
-//                   <FiBook className="text-white text-lg" />
+//           {educations.length > 0 && (
+//             <>
+//               <Section title="EDUCATION">
+//                 <div className="space-y-6 print:space-y-4">
+//                   {educations.map((edu, index) => (
+//                     <EducationItem
+//                       key={index}
+//                       degree={edu.degree}
+//                       institution={edu.institution}
+//                       details={edu.details}
+//                       period={edu.period}
+//                     />
+//                   ))}
 //                 </div>
-//                 <h2 className="text-xl font-bold text-gray-900">Education</h2>
-//               </div>
-
-//               <div className="space-y-3">
-//                 {data.education.map((item, index) => (
-//                   <div key={index} className="bg-white p-3 rounded-lg shadow-xs border-l-4 border-indigo-500 print:shadow-none">
-//                     <p className="text-gray-700 text-sm">{item}</p>
-//                   </div>
-//                 ))}
-//               </div>
-//             </div>
+//               </Section>
+//               <div className="border-b border-gray-300 my-4 print:my-3"></div>
+//             </>
 //           )}
 
 //           {/* Certifications Section */}
 //           {data.certifications && data.certifications.length > 0 && (
-//             <div className="bg-gradient-to-br from-rose-50 to-pink-50 p-5 rounded-xl shadow-sm print:shadow-none print:bg-white print:border print:border-gray-200">
-//               <div className="flex items-center gap-2 mb-4">
-//                 <div className="p-2 bg-rose-600 rounded-lg">
-//                   <FiAward className="text-white text-lg" />
+//             <>
+//               <Section title="CERTIFICATIONS">
+//                 <div className="space-y-3 print:space-y-2">
+//                   {data.certifications.map((cert, index) => (
+//                     <div key={index} className="text-gray-700">
+//                       {cert}
+//                     </div>
+//                   ))}
 //                 </div>
-//                 <h2 className="text-xl font-bold text-gray-900">Certifications</h2>
-//               </div>
-
-//               <div className="space-y-3">
-//                 {data.certifications.map((item, index) => (
-//                   <div key={index} className="bg-white p-3 rounded-lg shadow-xs border-l-4 border-rose-500 print:shadow-none">
-//                     <p className="text-gray-700 text-sm">{item}</p>
-//                   </div>
-//                 ))}
-//               </div>
-//             </div>
-//           )}
-
-
-
-//           {/* Loading and Error States */}
-//           {loading && (
-//             <div className="p-3 text-center text-gray-500 bg-gray-50 rounded-lg text-xs">
-//               <div className="flex items-center justify-center gap-1.5">
-//                 <div className="h-3 w-3 bg-blue-400 rounded-full animate-pulse"></div>
-//                 <span>Loading additional sections...</span>
-//               </div>
-//             </div>
-//           )}
-
-//           {error && (
-//             <div className="p-3 text-center text-red-500 bg-red-50 rounded-lg text-xs">
-//               <p>{error}</p>
-//               <button
-//                 onClick={fetchSections}
-//                 className="mt-1.5 px-3 py-1 bg-red-500 text-white rounded text-xs hover:bg-red-600 transition-colors print:hidden"
-//               >
-//                 Try again
-//               </button>
-//             </div>
+//               </Section>
+//               <div className="border-b border-gray-300 my-4 print:my-3"></div>
+//             </>
 //           )}
 //         </div>
-//       </div>
-
-//       {/* Footer - Only show in digital view */}
-//       <div className="mt-8 pt-5 border-t border-gray-200 text-center text-gray-500 text-xs print:hidden">
-//         <p>Generated with Resume Builder • {new Date().getFullYear()}</p>
 //       </div>
 //     </div>
 //   );
 // }
-
-
-
-
-
-
-
-
-
-
-
-
-// 'use client';
-
-// import { ResumeData, ResumeProject } from "@/lib/types/resume.type";
-// import Image from "next/image";
-// import { useUser } from "@clerk/nextjs";
-// import { useEffect, useState } from "react";
-// import { getSections } from '@/app/actions/section';
-
-// // Icons for various sections
-// import {
-//   FiBriefcase,
-//   FiBook,
-//   FiAward,
-//   FiCode,
-//   FiLink,
-//   FiMail,
-//   FiMapPin,
-//   FiGithub,
-//   FiLinkedin,
-//   FiUser,
-//   FiStar,
-//   FiBookOpen,
-//   FiCalendar,
-//   FiGlobe
-// } from "react-icons/fi";
-
-// // Helper function to transform projects data
-// const transformProjects = (projects: any[]): ResumeProject[] => {
-//   if (!projects || projects.length === 0) return [];
-
-//   // Check if projects are already in the correct format
-//   if (projects[0] && typeof projects[0] === 'object' && 'name' in projects[0]) {
-//     return projects as ResumeProject[];
-//   }
-
-//   // Convert from scraped format to ResumeProject format
-//   return projects.map(project => ({
-//     name: project.title || 'Untitled Project',
-//     description: project.subComponents?.[0]?.description?.[0]?.text || '',
-//     technologies: [],
-//     link: undefined
-//   }));
-// };
-
-// interface CustomSection {
-//   id: string;
-//   sectionType: string;
-//   organization: string;
-//   description: string;
-//   createdAt: string;
-//   updatedAt: string;
-// }
-
-// interface CreativeTemplateProps {
-//   data: ResumeData;
-//   user?: {
-//     email: string;
-//     imageUrl?: string | null;
-//     name?: string | null;
-//   };
-// }
-
-// export default function CreativeTemplate({ data, user }: CreativeTemplateProps) {
-//   const { isLoaded: isUserLoaded } = useUser();
-//   const formattedProjects = transformProjects(data.projects || []);
-//   const [sections, setSections] = useState<CustomSection[]>([]);
-//   const [loading, setLoading] = useState(true);
-//   const [error, setError] = useState<string | null>(null);
-
-//   // Fetch sections using Server Action
-//   const fetchSections = async () => {
-//     try {
-//       setLoading(true);
-//       const result = await getSections();
-
-//       if (result.success) {
-//         setSections(result.sections);
-//         setError(null);
-//       } else {
-//         setError(result.error || 'Failed to load sections');
-//       }
-//     } catch (err) {
-//       console.error('Error fetching sections:', err);
-//       setError('An error occurred while fetching sections');
-//     } finally {
-//       setLoading(false);
-//     }
-//   };
-
-//   useEffect(() => {
-//     if (isUserLoaded) {
-//       fetchSections();
-//     }
-//   }, [isUserLoaded]);
-
-//   return (
-//     <div className="w-full mx-auto p-4 bg-white rounded-xl shadow-md border border-gray-100 print:my-0 print:shadow-none print:border-0 print:p-2">
-//       {/* Header Section with Creative Design */}
-//       <div className="relative mb-6 print:mb-4">
-//         <div className="absolute -inset-2 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl -z-10 print:hidden"></div>
-
-//         <div className="flex flex-col items-center gap-4 p-4 sm:flex-row sm:items-start">
-//           {user?.imageUrl && (
-//             <div className="relative">
-//               <Image
-//                 src={user.imageUrl}
-//                 alt="Profile"
-//                 width={80}
-//                 height={80}
-//                 className="rounded-full border-3 border-white shadow-md print:shadow-none"
-//               />
-//               <div className="absolute -bottom-1 -right-1 bg-blue-600 rounded-full p-1 print:hidden">
-//                 <FiUser className="text-white text-xs" />
-//               </div>
-//             </div>
-//           )}
-
-//           <div className="flex-1 text-center sm:text-left">
-//             <h1 className="text-xl font-bold text-gray-900 mb-1 sm:text-2xl">
-//               {user?.name || data.name}
-//             </h1>
-//             <p className="text-gray-600 flex items-center justify-center sm:justify-start gap-1.5 mb-2 text-xs sm:text-sm">
-//               <FiMail className="text-blue-600 text-sm" />
-//               {user?.email}
-//             </p>
-//             {data.summary && (
-//               <p className="text-gray-700 bg-white p-2 rounded-lg shadow-xs border border-gray-100 text-xs sm:text-sm print:border-0 print:shadow-none">
-//                 {data.summary}
-//               </p>
-//             )}
-
-//             {(data.linkedinLink || data.githubLink) && (
-//               <div className="flex gap-2 mt-2 justify-center sm:justify-start">
-//                 {data.linkedinLink && (
-//                   <a 
-//                     href={data.linkedinLink} 
-//                     className="flex items-center gap-1 text-blue-700 hover:text-blue-900 transition-colors text-xs sm:text-sm print:text-blue-900"
-//                   >
-//                     <FiLinkedin className="text-sm" />
-//                     <span className="hidden xs:inline">LinkedIn</span>
-//                   </a>
-//                 )}
-//                 {data.githubLink && (
-//                   <a 
-//                     href={data.githubLink} 
-//                     className="flex items-center gap-1 text-gray-700 hover:text-gray-900 transition-colors text-xs sm:text-sm print:text-gray-900"
-//                   >
-//                     <FiGithub className="text-sm" />
-//                     <span className="hidden xs:inline">GitHub</span>
-//                   </a>
-//                 )}
-//               </div>
-//             )}
-//           </div>
-//         </div>
-//       </div>
-
-//       {/* Main Content - Single column for mobile */}
-//       <div className="space-y-4 print:space-y-2">
-//         {/* Experience Section */}
-//         {data.experience && data.experience.length > 0 && (
-//           <div className="bg-gradient-to-br from-blue-50 to-indigo-50 p-4 rounded-lg shadow-xs print:shadow-none print:bg-white print:border print:border-gray-200">
-//             <div className="flex items-center gap-2 mb-3">
-//               <div className="p-1.5 bg-blue-600 rounded-md">
-//                 <FiBriefcase className="text-white text-base" />
-//               </div>
-//               <h2 className="text-lg font-bold text-gray-900">Work Experience</h2>
-//             </div>
-
-//             <div className="space-y-2">
-//               {data.experience.map((item, index) => (
-//                 <div key={index} className="bg-white p-2 rounded-md border-l-3 border-blue-500 print:shadow-none">
-//                   <p className="text-gray-700 text-xs sm:text-sm">{item}</p>
-//                 </div>
-//               ))}
-//             </div>
-//           </div>
-//         )}
-
-//         {/* Projects Section */}
-//         {formattedProjects.length > 0 && (
-//           <div className="bg-gradient-to-br from-purple-50 to-pink-50 p-4 rounded-lg shadow-xs print:shadow-none print:bg-white print:border print:border-gray-200">
-//             <div className="flex items-center gap-2 mb-3">
-//               <div className="p-1.5 bg-purple-600 rounded-md">
-//                 <FiCode className="text-white text-base" />
-//               </div>
-//               <h2 className="text-lg font-bold text-gray-900">Projects</h2>
-//             </div>
-
-//             <div className="space-y-2">
-//               {formattedProjects.map((p, index) => (
-//                 <div key={index} className="bg-white p-2 rounded-md border border-gray-100 print:shadow-none">
-//                   <h4 className="font-semibold text-gray-800 flex items-center gap-1 text-xs sm:text-sm">
-//                     <FiStar className="text-yellow-500 text-xs" />
-//                     {p.name}
-//                   </h4>
-//                   {p.description && (
-//                     <p className="text-gray-600 text-xs mt-1">{p.description}</p>
-//                   )}
-//                   {p.link && (
-//                     <a
-//                       href={p.link}
-//                       className="flex items-center gap-0.5 text-blue-600 text-xs mt-1 hover:underline print:text-blue-900"
-//                     >
-//                       <FiLink className="text-xs" />
-//                       View Project
-//                     </a>
-//                   )}
-//                 </div>
-//               ))}
-//             </div>
-//           </div>
-//         )}
-
-//         {/* Skills Section */}
-//         {data.skills && data.skills.length > 0 && (
-//           <div className="bg-gradient-to-br from-amber-50 to-orange-50 p-4 rounded-lg shadow-xs print:shadow-none print:bg-white print:border print:border-gray-200">
-//             <div className="flex items-center gap-2 mb-3">
-//               <div className="p-1.5 bg-amber-600 rounded-md">
-//                 <FiAward className="text-white text-base" />
-//               </div>
-//               <h2 className="text-lg font-bold text-gray-900">Skills</h2>
-//             </div>
-
-//             <div className="flex flex-wrap gap-1">
-//               {data.skills.map((skill, index) => (
-//                 <span 
-//                   key={index} 
-//                   className="px-2 py-0.5 bg-white text-gray-700 rounded-full text-xs shadow-xs border border-gray-100 print:shadow-none"
-//                 >
-//                   {skill}
-//                 </span>
-//               ))}
-//             </div>
-//           </div>
-//         )}
-
-//         {/* Education Section */}
-//         {data.education && data.education.length > 0 && (
-//           <div className="bg-gradient-to-br from-indigo-50 to-blue-50 p-4 rounded-lg shadow-xs print:shadow-none print:bg-white print:border print:border-gray-200">
-//             <div className="flex items-center gap-2 mb-3">
-//               <div className="p-1.5 bg-indigo-600 rounded-md">
-//                 <FiBook className="text-white text-base" />
-//               </div>
-//               <h2 className="text-lg font-bold text-gray-900">Education</h2>
-//             </div>
-
-//             <div className="space-y-2">
-//               {data.education.map((item, index) => (
-//                 <div key={index} className="bg-white p-2 rounded-md border-l-3 border-indigo-500 print:shadow-none">
-//                   <p className="text-gray-700 text-xs sm:text-sm">{item}</p>
-//                 </div>
-//               ))}
-//             </div>
-//           </div>
-//         )}
-
-//         {/* Certifications Section */}
-//         {data.certifications && data.certifications.length > 0 && (
-//           <div className="bg-gradient-to-br from-rose-50 to-pink-50 p-4 rounded-lg shadow-xs print:shadow-none print:bg-white print:border print:border-gray-200">
-//             <div className="flex items-center gap-2 mb-3">
-//               <div className="p-1.5 bg-rose-600 rounded-md">
-//                 <FiAward className="text-white text-base" />
-//               </div>
-//               <h2 className="text-lg font-bold text-gray-900">Certifications</h2>
-//             </div>
-
-//             <div className="space-y-2">
-//               {data.certifications.map((item, index) => (
-//                 <div key={index} className="bg-white p-2 rounded-md border-l-3 border-rose-500 print:shadow-none">
-//                   <p className="text-gray-700 text-xs sm:text-sm">{item}</p>
-//                 </div>
-//               ))}
-//             </div>
-//           </div>
-//         )}
-
-//         {/* Additional Sections */}
-//         {!loading && !error && sections.length > 0 && (
-//           <div className="bg-gradient-to-br from-teal-50 to-green-50 p-4 rounded-lg shadow-xs print:shadow-none print:bg-white print:border print:border-gray-200">
-//             <div className="flex items-center gap-2 mb-3">
-//               <div className="p-1.5 bg-teal-600 rounded-md">
-//                 <FiBookOpen className="text-white text-base" />
-//               </div>
-//               <h2 className="text-lg font-bold text-gray-900">Additional</h2>
-//             </div>
-
-//             <div className="space-y-2">
-//               {sections.map((section) => (
-//                 <div key={section.id} className="bg-white p-2 rounded-md border border-gray-100 print:shadow-none">
-//                   <h4 className="font-medium text-gray-800 capitalize flex items-center gap-1 text-xs sm:text-sm">
-//                     <FiMapPin className="text-teal-500 text-xs" />
-//                     {section.sectionType.toLowerCase()}
-//                   </h4>
-//                   {section.organization && (
-//                     <p className="text-xs text-gray-600 mt-1">
-//                       <span className="font-medium">Organization:</span> {section.organization}
-//                     </p>
-//                   )}
-//                   {section.description && (
-//                     <p className="text-xs text-gray-700 mt-1">
-//                       {section.description}
-//                     </p>
-//                   )}
-//                 </div>
-//               ))}
-//             </div>
-//           </div>
-//         )}
-
-//         {/* Loading and Error States */}
-//         {loading && (
-//           <div className="p-2 text-center text-gray-500 bg-gray-50 rounded-lg text-xs">
-//             <div className="flex items-center justify-center gap-1">
-//               <div className="h-2 w-2 bg-blue-400 rounded-full animate-pulse"></div>
-//               <span>Loading sections...</span>
-//             </div>
-//           </div>
-//         )}
-
-//         {error && (
-//           <div className="p-2 text-center text-red-500 bg-red-50 rounded-lg text-xs">
-//             <p>{error}</p>
-//             <button
-//               onClick={fetchSections}
-//               className="mt-1 px-2 py-0.5 bg-red-500 text-white rounded text-xs hover:bg-red-600 transition-colors print:hidden"
-//             >
-//               Try again
-//             </button>
-//           </div>
-//         )}
-//       </div>
-
-//       {/* Footer - Only show in digital view */}
-//       <div className="mt-6 pt-4 border-t border-gray-200 text-center text-gray-500 text-xs print:hidden">
-//         <p>Generated with Resume Builder • {new Date().getFullYear()}</p>
-//       </div>
-//     </div>
-//   );
-// }
-
-
-
-
-
-
-
-
 
 
 
@@ -1842,10 +341,7 @@
 
 import { ResumeData, ResumeProject } from "@/lib/types/resume.type";
 import Image from "next/image";
-import { useUser } from "@clerk/nextjs";
-import { useEffect, useState } from "react";
-import { getSections } from '@/app/actions/section';
-import { RefObject } from "react";
+import Link from "next/link";
 
 // Helper function to transform projects data
 const transformProjects = (projects: any[]): ResumeProject[] => {
@@ -1874,245 +370,341 @@ interface CustomSection {
   updatedAt: string;
 }
 
+interface PersonalInfo {
+  id: string;
+  userId: string;
+  phone?: string | null;
+  imageUrl?: string | null;
+  address?: string | null;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
 interface CreativeTemplateProps {
   data: ResumeData;
   user?: {
     email: string;
     imageUrl?: string | null;
     name?: string | null;
+    phone?: string;
+    address?: string;
   };
+  sections?: CustomSection[];
+  personalInfo?: PersonalInfo | null;
 }
 
-// Simple section component to replace Selection
+// Simple section component
 const Section = ({ title, children }: { title: string; children: React.ReactNode }) => (
   <div className="mb-8 print:mb-6">
-    <h2 className="text-xl font-bold text-gray-900 uppercase mb-4 print:text-lg">{title}</h2>
+    <h2 className="text-xl font-bold text-gray-900 uppercase mb-4 print:text-lg border-b border-gray-300 pb-2">
+      {title}
+    </h2>
     {children}
   </div>
 );
 
-export default function CreativeTemplate({ data, user, }: CreativeTemplateProps) {
-  const { isLoaded: isUserLoaded } = useUser();
+// Experience item component
+const ExperienceItem = ({ title, period, bullets }: { title: string; period?: string; bullets: string[] }) => (
+  <div className="mb-6">
+    <div className="flex justify-between items-start mb-2">
+      <h3 className="font-semibold text-gray-800 text-lg">{title}</h3>
+      {period && <span className="text-sm text-gray-500 whitespace-nowrap">{period}</span>}
+    </div>
+    <ul className="list-disc list-inside ml-4">
+      {bullets.map((bullet, i) => (
+        <li key={i} className="text-gray-700 mb-1">{bullet}</li>
+      ))}
+    </ul>
+  </div>
+);
+
+// Education item component
+const EducationItem = ({ degree, institution, details, period }: {
+  degree: string;
+  institution: string;
+  details: string[];
+  period?: string;
+}) => (
+  <div className="mb-6">
+    <div className="flex justify-between items-start mb-1">
+      <h3 className="font-semibold text-gray-800 text-lg">{degree}</h3>
+      {period && <span className="text-sm text-gray-500">{period}</span>}
+    </div>
+    <p className="text-gray-700 mb-1">{institution}</p>
+    <ul className="list-disc list-inside ml-4">
+      {details.map((detail, i) => (
+        <li key={i} className="text-gray-700">{detail}</li>
+      ))}
+    </ul>
+  </div>
+);
+
+export default function CreativeTemplate({ 
+  data, 
+  user, 
+  sections = [], 
+  personalInfo 
+}: CreativeTemplateProps) {
   const formattedProjects = transformProjects(data.projects || []);
-  const [sections, setSections] = useState<CustomSection[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
 
-  // Fetch sections using Server Action
-  const fetchSections = async () => {
-    try {
-      setLoading(true);
-      const result = await getSections();
+  // Use personalInfo data if available, otherwise fall back to user data
+  const phone = personalInfo?.phone || user?.phone;
+  const address = personalInfo?.address || user?.address;
+  const profileImage = personalInfo?.imageUrl || user?.imageUrl;
+  const name = user?.name || data.name || "Your Name";
+  const email = user?.email;
 
-      if (result.success) {
-        setSections(result.sections);
-        setError(null);
-      } else {
-        setError(result.error || 'Failed to load sections');
-      }
-    } catch (err) {
-      console.error('Error fetching sections:', err);
-      setError('An error occurred while fetching sections');
-    } finally {
-      setLoading(false);
-    }
+  // Parse experience data from the database
+  const parseExperience = () => {
+    if (!data.experience || data.experience.length === 0) return [];
+
+    return data.experience.map(exp => {
+      // Try to extract title and period using different delimiters
+      const titleMatch = exp.match(/^(.*?)(?:☐|•|$)/);
+      const title = titleMatch ? titleMatch[1].trim() : exp;
+
+      const periodMatch = exp.match(/☐\s*([^•]*)/);
+      const period = periodMatch ? periodMatch[1].trim() : undefined;
+
+      const bullets = exp.split('•').slice(1).map(b => b.trim()).filter(b => b);
+
+      return { title, period, bullets };
+    });
   };
 
-  useEffect(() => {
-    if (isUserLoaded) {
-      fetchSections();
-    }
-  }, [isUserLoaded]);
+  // Parse education data from the database
+  const parseEducation = () => {
+    if (!data.education || data.education.length === 0) return [];
+
+    return data.education.map(edu => {
+      // Try to extract degree and period using different delimiters
+      const degreeMatch = edu.match(/^(.*?)(?:☐|•|$)/);
+      const degree = degreeMatch ? degreeMatch[1].trim() : edu;
+
+      const periodMatch = edu.match(/☐\s*([^•]*)/);
+      const period = periodMatch ? periodMatch[1].trim() : undefined;
+
+      // Extract institution and details (assuming format: Degree ☐ Period • Institution • Detail1 • Detail2)
+      const parts = edu.split('•').map(p => p.trim()).filter(p => p);
+      const institution = parts.length > 1 ? parts[1] : '';
+      const details = parts.slice(2);
+
+      return { degree, institution, details, period };
+    });
+  };
+
+  const experiences = parseExperience();
+  const educations = parseEducation();
 
   return (
-    <div
-      className="w-full   max-w-4xl  bg-white p-8 print:p-6 print:my-0 print:shadow-none print:border-0 print-mode font-sans"
-    >
-      {/* Header Section */}
+    <div className="w-full max-w-4xl bg-white p-8 print:p-6 print:my-0 print:shadow-none print:border-0 font-sans">
+      {/* Header Section with profile image */}
       <div className="mb-8 print:mb-6">
-        <h1 className="text-3xl font-bold text-gray-900 uppercase mb-1 print:text-2xl">
-          {user?.name || data.name}
-        </h1>
+        <div className="flex items-center gap-4 mb-4 print:gap-3">
+          {profileImage && (
+            <Image
+              src={profileImage}
+              alt="Profile"
+              width={60}
+              height={60}
+              className="rounded-full print:w-12 print:h-12"
+            />
+          )}
+          <div>
+            <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 print:text-xl">
+              {name}
+            </h1>
+            {email && <p className="text-gray-600 print:text-sm">{email}</p>}
+          </div>
+        </div>
 
-        {/* Contact Information */}
-        <div className="flex flex-wrap gap-4 text-sm text-gray-600 mb-2 print:gap-3">
-          {user?.email && (
-            <span>@ {user.email}</span>
+        {/* Summary */}
+        {data.summary && (
+          <p className="text-gray-600 mt-2 print:text-sm print:mt-1">
+            {data.summary}
+          </p>
+        )}
+
+        {/* Contact Information with improved link handling */}
+        <div className="flex flex-wrap gap-4 mt-3 text-sm print:mt-2 print:text-xs">
+          {phone && (
+            <span className="text-gray-600 print:text-black">
+              {phone}
+            </span>
+          )}
+          {address && (
+            <span className="text-gray-600 print:text-black">
+              {address}
+            </span>
           )}
           {data.linkedinLink && (
-            <span>{data.linkedinLink}</span>
+            <a
+              href={data.linkedinLink}
+              className="text-blue-600 hover:underline print:text-black print:no-underline"
+            >
+              LinkedIn
+            </a>
+          )}
+          {data.githubLink && (
+            <a
+              href={data.githubLink}
+              className="text-gray-600 hover:underline print:text-black print:no-underline"
+            >
+              GitHub
+            </a>
+          )}
+          {email && !data.linkedinLink && !data.githubLink && (
+            <span>{email}</span>
           )}
         </div>
 
         <div className="border-b border-gray-300 my-4 print:my-3"></div>
       </div>
 
-      {/* Summary Section */}
-      {data.summary && (
-        <Section title="SUMMARY">
-          <p className="text-gray-700 leading-relaxed">{data.summary}</p>
-        </Section>
-      )}
-
-      <div className="border-b border-gray-300 my-4 print:my-3"></div>
-
-      {/* Experience Section */}
-      {data.experience && data.experience.length > 0 && (
-        <Section title="EXPERIENCE">
-          <div className="space-y-6 print:space-y-4">
-            {data.experience.map((item, index) => (
-              <div key={index} className="mb-4">
-                <div className="flex justify-between items-start mb-1">
-                  <h3 className="font-semibold text-gray-800">{item.split('•')[0]}</h3>
-                  {item.includes('☐') && (
-                    <span className="text-sm text-gray-500 whitespace-nowrap">
-                      {item.split('☐')[1]?.split('•')[0]?.trim()}
-                    </span>
-                  )}
+      {/* Two-column layout */}
+      <div className="grid md:grid-cols-3 gap-6 print:gap-4">
+        <div className="md:col-span-2 space-y-6 print:space-y-4">
+          {/* Experience Section */}
+          {experiences.length > 0 && (
+            <>
+              <Section title="WORK EXPERIENCE">
+                <div className="space-y-6 print:space-y-4">
+                  {experiences.map((exp, index) => (
+                    <ExperienceItem
+                      key={index}
+                      title={exp.title}
+                      period={exp.period}
+                      bullets={exp.bullets}
+                    />
+                  ))}
                 </div>
-                {item.includes('•') && (
-                  <ul className="list-disc list-inside text-gray-700 ml-4 mt-1">
-                    {item.split('•').slice(1).map((bullet, i) => (
-                      <li key={i} className="text-sm">{bullet.trim()}</li>
-                    ))}
-                  </ul>
-                )}
-              </div>
-            ))}
-          </div>
-        </Section>
-      )}
+              </Section>
+              <div className="border-b border-gray-300 my-4 print:my-3"></div>
+            </>
+          )}
 
-      <div className="border-b border-gray-300 my-4 print:my-3"></div>
-
-      {/* Education Section */}
-      {data.education && data.education.length > 0 && (
-        <Section title="EDUCATION">
-          <div className="space-y-4 print:space-y-3">
-            {data.education.map((item, index) => (
-              <div key={index}>
-                <div className="flex justify-between items-start">
-                  <h3 className="font-semibold text-gray-800">{item.split('☐')[0]}</h3>
-                  {item.includes('☐') && (
-                    <span className="text-sm text-gray-500">
-                      {item.split('☐')[1]?.trim()}
-                    </span>
-                  )}
+          {/* Projects Section with improved formatting */}
+          {formattedProjects.length > 0 && (
+            <>
+              <Section title="PROJECTS">
+                <div className="space-y-6 print:space-y-4">
+                  {formattedProjects.map((project, index) => (
+                    <div key={index} className="mb-4">
+                      <h3 className="font-semibold text-gray-800 mb-1">{project.name}</h3>
+                      {project.description && (
+                        <p className="text-gray-700 text-sm mb-2">{project.description}</p>
+                      )}
+                      {project.technologies && project.technologies.length > 0 && (
+                        <div className="flex flex-wrap gap-1 mb-2">
+                          {project.technologies.map((tech, techIndex) => (
+                            <span key={techIndex} className="text-xs bg-gray-100 px-2 py-1 rounded">
+                              {tech}
+                            </span>
+                          ))}
+                        </div>
+                      )}
+                      {project.link && (
+                        <a 
+                          href={project.link} 
+                          className="text-blue-600 text-sm hover:underline print:text-black print:no-underline"
+                        >
+                          View Project
+                        </a>
+                      )}
+                    </div>
+                  ))}
                 </div>
-              </div>
-            ))}
-          </div>
-        </Section>
-      )}
+              </Section>
+              <div className="border-b border-gray-300 my-4 print:my-3"></div>
+            </>
+          )}
 
-      <div className="border-b border-gray-300 my-4 print:my-3"></div>
-
-      {/* Certifications Section */}
-      {data.certifications && data.certifications.length > 0 && (
-        <Section title="CERTIFICATION">
-          <div className="space-y-3 print:space-y-2">
-            {data.certifications.map((item, index) => (
-              <div key={index} className="text-gray-700">
-                {item}
-              </div>
-            ))}
-          </div>
-        </Section>
-      )}
-
-      <div className="border-b border-gray-300 my-4 print:my-3"></div>
-
-      {/* Skills Section */}
-      {data.skills && data.skills.length > 0 && (
-        <Section title="SKILLS">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-2 print:grid-cols-4">
-            {data.skills.map((skill, index) => (
-              <div key={index} className="text-gray-700 text-sm bg-gray-100 px-3 py-1 rounded text-center">
-                {skill}
-              </div>
-            ))}
-          </div>
-        </Section>
-      )}
-
-      <div className="border-b border-gray-300 my-4 print:my-3"></div>
-
-      {/* Projects Section */}
-      {formattedProjects.length > 0 && (
-        <Section title="PROJECTS">
-          <div className="space-y-6 print:space-y-4">
-            {formattedProjects.map((project, index) => (
-              <div key={index} className="mb-4">
-                <h3 className="font-semibold text-gray-800 mb-1">{project.name}</h3>
-                {project.description && (
-                  <p className="text-gray-700 text-sm mb-2">{project.description}</p>
-                )}
-                {project.technologies && project.technologies.length > 0 && (
-                  <div className="flex flex-wrap gap-1 mb-2">
-                    {project.technologies.map((tech, techIndex) => (
-                      <span key={techIndex} className="text-xs bg-gray-100 px-2 py-1 rounded">
-                        {tech}
-                      </span>
-                    ))}
-                  </div>
-                )}
-                {project.link && (
-                  <a href={project.link} className="text-blue-600 text-sm hover:underline">
-                    View Project
-                  </a>
-                )}
-              </div>
-            ))}
-          </div>
-        </Section>
-      )}
-
-      {/* Additional Sections */}
-      {!loading && !error && sections.length > 0 && (
-        <>
-          <div className="border-b border-gray-300 my-4 print:my-3"></div>
-          <Section title="ADDITIONAL">
-            <div className="space-y-4 print:space-y-3">
-              {sections.map((section) => (
-                <div key={section.id}>
-                  <h3 className="font-semibold text-gray-800 uppercase mb-1">
-                    {section.sectionType}
-                  </h3>
-                  {section.organization && (
-                    <p className="text-gray-700 text-sm mb-1">
-                      {section.organization}
-                    </p>
-                  )}
-                  {section.description && (
-                    <p className="text-gray-600 text-sm">
-                      {section.description}
-                    </p>
-                  )}
+          {/* Additional Sections */}
+          {sections.length > 0 && (
+            <>
+              <Section title="ADDITIONAL">
+                <div className="space-y-4 print:space-y-3">
+                  {sections.map((section) => (
+                    <div key={section.id}>
+                      <h3 className="font-semibold text-gray-800 uppercase mb-1">
+                        {section.sectionType}
+                      </h3>
+                      {section.organization && (
+                        <p className="text-gray-700 text-sm mb-1">
+                          {section.organization}
+                        </p>
+                      )}
+                      {section.description && (
+                        <p className="text-gray-600 text-sm">
+                          {section.description}
+                        </p>
+                      )}
+                    </div>
+                  ))}
                 </div>
-              ))}
-            </div>
-          </Section>
-        </>
-      )}
-
-      {/* Loading and Error States */}
-      {loading && (
-        <div className="p-3 text-center text-gray-500 bg-gray-50 rounded text-sm">
-          Loading sections...
+              </Section>
+              <div className="border-b border-gray-300 my-4 print:my-3"></div>
+            </>
+          )}
         </div>
-      )}
 
-      {error && (
-        <div className="p-3 text-center text-red-500 bg-red-50 rounded text-sm">
-          {error}
-          <button
-            onClick={fetchSections}
-            className="mt-2 px-3 py-1 bg-red-600 text-white rounded text-sm hover:bg-red-700 transition-colors print:hidden"
-          >
-            Try again
-          </button>
+        <div className="space-y-6 print:space-y-4">
+          {/* Skills Section with improved styling */}
+          {data.skills && data.skills.length > 0 && (
+            <>
+              <Section title="SKILLS">
+                <div className="flex flex-wrap gap-1 print:gap-0.5">
+                  {data.skills.map((skill, index) => (
+                    <span
+                      key={index}
+                      className="text-xs bg-gray-100 px-2 py-1 rounded print:text-2xs print:px-1.5 print:py-0.5 print:bg-gray-200"
+                    >
+                      {skill}
+                    </span>
+                  ))}
+                </div>
+              </Section>
+              <div className="border-b border-gray-300 my-4 print:my-3"></div>
+            </>
+          )}
+
+          {/* Education Section */}
+          {educations.length > 0 && (
+            <>
+              <Section title="EDUCATION">
+                <div className="space-y-6 print:space-y-4">
+                  {educations.map((edu, index) => (
+                    <EducationItem
+                      key={index}
+                      degree={edu.degree}
+                      institution={edu.institution}
+                      details={edu.details}
+                      period={edu.period}
+                    />
+                  ))}
+                </div>
+              </Section>
+              <div className="border-b border-gray-300 my-4 print:my-3"></div>
+            </>
+          )}
+
+          {/* Certifications Section */}
+          {data.certifications && data.certifications.length > 0 && (
+            <>
+              <Section title="CERTIFICATIONS">
+                <div className="space-y-3 print:space-y-2">
+                  {data.certifications.map((cert, index) => (
+                    <div key={index} className="text-gray-700">
+                      {cert}
+                    </div>
+                  ))}
+                </div>
+              </Section>
+              <div className="border-b border-gray-300 my-4 print:my-3"></div>
+            </>
+          )}
         </div>
-      )}
+      </div>
     </div>
   );
 }

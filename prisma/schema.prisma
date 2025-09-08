@@ -18,6 +18,8 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   resumes   Resume?
+  personalInfo PersonalInfo?
+
 }
 
 model Resume {
@@ -46,8 +48,9 @@ model CustomSection {
   sectionType  SectionType // Title from 4 options
   organization String // Organization name
   description  String // Description
-  createdAt    DateTime    @default(now())
-  updatedAt    DateTime    @updatedAt
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   resume Resume @relation(fields: [resumeId], references: [id], onDelete: Cascade)
 }
@@ -57,4 +60,15 @@ enum SectionType {
   ACHIEVEMENT
   AWARD
   PUBLICATION
+}
+
+model PersonalInfo {
+  id        String   @id @default(uuid())
+  userId    String   @unique
+  phone     String?
+  imageUrl  String?
+  address   String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  user      User     @relation(fields: [userId], references: [id])
 }

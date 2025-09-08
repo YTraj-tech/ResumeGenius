@@ -142,7 +142,7 @@
   --animate-shimmer-slide: shimmer-slide var(--speed) ease-in-out infinite
     alternate;
   --animate-spin-around: spin-around calc(var(--speed) * 2) infinite linear;
- 
+
   @keyframes shimmer-slide {
     to {
       transform: translate(calc(100cqw - 100%), 0);
@@ -168,7 +168,7 @@
 
 @theme inline {
   --animate-pulse: pulse var(--duration) ease-out infinite;
- 
+
   @keyframes pulse {
     0%,
     100% {
@@ -180,10 +180,9 @@
   }
 }
 
-
 @theme inline {
   --animate-shiny-text: shiny-text 8s infinite;
- 
+
   @keyframes shiny-text {
     0%,
     90%,
@@ -197,11 +196,9 @@
   }
 }
 
-
-
 @theme inline {
   --animate-aurora: aurora 8s ease-in-out infinite alternate;
- 
+
   @keyframes aurora {
     0% {
       background-position: 0% 50%;
@@ -226,16 +223,6 @@
   }
 }
 
-
-
-
-
-
-
-
-
-
-
 /* Print only resume */
 @media print {
   body * {
@@ -255,5 +242,61 @@
     margin: 0 !important;
     padding: 0 !important;
     background: white !important;
+  }
+}
+
+
+
+.drawer {
+  position: relative;
+}
+
+.drawer .drawer-content {
+  transition: transform 0.3s ease-in-out;
+}
+
+.drawer-side {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  transform: translateX(-100%);
+  transition: transform 0.3s ease-in-out;
+}
+
+.drawer-toggle:checked ~ .drawer-side {
+  transform: translateX(0);
+}
+
+.drawer-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+}
+
+.drawer-toggle:checked ~ .drawer-overlay {
+  opacity: 1;
+  visibility: visible;
+}
+
+@media (min-width: 1024px) {
+  .drawer-side {
+    position: static;
+    height: auto;
+    transform: translateX(0);
+  }
+  
+  .drawer-overlay {
+    display: none;
+  }
+  
+  .drawer-toggle {
+    display: none;
   }
 }
