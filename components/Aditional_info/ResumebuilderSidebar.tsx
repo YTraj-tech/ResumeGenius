@@ -162,6 +162,7 @@
 'use client';
 
 import { useState } from 'react';
+import {Inter} from "next/font/google"
 import { 
   User, 
   FileText, 
@@ -169,6 +170,11 @@ import {
 } from 'lucide-react';
 import PersonalInfoForm from './Personal_info';
 import ResumeSections from './ResumeSections';
+
+const Rak = Inter({
+   subsets:["latin"],
+   weight:["400"]
+})
 
 interface ResumeBuilderSidebarProps {
   resumeId: string;
@@ -192,44 +198,44 @@ export default function ResumeBuilderSidebar({ resumeId, userId }: ResumeBuilder
       description: 'Add internships, awards, etc.'
     },
   ];
-
+  // input
   return (
-    <div className="h-fit flex flex-col">
+    <div className="h-full flex flex-col ">
       {/* Mobile Header */}
       <div className="flex justify-between items-center p-4 border-b lg:hidden">
-        <h2 className="text-lg font-semibold">Edit Resume</h2>
-        <label htmlFor="sidebar-toggle" className="btn btn-ghost btn-sm">
+        <h2 className="text-lg font-semibold">Please Add the Section</h2>
+        {/* <label htmlFor="sidebar-toggle" className="btn btn-ghost btn-sm">
           <X className="w-5 h-5" />
-        </label>
+        </label> */}
       </div>
 
-      {/* Navigation Menu */}
-      <div className="p-4 border-b">
-        <div className="flex space-x-2">
-          {menuItems.map((item) => (
-            <button
-              key={item.value}
-              onClick={() => setActiveTab(item.value)}
-              className={`flex items-center px-4 py-2 rounded-lg text-sm transition-colors ${
-                activeTab === item.value
-                  ? 'bg-blue-50 border border-blue-200 text-blue-700'
-                  : 'hover:bg-gray-50 text-gray-700'
-              }`}
-            >
-              <item.icon className="w-4 h-4 mr-2" />
-              <span>{item.label}</span>
-            </button>
-          ))}
-        </div>
-      </div>
+     {/* Navigation Menu  */}
+       <div className="p-4 border-b">
+         <div className="flex space-x-2">
+           {menuItems.map((item) => (
+             <button
+               key={item.value}
+               onClick={() => setActiveTab(item.value)}
+               className={`flex items-center px-4 py-2 rounded-lg text-sm transition-colors ${
+                 activeTab === item.value
+                   ? 'bg-blue-50 border border-blue-200 text-blue-700'
+                   : 'hover:bg-gray-50 text-gray-700'
+               }`}
+             >
+               <item.icon className="w-4 h-4 mr-2" />
+               <span>{item.label}</span>
+             </button>
+           ))}
+         </div>
+       </div> 
 
       {/* Form Content */}
-      <div className="flex-1 p-4 lg:pt-[100px] overflow-y-auto">
+      <div className="flex-1 p-4 overflow-y-auto">
         <div className="space-y-6">
           {activeTab === 'personal' && (
             <div className="space-y-4">
               <div className="pb-4">
-                <h3 className="text-lg font-semibold text-gray-900">Personal Information</h3>
+                <h3 className={`text-lg font-semibold text-gray-900 ${Rak.className} `}>Personal Information</h3>
                 <p className="text-sm text-gray-500">
                   Update your basic contact details and profile photo
                 </p>
@@ -241,7 +247,7 @@ export default function ResumeBuilderSidebar({ resumeId, userId }: ResumeBuilder
           {activeTab === 'sections' && (
             <div className="space-y-4">
               <div className="pb-4">
-                <h3 className="text-lg font-semibold text-gray-900">Additional Sections</h3>
+                <h3 className={`text-lg ${Rak.className} font-semibold text-gray-900`}>Additional Sections</h3>
                 <p className="text-sm text-gray-500">
                   Add internships, achievements, awards, and publications
                 </p>

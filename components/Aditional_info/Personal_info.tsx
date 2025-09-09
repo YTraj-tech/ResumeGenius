@@ -593,7 +593,7 @@ export default function PersonalInfoForm() {
   }
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-4 ">
       {message && (
         <div className={`p-3 rounded-md text-sm ${message.type === 'success'
           ? 'bg-green-100 text-green-800 border border-green-200'
@@ -722,21 +722,7 @@ export default function PersonalInfoForm() {
         </div>
       </form>
 
-      {existingData && (
-        <div className="mt-4 p-3 bg-gray-50 rounded-md">
-          <h4 className="font-medium text-gray-800 mb-2 text-sm">Current Information</h4>
-          <div className="text-xs text-gray-600 space-y-1">
-            {existingData.phone && <p>📞 {existingData.phone}</p>}
-            {existingData.address && <p>🏠 {existingData.address}</p>}
-            {existingData.imageUrl && (
-              <p>🖼️ <a href={existingData.imageUrl} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">View Image</a></p>
-            )}
-            <p className="text-xs text-gray-400 mt-2">
-              Updated: {new Date(existingData.updatedAt).toLocaleDateString()}
-            </p>
-          </div>
-        </div>
-      )}
+    
     </div>
   );
 }
