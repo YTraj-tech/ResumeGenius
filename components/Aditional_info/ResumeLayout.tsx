@@ -15,8 +15,7 @@ export default function ResumeLayout({ resumeId, userId, templateId, resumeData 
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   return (
-    <div className="min-h-screen h-full lg:ml-[-300px] bg-gray-100">
-
+    <div className=" h-fit lg:ml-[-300px] bg-gray-100 ">
       {/* Mobile Header with Button */}
       <div className="lg:hidden p-5  ">
         <button

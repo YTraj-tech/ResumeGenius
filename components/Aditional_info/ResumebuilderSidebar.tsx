@@ -198,15 +198,14 @@ export default function ResumeBuilderSidebar({ resumeId, userId }: ResumeBuilder
       description: 'Add internships, awards, etc.'
     },
   ];
-  // input
+
+
   return (
-    <div className="h-full flex flex-col ">
+    <div className="h-[600px] lg:h-full flex  flex-col ">
       {/* Mobile Header */}
       <div className="flex justify-between items-center p-4 border-b lg:hidden">
         <h2 className="text-lg font-semibold">Please Add the Section</h2>
-        {/* <label htmlFor="sidebar-toggle" className="btn btn-ghost btn-sm">
-          <X className="w-5 h-5" />
-        </label> */}
+      
       </div>
 
      {/* Navigation Menu  */}
