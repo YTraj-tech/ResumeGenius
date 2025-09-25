@@ -12,7 +12,7 @@ model User {
   id        String   @id @default(uuid())
   clerkId   String   @unique
   email     String   @unique
-  mobil     String? // New field - optional
+  mobile         String? // New field - optional
   name      String?
   imageUrl  String?
   createdAt DateTime @default(now())

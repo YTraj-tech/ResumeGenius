@@ -143,7 +143,7 @@ const Kne = Merriweather({
 
 const Herosection = () => {
   return (
-    <div className="h-[600px] pt-[300px]  lg:pt-[80px] flex items-center justify-center  rounded-bl-[100px] md:rounded-bl-[200px] "
+    <div className="h-[600px] pt-[300px] lg:pt-[30px]  flex items-center justify-center  rounded-bl-[100px] md:rounded-bl-[200px] "
       style={{ background: "linear-gradient(to right, #1e40af, #2563eb, #60a5fa)" }}
     >
       <div className="container px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-center items-center gap-8 md:gap-12">

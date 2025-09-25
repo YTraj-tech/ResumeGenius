@@ -1,9 +1,11 @@
+
+
+
 // 'use client';
 
 // import { useRef, useState, useEffect } from "react";
 // import { useUser } from "@clerk/nextjs";
 // import { useReactToPrint } from "react-to-print";
-   
    
 // import TechnicalTemplate from "./templates/TechnicalTemplate";
 // import CreativeTemplate from "./templates/CreativeTemplate";
@@ -11,7 +13,7 @@
 
 // import { ResumePreviewProps } from "@/lib/types/resume.type";
 // import { getSections } from "@/app/actions/resumeSection";
-// import { getPersonalInfoByUserId } from "@/app/actions/section";
+// import { createOrUpdatePersonalInfo } from "@/app/actions/Persnal_info";
 
 // interface TemplateUser {
 //   email: string;
@@ -41,6 +43,7 @@
 // export function ResumePreview({ resumeData, templateId }: ResumePreviewProps) {
 //   const { user } = useUser();
 //   const resumeRef = useRef<HTMLDivElement>(null);
+//   const [imageLoaded, setImageLoaded] = useState(false);
 
 //   // State for sections data
 //   const [sections, setSections] = useState<CustomSection[]>([]);
@@ -57,8 +60,34 @@
 //         size: A4;
 //         margin: 30px !important;
 //       }
+//       @media print {
+//         img {
+//           max-width: 100% !important;
+//           height: auto !important;
+//           display: block !important;
+//         }
+//       }
 //     `,
 //   });
+
+//   // // Preload images when component mounts
+//   useEffect(() => {
+//     const preloadImages = async () => {
+//       const personalInfoResult = await createOrUpdatePersonalInfo();
+//       const imageUrl = personalInfoResult.success && personalInfoResult.data 
+//         ? personalInfoResult.data.imageUrl 
+//         : user?.imageUrl;
+      
+//       if (imageUrl) {
+//         const img = new Image();
+//         img.src = imageUrl;
+//         img.onload = () => setImageLoaded(true);
+//         img.onerror = () => setImageLoaded(false);
+//       }
+//     };
+
+//     preloadImages();
+//   }, [user]);
 
 //   // Fetch sections and personal info data from database
 //   useEffect(() => {
@@ -75,22 +104,20 @@
 //         }
 
 //         // Fetch personal info
-//         const personalInfoResult = await getPersonalInfoByUserId();
+//         const personalInfoResult = await createOrUpdatePersonalInfo();
 //         if (personalInfoResult.success && personalInfoResult.data) {
 //           setPersonalInfo(personalInfoResult.data);
 //         } else if (personalInfoResult.error) {
 //           console.warn("Personal info not found:", personalInfoResult.error);
-//           // Explicitly set to null if not found
 //           setPersonalInfo(null);
 //         } else {
-//           // Handle case where result.data is undefined
 //           setPersonalInfo(null);
 //         }
 
 //       } catch (err) {
 //         console.error("Error fetching data:", err);
 //         setError("Failed to load data");
-//         setPersonalInfo(null); // Ensure it's set to null on error
+//         setPersonalInfo(null);
 //       } finally {
 //         setLoading(false);
 //       }
@@ -100,7 +127,7 @@
 //       fetchData();
 //     } else {
 //       setLoading(false);
-//       setPersonalInfo(null); // Ensure it's set to null if no user
+//       setPersonalInfo(null);
 //     }
 //   }, [user]);
 
@@ -117,7 +144,6 @@
 //     ...templateUser,
 //     phone: personalInfo?.phone || undefined,
 //     address: personalInfo?.address || undefined,
-//     // Use personal info image if available, otherwise fall back to user image
 //     imageUrl: personalInfo?.imageUrl || templateUser.imageUrl
 //   } : undefined;
 
@@ -161,8 +187,8 @@
 
 //       {/* Resume content - Only this prints */}
 //       {!loading && (
-//         <div className="resume-container w-full  ">
-//           <div ref={resumeRef} className="resume-print-area ">
+//         <div className="resume-container w-full">
+//           <div ref={resumeRef} className="resume-print-area">
 //             {templateId === "technical" && (
 //               <TechnicalTemplate
 //                 data={resumeData}
@@ -203,7 +229,6 @@
 // }
 
 
-
 'use client';
 
 import { useRef, useState, useEffect } from "react";
@@ -216,7 +241,7 @@ import MinimalTemplate from "./templates/MinimalTemplate";
 
 import { ResumePreviewProps } from "@/lib/types/resume.type";
 import { getSections } from "@/app/actions/resumeSection";
-import { getPersonalInfoByUserId } from "@/app/actions/section";
+import { getPersonalInfoByUserId } from "@/app/actions/Persnal_info"; // Fixed import
 
 interface TemplateUser {
   email: string;
